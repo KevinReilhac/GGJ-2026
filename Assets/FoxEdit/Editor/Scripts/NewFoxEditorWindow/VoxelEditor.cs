@@ -234,7 +234,7 @@ namespace FoxEdit
                     {
                         VoxelEditorFrame frame = new VoxelEditorFrame(_voxelParent, i - startIndex, _voxelPrefab, this);
                         frame.LoadFromSave(voxelObject.EditorVoxelPositions[i].VoxelPositions, PaletteIndex, voxelObject.EditorVoxelPositions[i].ColorIndices);
-                        if (i - startIndex != _selectedFrameIndex)
+                        if (i - startIndex != _selectedFrameIndex || animation != SelectedAnimationIndex)
                             frame.Hide();
                         _animationList[animation].AddFrame(frame);
                     }
