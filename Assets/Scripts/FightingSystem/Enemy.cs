@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
 
         while(pointsToGive > 0)
         {
-            tmpEmotion = (EEmotion)UnityEngine.Random.Range(0, 4);
+            tmpEmotion = (EEmotion)UnityEngine.Random.Range(0, 5);
             if (!statsDict.ContainsKey(tmpEmotion))
                 statsDict.Add(tmpEmotion, 0);
             statsDict[tmpEmotion]++;

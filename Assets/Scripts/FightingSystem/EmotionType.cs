@@ -4,5 +4,6 @@ public enum EEmotion
     Sad,
     Angry,
     Disgust,
+    Scare,
     Multiple = 255
 }
