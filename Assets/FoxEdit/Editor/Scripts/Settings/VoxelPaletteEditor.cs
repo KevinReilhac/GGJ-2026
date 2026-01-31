@@ -11,6 +11,7 @@ namespace FoxEdit
     {
         VoxelPalette _palette = null;
         VoxelColor[] _colors = null;
+        private Vector2 scrollPosition;
 
         private void OnEnable()
         {
@@ -20,7 +21,11 @@ namespace FoxEdit
 
         public override void OnInspectorGUI()
         {
+            scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
+            _palette.name = EditorGUILayout.TextField(new GUIContent("Name"), _palette.name);
+            EditorGUILayout.Space();
             ColorsDisplay();
+            EditorGUILayout.EndScrollView();
 
             if (GUI.changed)
                 Save();

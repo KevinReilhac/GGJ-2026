@@ -5,6 +5,7 @@ using UnityEngine;
 using System;
 using FoxEdit.VoxelTools;
 using FoxEdit.WindowPanels.SubPanels;
+using UnityEditor;
 
 namespace FoxEdit.WindowPanels
 {
@@ -19,6 +20,7 @@ namespace FoxEdit.WindowPanels
         private ToolbarElement actionToolbar;
         private DropdownField paletteDropdown;
         private ColorPaletteElement colorSelector;
+        private Button editColorPaletteButton;
         private FrameSelectorElement frameSelector;
         private AnimationSelectorSubPanel animationSelector;
 
@@ -41,13 +43,17 @@ namespace FoxEdit.WindowPanels
 
         private void SetupFields()
         {
-            paletteDropdown.choices = VoxelSharedData.GetPaletteNames().ToList();
-            paletteDropdown.SetValueWithoutNotify(paletteDropdown.choices[VoxelEditor.PaletteIndex]);
-
             toolToolbar.SelectTool((int)VoxelEditor.Tool, false);
             actionToolbar.SelectTool((int)VoxelEditor.Action, false);
 
             UpdateColorSelector();
+            SetupPaletteDropdown();
+        }
+
+        private void SetupPaletteDropdown()
+        {
+            paletteDropdown.choices = VoxelSharedData.GetPaletteNames().ToList();
+            paletteDropdown.SetValueWithoutNotify(paletteDropdown.choices[VoxelEditor.PaletteIndex]);
         }
 
         private void UpdateFrameSelector()
@@ -76,6 +82,7 @@ namespace FoxEdit.WindowPanels
             saveAsButton = root.Q<Button>("save-as-button");
             saveButton = root.Q<Button>("save-button");
             animationSelector = new AnimationSelectorSubPanel(root.Q("animation-selector-container"));
+            editColorPaletteButton = root.Q<Button>("palette-edit-button");
         }
 
         #region Callbacks
@@ -88,6 +95,7 @@ namespace FoxEdit.WindowPanels
             actionToolbar.OnToolSelected += OnActionSelected;
             paletteDropdown.RegisterValueChangedCallback<string>(OnPaletteValueChanged);
             colorSelector.OnIndexChanged += OnColorSelectorValueChanged;
+            editColorPaletteButton.clicked += EditColorPalette;
             frameSelector.OnFrameChanged += OnSelectFrame;
             frameSelector.OnMoveFrame += OnMoveFrame;
             frameSelector.OnDuplicateFrame += OnDuplicateFrame;
@@ -104,6 +112,46 @@ namespace FoxEdit.WindowPanels
             VoxelEditor.OnChangeTool += OnChangeTool;
             FoxEditManager.OnStartEditVoxelObject += OnStartEditVoxelObject;
             FoxEditManager.OnStopEditVoxelObject += OnStopEditVoxelObject;
+
+        }
+
+        private void UnregisterCallbacks()
+        {
+            stopButton.clicked -= OnClickStopEdit;
+            saveButton.clicked -= Save;
+            saveAsButton.clicked -= SaveAs;
+            toolToolbar.OnToolSelected -= OnToolSelected;
+            actionToolbar.OnToolSelected -= OnActionSelected;
+            paletteDropdown.UnregisterValueChangedCallback<string>(OnPaletteValueChanged);
+            colorSelector.OnIndexChanged -= OnColorSelectorValueChanged;
+            editColorPaletteButton.clicked -= EditColorPalette;
+            frameSelector.OnFrameChanged -= OnSelectFrame;
+            frameSelector.OnMoveFrame -= OnMoveFrame;
+            frameSelector.OnDuplicateFrame -= OnDuplicateFrame;
+            frameSelector.OnNewFrame -= OnNewFrame;
+            frameSelector.OnDeleteFrame -= OnDeleteFrame;
+
+            animationSelector.OnAddAnimation -= OnAddAnimationFromAnimSelector;
+            animationSelector.OnDeleteAnimation -= OnDeleteAnimationFromAnimSelector;
+            animationSelector.OnRenameAnimation -= OnRenameAnimationFromAnimSelector;
+            animationSelector.OnSelectAnimation -= OnSelectAnimationFromAnimSelector;
+
+            VoxelEditor.OnChangeColor -= OnChangeColor;
+            VoxelEditor.OnChangeAction -= OnChangeAction;
+            VoxelEditor.OnChangeTool -= OnChangeTool;
+            FoxEditManager.OnStartEditVoxelObject -= OnStartEditVoxelObject;
+            FoxEditManager.OnStopEditVoxelObject -= OnStopEditVoxelObject;
+        }
+
+        private void EditColorPalette()
+        {
+            EditColorPaletteWindow.OpenColorPalette(VoxelEditor.CurrentPalette, OnColorPaletteIsChanged);
+        }
+
+        private void OnColorPaletteIsChanged(VoxelPalette palette)
+        {
+            UpdateColorSelector();
+            SetupPaletteDropdown();
         }
 
         private void OnSelectAnimationFromAnimSelector(int animationIndex)
@@ -125,27 +173,6 @@ namespace FoxEdit.WindowPanels
         private void OnAddAnimationFromAnimSelector(string obj)
         {
             voxelEditor.NewAnimation(obj);
-        }
-
-        private void UnregisterCallbacks()
-        {
-            stopButton.clicked -= OnClickStopEdit;
-            saveButton.clicked -= Save;
-            saveAsButton.clicked -= SaveAs;
-            toolToolbar.OnToolSelected -= OnToolSelected;
-            actionToolbar.OnToolSelected -= OnActionSelected;
-            paletteDropdown.RegisterValueChangedCallback<string>(OnPaletteValueChanged);
-            colorSelector.OnIndexChanged -= OnColorSelectorValueChanged;
-            frameSelector.OnFrameChanged -= OnSelectFrame;
-            frameSelector.OnMoveFrame -= OnMoveFrame;
-            frameSelector.OnDuplicateFrame -= OnDuplicateFrame;
-            frameSelector.OnNewFrame -= OnNewFrame;
-
-            VoxelEditor.OnChangeColor -= OnChangeColor;
-            VoxelEditor.OnChangeColor -= OnChangeColor;
-            VoxelEditor.OnChangeAction -= OnChangeAction;
-            FoxEditManager.OnStartEditVoxelObject -= OnStartEditVoxelObject;
-            FoxEditManager.OnStopEditVoxelObject -= OnStopEditVoxelObject;
         }
 
         private void OnDeleteFrame()

@@ -16,7 +16,12 @@
             </ui:VisualElement>
             <ui:VisualElement name="color-palette" class="window-segment">
                 <ui:Label tabindex="-1" text="Color Palette" parse-escape-sequences="true" display-tooltip-when-elided="true" name="title" class="title" />
-                <ui:DropdownField label="Palette" name="palette-selector" />
+                <ui:VisualElement name="palette-selector-container">
+                    <ui:DropdownField label="Palette" name="palette-selector" />
+                    <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="palette-edit-button">
+                        <ui:VisualElement name="icon" />
+                    </ui:Button>
+                </ui:VisualElement>
                 <FoxEdit.WindowComponents.ColorPaletteElement PaletteSize="10" ItemIndex="6" />
             </ui:VisualElement>
             <ui:VisualElement name="frame-selector" class="window-segment">

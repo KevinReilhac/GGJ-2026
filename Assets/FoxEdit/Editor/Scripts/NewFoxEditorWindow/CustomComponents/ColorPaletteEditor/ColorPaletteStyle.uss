@@ -21,7 +21,7 @@
     margin-right: 3px;
     margin-bottom: 3px;
     margin-left: 3px;
-    cursor: url("project://database/Assets/FoxEdit/Editor/Icons/color-picker.png?fileID=2800000&guid=9796e03ec2c007245b16274d06c109c4&type=3#color-picker");
+    cursor: url("project://database/Assets/FoxEdit/Editor/Editor%20Default%20Resources/Icons/color-picker.png?fileID=2800000&guid=9796e03ec2c007245b16274d06c109c4&type=3#color-picker");
 }
 
 .palette-item-selected {
@@ -52,4 +52,24 @@
 #add-color-button-icon {
     flex-grow: 1;
     background-image: url("project://database/Packages/com.unity.render-pipelines.core/Editor/LookDev/Icons/d_Add@2x.png?fileID=21300000&guid=daa49a1f06460a04b9827dd6f0bace08&type=3#d_Add@2x");
+}
+
+#palette-selector-container {
+    flex-direction: row;
+    flex-grow: 0;
+}
+
+#palette-edit-button {
+    width: 25px;
+    height: 25px;
+}
+
+#palette-selector {
+    flex-grow: 1;
+}
+
+#palette-edit-button > #icon {
+    background-image: url("project://database/Assets/FoxEdit/Editor/Editor%20Default%20Resources/Icons/settings.png?fileID=2800000&guid=b600d220960bf404e82604bdbcd85ce6&type=3#settings");
+    flex-grow: 1;
+    -unity-background-scale-mode: scale-to-fit;
 }

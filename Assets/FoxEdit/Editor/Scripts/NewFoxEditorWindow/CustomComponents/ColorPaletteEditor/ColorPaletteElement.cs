@@ -114,6 +114,7 @@ namespace FoxEdit.WindowComponents
             itemsContainer.Add(addColorButton);
 
             addColorButton.RegisterCallback<ClickEvent>(OnClickAddColor);
+            addColorButton.style.display = DisplayStyle.None;
         }
 
         private void OnClickAddColor(ClickEvent clickEvent)
