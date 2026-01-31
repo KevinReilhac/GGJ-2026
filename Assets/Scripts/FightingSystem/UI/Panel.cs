@@ -6,19 +6,30 @@ public class Panel : MonoBehaviour
 {
     public void Show(bool animate = true)
     {
-        BeforeHidePanel();
-        gameObject.SetActive(true);
-        AfterShowPanel();
+        OnShowPanel();
+        if (animate)
+            ShowAnimation();
+        else
+            gameObject.SetActive(true);
     }
 
     public void Hide(bool animate = true)
     {
-        BeforeHidePanel();
-        gameObject.SetActive(false);
-        AfterHidePanel();
+        OnHidePanel();
+        if (animate)
+            HideAnimation();
+        else
+            gameObject.SetActive(false);
     }
-    public virtual void AfterShowPanel() {}
-    public virtual void AfterHidePanel() {}
-    public virtual void BeforeShowPanel() {}
-    public virtual void BeforeHidePanel() {}
+    public virtual void OnShowPanel() {}
+    public virtual void OnHidePanel() {}
+    public virtual void ShowAnimation()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public virtual void HideAnimation()
+    {
+        gameObject.SetActive(false);
+    }
 }

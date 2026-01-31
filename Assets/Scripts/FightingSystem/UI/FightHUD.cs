@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FightHUD : MonoBehaviour
 {
@@ -72,7 +73,12 @@ public class FightHUD : MonoBehaviour
     void Start()
     {
         HideAllPanels();
-        ShowPanel<MaskChoicePanel>();
+    }
+
+    void Update()
+    {
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            GetPanel<StateTextPanel>().SetupAndShow(Time.time.ToString());
     }
 
 }
