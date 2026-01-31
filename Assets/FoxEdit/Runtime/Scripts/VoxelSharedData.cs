@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace FoxEdit
 {
+    [InitializeOnLoad]
     public static class VoxelSharedData
     {
         private static bool _isInitialized = false;
@@ -25,6 +26,11 @@ namespace FoxEdit
         internal static GraphicsBuffer FaceTriangleBuffer { get { return _faceTriangleBuffer; } }
         internal static GraphicsBuffer RotationMatricesBuffer { get { return _rotationMatricesBuffer; } }
         internal static int FaceTriangleCount { get { return _faceTriangleCount; } }
+
+        static VoxelSharedData()
+        {
+            Initialize();
+        }
 
         #endregion Buffers
 
