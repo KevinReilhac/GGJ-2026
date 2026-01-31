@@ -41,3 +41,7 @@ MonoBehaviour:
     EmissiveIntensity: 0
     Metallic: 0
     Smoothness: 0
+  - Color: {r: 0.4433962, g: 0.34240705, b: 0.30744925, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 1
