@@ -483,6 +483,7 @@ namespace FoxEdit
         {
             string directory = Path.GetDirectoryName(savePath);
             string meshName = Path.GetFileNameWithoutExtension(savePath);
+            Debug.Log(savePath);
             VoxelSaveSystem.Save(meshName, directory, _voxelRenderer, CurrentPalette, PaletteIndex, _animationList, _computeStaticMesh);
             IsDirty = false;
         }
