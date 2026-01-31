@@ -1,17 +1,31 @@
 
+using System;
 using System.Collections.Generic;
 using FoxEdit;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public event Action<int> OnHPChanged;
     [Header("Stats")]
     [SerializeField] private int maxHp = 2;
     [SerializeField] private int difficulty = 3;
-    [SerializeField] private Mask droppedMask;
+    public Mask droppedMask;
     [Header("References")]
     [SerializeField] private VoxelRenderer maskVoxelRenderer;
 
+    private int _hp;
+    public int HP
+    {
+        get => _hp;
+        set
+        {
+            _hp = value;
+            OnHPChanged?.Invoke(_hp);
+            if (_hp == 0)
+                Die();
+        }
+    }
 
     public void Setup(Mask droppedMask, int difficulty)
     {
@@ -29,7 +43,7 @@ public class Enemy : MonoBehaviour
 
         while(pointsToGive > 0)
         {
-            tmpEmotion = (EEmotion)Random.Range(0, 4);
+            tmpEmotion = (EEmotion)UnityEngine.Random.Range(0, 4);
             if (!statsDict.ContainsKey(tmpEmotion))
                 statsDict.Add(tmpEmotion, 0);
             statsDict[tmpEmotion]++;
@@ -37,11 +51,11 @@ public class Enemy : MonoBehaviour
             pointsToGive--;
         }
 
-        List<EmotionStats> emotionStats = new List<EmotionStats>();
+        List<EmotionStat> emotionStats = new List<EmotionStat>();
         foreach (KeyValuePair<EEmotion, int> item in statsDict)
-            emotionStats.Add(new EmotionStats(item.Key, item.Value));
+            emotionStats.Add(new EmotionStat(item.Key, item.Value));
         
-        return new Attack(this, emotionStats);
+        return new Attack(emotionStats);
     }
 
     public void Hit()
@@ -55,4 +69,6 @@ public class Enemy : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
+    public bool IsDead => HP > 0;
 }

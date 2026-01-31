@@ -3,11 +3,11 @@ using System.Linq;
 
 public partial class Mask
 {
-    private List<EmotionStats> maskStats;
+    private List<EmotionStat> maskStats;
     private Dictionary<EEmotion, int> statsDict;
     private Emotion mainEmotion = null;
 
-    public Mask(List<EmotionStats> maskStats)
+    public Mask(List<EmotionStat> maskStats)
     {
         statsDict = maskStats.ToDictionary(ms => ms.emotionType, ms => ms.stat);
         this.maskStats = maskStats;
@@ -19,7 +19,7 @@ public partial class Mask
         EEmotion highestEmotion = EEmotion.Angry;
         int highestStat = -1;
 
-        foreach (EmotionStats maskStat in maskStats)
+        foreach (EmotionStat maskStat in maskStats)
         {
             if (maskStat.stat > highestStat)
             {
@@ -36,5 +36,5 @@ public partial class Mask
     }
 
     public Emotion MainEmotion => mainEmotion;
-    public List<EmotionStats> Stats = new List<EmotionStats>();
+    public List<EmotionStat> Stats = new List<EmotionStat>();
 }

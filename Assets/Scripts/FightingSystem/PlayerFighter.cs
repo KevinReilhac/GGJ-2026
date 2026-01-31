@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerFighter : MonoBehaviour
 {
-    public static PlayerFighter Instance {get; private set;} = null;
+    public static PlayerFighter Instance { get; private set; } = null;
 
     void Awake()
     {
@@ -12,36 +12,44 @@ public class PlayerFighter : MonoBehaviour
     }
 
     public event Action<Mask> OnChangeEquipedMask;
+    public event Action<List<EmotionStat>> OnStatsUpdated;
     public List<Mask> Masks = new List<Mask>();
-    public List<EmotionStats> BaseStats = new List<EmotionStats>();
+    public List<EmotionStat> BaseStats = new List<EmotionStat>();
 
     public int EquipedMask = -1;
+    public Dictionary<EEmotion, int> AdditionalStats;
 
-    public List<EmotionStats> GetCurrentStats()
+    public Attack GetCurrentPlayerAttack()
     {
         Dictionary<EEmotion, int> statsDict = new Dictionary<EEmotion, int>();
-        List<EmotionStats> emotionStats = new List<EmotionStats>();
+        List<EmotionStat> emotionStats = new List<EmotionStat>();
 
         if (EquipedMask >= 0 && EquipedMask < Masks.Count)
         {
             Mask mask = Masks[EquipedMask];
-            foreach (EmotionStats maskStat in mask.Stats)
+            foreach (EmotionStat maskStat in mask.Stats)
             {
                 if (!statsDict.ContainsKey(maskStat.emotionType))
                     statsDict.Add(maskStat.emotionType, 0);
-                statsDict[maskStat.emotionType]++;
-            }
-            foreach (EmotionStats baseStat in BaseStats)
-            {
-                if (!statsDict.ContainsKey(baseStat.emotionType))
-                    statsDict.Add(baseStat.emotionType, 0);
-                statsDict[baseStat.emotionType]++;
+                statsDict[maskStat.emotionType] += maskStat.stat;
             }
         }
+        foreach (EmotionStat baseStat in BaseStats)
+        {
+            if (!statsDict.ContainsKey(baseStat.emotionType))
+                statsDict.Add(baseStat.emotionType, 0);
+            statsDict[baseStat.emotionType] += baseStat.stat;
+        }
+        foreach (var additionalStatsItem in AdditionalStats)
+        {
+            if (!statsDict.ContainsKey(additionalStatsItem.Key))
+                statsDict.Add(additionalStatsItem.Key, 0);
+            statsDict[additionalStatsItem.Key] += additionalStatsItem.Value;
+        }
 
-        foreach (KeyValuePair<EEmotion, int> statItem in statsDict)
-            emotionStats.Add(new EmotionStats(statItem.Key, statItem.Value));
+            foreach (KeyValuePair<EEmotion, int> statItem in statsDict)
+                emotionStats.Add(new EmotionStat(statItem.Key, statItem.Value));
 
-        return emotionStats;
+        return new Attack(emotionStats);
     }
 }
