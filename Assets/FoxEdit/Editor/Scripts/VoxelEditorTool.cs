@@ -70,11 +70,13 @@ namespace FoxEdit
                 e.Use();
             }
 
+/*
             if (e.type == EventType.MouseDown && e.button == 2)
             {
                 OnMiddleClick(e);
                 e.Use();
             }
+*/
 
             if (_isMouseOnVoxel)
                 DrawChangePreview();
