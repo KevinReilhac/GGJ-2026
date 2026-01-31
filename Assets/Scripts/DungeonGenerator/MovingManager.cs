@@ -13,8 +13,6 @@ public class MovingManager : MonoBehaviour
     [SerializeField]
     private int offsetMovement=1;
 
-    [SerializeField] private float rotationSpeed = 1;
-
     [SerializeField]
     private AnimationCurve MoveSpeedCurve;
 
@@ -42,6 +40,10 @@ public class MovingManager : MonoBehaviour
 
     IRoomManager roomManager;
 
+
+    private float forwardBufferTime = 0.2f;
+    private float forwardBufferCounter;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,9 +62,15 @@ public class MovingManager : MonoBehaviour
         List<Directions> listDirection = new List<Directions>();
         //listDirection = roomManager.GetPossibleDirections(new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)));
 
-        
+        if(Keyboard.current.wKey.wasPressedThisFrame && !isMoving)
+        {
+            forwardBufferCounter = forwardBufferTime;
+        } else
+        {
+            forwardBufferCounter -= Time.deltaTime;
+        }
 
-        if (Keyboard.current.wKey.wasPressedThisFrame && !isMoving)
+        if (forwardBufferCounter > 0f)
         {
 
             Vector3 movementWithFacing = movementOnFacingDirection(facingDirection);
