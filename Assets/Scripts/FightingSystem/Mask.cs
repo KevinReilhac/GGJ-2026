@@ -36,5 +36,5 @@ public partial class Mask
     }
 
     public Emotion MainEmotion => mainEmotion;
-    public List<EmotionStat> Stats = new List<EmotionStat>();
+    public List<EmotionStat> Stats => new List<EmotionStat>(maskStats);
 }

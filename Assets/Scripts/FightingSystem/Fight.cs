@@ -5,7 +5,6 @@ using UnityEngine;
 public class Fight : MonoBehaviour
 {
     public List<Enemy> enemies = new List<Enemy>();
-    [SerializeField] private Transform cameraPosition;
 
     public List<Enemy> GetAliveEnemies() => enemies.Where(e => !e.IsDead).ToList();
     public bool IsAllDead()
