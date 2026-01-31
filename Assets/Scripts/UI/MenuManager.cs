@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration.Assemblies;
 using UnityEngine;
 
 public class MenuManager : MonoBehaviour
@@ -27,4 +28,5 @@ public class MenuManager : MonoBehaviour
     {
         Application.Quit();
     }
+
 }
