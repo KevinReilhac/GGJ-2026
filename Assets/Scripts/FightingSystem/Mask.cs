@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Unity.VisualScripting;
 
 public partial class Mask
 {
@@ -11,6 +13,20 @@ public partial class Mask
     {
         statsDict = maskStats.ToDictionary(ms => ms.emotionType, ms => ms.stat);
         this.maskStats = maskStats;
+        mainEmotion = FindMainEmotion();
+    }
+
+    public Mask(int joy = 0, int sad = 0, int angry = 0, int disgust = 0, int scare = 0)
+    {
+        maskStats = new List<EmotionStat>();
+
+        maskStats.Add(new EmotionStat(EEmotion.Joy, joy));
+        maskStats.Add(new EmotionStat(EEmotion.Sad, sad));
+        maskStats.Add(new EmotionStat(EEmotion.Angry, angry));
+        maskStats.Add(new EmotionStat(EEmotion.Disgust, disgust));
+        maskStats.Add(new EmotionStat(EEmotion.Scare, scare));
+
+        statsDict = maskStats.ToDictionary(ms => ms.emotionType, ms => ms.stat);
         mainEmotion = FindMainEmotion();
     }
 
@@ -33,6 +49,16 @@ public partial class Mask
         }
 
         return FightSettings.Instance.GetEmotionFromEmotionType(highestEmotion);
+    }
+
+    public override string ToString()
+    {
+        StringBuilder strBuilder = new StringBuilder();
+
+        foreach (var stat in Stats)
+            strBuilder.AppendLineFormat("{0} : {1}", stat.emotionType.ToString(), stat.stat);
+        
+        return strBuilder.ToString();
     }
 
     public Emotion MainEmotion => mainEmotion;

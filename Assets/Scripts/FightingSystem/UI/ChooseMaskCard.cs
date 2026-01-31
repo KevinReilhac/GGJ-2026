@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -17,6 +18,8 @@ public class ChooseMaskCard : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] private RectTransform statsPanel;
     [SerializeField] private List<StatsDisplayer> statsDisplayers ;
 
+    public event Action<Mask> OnSelectCard;
+
     private Dictionary<EEmotion, StatsDisplayer> statsDiplayerDict = null;
     private Dictionary<EEmotion, StatsDisplayer> StatsDisplayerDict
     {
@@ -34,18 +37,11 @@ public class ChooseMaskCard : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     void Awake()
     {
         statsPanel.gameObject.SetActive(false);
-        SetMask(
-            new Mask(new List<EmotionStat>(){
-                new EmotionStat(EEmotion.Joy, 5),
-                new EmotionStat(EEmotion.Sad, 10),
-                new EmotionStat(EEmotion.Disgust, 2)
-            })
-        );
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("click");
+        OnSelectCard?.Invoke(mask);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
