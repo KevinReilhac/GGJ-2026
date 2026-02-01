@@ -226,8 +226,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -652.06, y: -216}
-  m_SizeDelta: {x: 367.7843, y: 93.0118}
+  m_AnchoredPosition: {x: -689.21, y: -231.93}
+  m_SizeDelta: {x: 293.4861, y: 93.0118}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &273097508
 MonoBehaviour:
@@ -746,8 +746,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
-  m_fontSizeBase: 80
+  m_fontSize: 64
+  m_fontSizeBase: 64
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -994,8 +994,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -692.38, y: -85}
-  m_SizeDelta: {x: 287.13, y: 95.1337}
+  m_AnchoredPosition: {x: -716.12, y: -121.93}
+  m_SizeDelta: {x: 239.6617, y: 95.1337}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1324192208
 MonoBehaviour:
@@ -1315,8 +1315,8 @@ MonoBehaviour:
   m_text: "Jeu r\xE9alis\xE9 dans le cadre de la global game jam 2026 par :\n\nlxp,
     andoxin, bino46, Franck Gallay, MrKebab, Kyppp, Estelle, Patalo\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 08170612cb7b4ae4a8587b705fa93d7a, type: 2}
-  m_sharedMaterial: {fileID: 421674625372136848, guid: 08170612cb7b4ae4a8587b705fa93d7a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1686,8 +1686,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
-  m_fontSizeBase: 80
+  m_fontSize: 64
+  m_fontSizeBase: 64
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
