@@ -69,7 +69,7 @@ public class Room
                 else
                 {
                     //Flat
-                    if (rotation.eulerAngles.y == 90.0f)
+                    if (rotation.eulerAngles.y == 90.0f || rotation.eulerAngles.y == 180.0f)
                         rotation *= Quaternion.Euler(0.0f, -90.0f, 0.0f);
                     dungeonManager.InstantiateRoomPart(RoomParts.StraightCorner, offsetPosition, rotation);
                 }
