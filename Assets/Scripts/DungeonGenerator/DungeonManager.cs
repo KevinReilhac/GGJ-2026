@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -26,6 +25,8 @@ public class DungeonManager : MonoBehaviour, IRoomManager
     private Dictionary<Directions, Vector2Int> _directionToVector = null;
     private Dictionary<Directions, Directions> _inverseDirection = null;
     private Dictionary<RoomParts, Transform> _roomPartPrefabs = null;
+    private Vector3 _startPosition = Vector3.zero;
+    private Vector2Int _startGridPosition = Vector2Int.zero;
 
     private System.Random rng = new System.Random();
 
@@ -37,6 +38,10 @@ public class DungeonManager : MonoBehaviour, IRoomManager
 
     private void Awake()
     {
+#if !UNITY_EDITOR
+        FoxEdit.VoxelSharedData.Initialize();
+#endif
+
         _directionToVector = new Dictionary<Directions, Vector2Int>
         {
             [Directions.Up] = new Vector2Int(0, 1),
@@ -181,6 +186,9 @@ public class DungeonManager : MonoBehaviour, IRoomManager
             y = 0
         };
 
+        _startPosition = GridToWorldPosition(startPosition, _roomSize + _linkSize);
+        _startGridPosition = startPosition;
+
         CreateRoom(startPosition, Directions.None, true);
         CreateWalls();
     }
@@ -226,7 +234,7 @@ public class DungeonManager : MonoBehaviour, IRoomManager
             if (part == RoomParts.StraightCorner)
                 newPart.position -= newPart.forward * 0.05f;
 
-            if (part == RoomParts.FloorLink || part ==  RoomParts.CeilLink)
+            if (part == RoomParts.FloorLink || part == RoomParts.CeilLink)
                 _linksPositions.Add(newPart);
         }
     }
@@ -316,11 +324,31 @@ public class DungeonManager : MonoBehaviour, IRoomManager
 
     public DungeonEvents GetDungeonEvents(Vector2Int gridPosition)
     {
-        throw new System.NotImplementedException();
+        Room room = GetRoom(gridPosition);
+        if (room != null)
+            return room.DungeonEvent;
+        return DungeonEvents.None;
     }
 
     public List<Directions> GetPossibleDirections(Vector2Int gridPosition)
     {
-        throw new System.NotImplementedException();
+        Room room = GetRoom(gridPosition);
+        if (room != null)
+        {
+            List<Directions> inverseOpen = new List<Directions>(room.OpenDirections);
+            for (int i = 0; i < inverseOpen.Count; i++)
+            {
+                if (inverseOpen[i] == Directions.Up || inverseOpen[i] == Directions.Down)
+                    inverseOpen[i] = _inverseDirection[inverseOpen[i]];
+            }
+            return inverseOpen;
+        }
+        return new List<Directions>();
+    }
+
+    public Vector3 GetStartPosition(out Vector2Int gridPosition)
+    {
+        gridPosition = _startGridPosition;
+        return _startPosition;
     }
 }
