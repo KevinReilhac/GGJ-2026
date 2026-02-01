@@ -217,7 +217,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614560}
   - {fileID: 8926484042661614564}
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
+  m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_MasterSlot: {fileID: 8926484042661614559}
   m_MasterData:
@@ -1553,7 +1553,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.OrientedBox, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"center":{"x":-0.44274425506591799,"y":3.136024236679077,"z":0.02734661102294922},"angles":{"x":0.0,"y":0.0,"z":0.0},"size":{"x":9.0,"y":7.272048473358154,"z":9.0}}'
+      m_SerializableObject: '{"center":{"x":-0.44274425506591799,"y":3.136024236679077,"z":0.02734661102294922},"angles":{"x":0.0,"y":0.0,"z":0.0},"size":{"x":15.0,"y":7.272048473358154,"z":15.0}}'
     m_Space: 0
   m_Property:
     name: FieldTransform
@@ -1851,7 +1851,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614624}
   - {fileID: 8926484042661614625}
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
+  m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_MasterSlot: {fileID: 8926484042661614613}
   m_MasterData:

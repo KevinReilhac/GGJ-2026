@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace FoxEdit
 {
-    [ExecuteAlways]
+    //[ExecuteAlways]
     [RequireComponent(typeof(MeshFilter))]
     [RequireComponent(typeof(MeshRenderer))]
     public class VoxelRenderer : MonoBehaviour

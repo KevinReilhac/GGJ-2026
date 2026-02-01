@@ -26,6 +26,10 @@ public class MovingManager : MonoBehaviour
     [SerializeField]
     private GameObject roomManagerObject;
 
+    [SerializeField] private Fight _fight = null;
+    [SerializeField] private Camera _playerCamera = null;
+    [SerializeField] private Camera _fightCamera = null;
+
     private Directions facingDirection = Directions.Down;
     private Vector2Int gridPosition = Vector2Int.zero;
     private Dictionary<Directions, Vector2Int> _directionToVector = null;
@@ -48,6 +52,11 @@ public class MovingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        FightManager.OnWinFight += _ =>
+        {
+            _playerCamera.enabled = true;
+            _fightCamera.enabled = false;
+        };
         _directionToVector = new Dictionary<Directions, Vector2Int>
         {
             [Directions.Up] = new Vector2Int(0, -1),
@@ -101,15 +110,21 @@ public class MovingManager : MonoBehaviour
 
             futureLocation = transform.position + movementWithFacing;
 
-            switch (roomManager.GetDungeonEvents(getGridPosition(futureLocation)))
+            switch (roomManager.GetDungeonEvents(gridPosition))
             {
                 case DungeonEvents.None:
                     isMoving = true;
                     break;
                 case DungeonEvents.Boss:
+                    FightManager.StartFight(_fight);
+                    _playerCamera.enabled = false;
+                    _fightCamera.enabled = true;
+                    break;
                 case DungeonEvents.Fight:
-                    Debug.Log("Unhandled");
-                    isMoving = true;
+                    Debug.Log("Fight");
+                    FightManager.StartFight(_fight);
+                    _playerCamera.enabled = false;
+                    _fightCamera.enabled = true;
                     break;
                 case DungeonEvents.Chest:
                     roomManager.GetChestLoot(getGridPosition(futureLocation));
