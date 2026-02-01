@@ -18,7 +18,7 @@ MonoBehaviour:
     Metallic: 0
     Smoothness: 0.5
   - Color: {r: 1, g: 0.8549239, b: 0, a: 1}
-    EmissiveIntensity: 1
+    EmissiveIntensity: 0.8
     Metallic: 0
     Smoothness: 0
   - Color: {r: 0.40000004, g: 0.2784314, b: 0.2509804, a: 1}
@@ -44,84 +44,116 @@ MonoBehaviour:
   - Color: {r: 0.3584906, g: 0.2693219, b: 0.19784622, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
-    Smoothness: 1
+    Smoothness: 0.4
   - Color: {r: 1, g: 0.6236605, b: 0, a: 1}
     EmissiveIntensity: 0.5
     Metallic: 0
-    Smoothness: 1
+    Smoothness: 0.5
   - Color: {r: 0.9622642, g: 0.30324873, b: 0, a: 1}
-    EmissiveIntensity: 0
+    EmissiveIntensity: 0.1
     Metallic: 0
-    Smoothness: 1
+    Smoothness: 0.5
   - Color: {r: 0.3584906, g: 0.29691026, b: 0.24181205, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
-    Smoothness: 1
+    Smoothness: 0.4
   - Color: {r: 0.33962262, g: 0.2728284, b: 0.21306513, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
-    Smoothness: 1
+    Smoothness: 0.4
   - Color: {r: 0.3301887, g: 0.25669807, b: 0.18845674, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
-    Smoothness: 1
+    Smoothness: 0.4
   - Color: {r: 0.31132078, g: 0.25359768, b: 0.20412071, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
-    Smoothness: 1
+    Smoothness: 0.4
   - Color: {r: 0.7372549, g: 0.66615105, b: 0.13725491, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
-    Smoothness: 1
+    Smoothness: 0.6
   - Color: {r: 0.81960785, g: 0.76871806, b: 0.19607843, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
-    Smoothness: 1
+    Smoothness: 0.6
   - Color: {r: 0.8962264, g: 0.8962264, b: 0.33397114, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
-    Smoothness: 1
+    Smoothness: 0.6
   - Color: {r: 0.9811321, g: 0.9811321, b: 0.55998576, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
-    Smoothness: 1
+    Smoothness: 0.6
   - Color: {r: 0.7735849, g: 0.710622, b: 0.1715023, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
-    Smoothness: 1
+    Smoothness: 0.6
   - Color: {r: 0.81960785, g: 0.76462746, b: 0.19607843, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
-    Smoothness: 1
+    Smoothness: 0.6
   - Color: {r: 0.8773585, g: 0.8558852, b: 0.19450872, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
-    Smoothness: 1
+    Smoothness: 0.6
   - Color: {r: 0.3018868, g: 0.231776, b: 0.16945532, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
-    Smoothness: 1
+    Smoothness: 0.4
   - Color: {r: 0.2735849, g: 0.23482555, b: 0.18712175, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
-    Smoothness: 1
+    Smoothness: 0.4
   - Color: {r: 0.21698111, g: 0.18115875, b: 0.13817194, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
-    Smoothness: 1
+    Smoothness: 0.4
   - Color: {r: 0.2735849, g: 0.2086806, b: 0.1509879, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
-    Smoothness: 1
+    Smoothness: 0.4
   - Color: {r: 0.3962264, g: 0.36445352, b: 0.36445352, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
-    Smoothness: 1
+    Smoothness: 0.7
   - Color: {r: 0.4716981, g: 0.43832323, b: 0.43832323, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
-    Smoothness: 1
+    Smoothness: 0.7
   - Color: {r: 0.5566038, g: 0.51722145, b: 0.51722145, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
-    Smoothness: 1
+    Smoothness: 0.7
+  - Color: {r: 0.17370073, g: 0.14796191, b: 0.1792453, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0
+  - Color: {r: 0.17370073, g: 0.14796191, b: 0.1792453, a: 0.9607843}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0
+  - Color: {r: 0.17370073, g: 0.14796191, b: 0.1792453, a: 0.92156863}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0
+  - Color: {r: 0.21653613, g: 0.18689926, b: 0.2264151, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0
+  - Color: {r: 0.13299882, g: 0.107467055, b: 0.14150941, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0
+  - Color: {r: 0.23993859, g: 0.20545569, b: 0.254717, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0
+  - Color: {r: 0.17955676, g: 0.15218937, b: 0.18867922, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0
+  - Color: {r: 0.1871069, g: 0.1485849, b: 0.1981132, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0
