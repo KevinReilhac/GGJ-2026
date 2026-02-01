@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3081193624575605363}
   - component: {fileID: 7965792162192833844}
   - component: {fileID: 7507102661013482508}
+  - component: {fileID: 3967442347931001271}
   m_Layer: 0
   m_Name: Ambiant
   m_TagString: Untagged
@@ -111,3 +112,20 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &3967442347931001271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015180096201306512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 43437f6ead853eb4c805374664eaafa5, type: 2}

@@ -177,10 +177,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1015180096201306512, guid: 5de7ee7b6ac642244b339acfc7cf8336, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1416270775}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5de7ee7b6ac642244b339acfc7cf8336, type: 3}
 --- !u!1 &178986563
 GameObject:
@@ -420,6 +417,8 @@ MonoBehaviour:
   _linkSize: 0.3
   _roomHeight: 3
   _roomGenerationChance: 1
+  _fightChance: 0.5
+  _chestChance: 0.5
   _floorPrefab: {fileID: 5194455458557082338, guid: 95a07807cdfda7142be53c29d4765c90, type: 3}
   _floorLinkPrefab: {fileID: 8837591949496270558, guid: 7e877901e76a45c4d8432f63c5f14f09, type: 3}
   _ceilPrefab: {fileID: 7708908711873801110, guid: 059d0b007a567414e88d8b49a3f41dfb, type: 3}
@@ -429,6 +428,10 @@ MonoBehaviour:
   _downWallPrefab: {fileID: 7211540088720805553, guid: 998e81e8aab9d174aace3202cf6d5d67, type: 3}
   _cornerPrefab: {fileID: 5760334099817602010, guid: ce71a4494f21dea4392ab6eb241655c0, type: 3}
   _straightCornerPrefab: {fileID: 5566811148848070484, guid: 2f2dc286961164a4da99a3b87fa12ca6, type: 3}
+  _chestPrefab: {fileID: 0}
+  _fightPrefab: {fileID: 0}
+  _stairsPrefab: {fileID: 0}
+  _lanternPrefab: {fileID: 0}
 --- !u!4 &1037113883
 Transform:
   m_ObjectHideFlags: 0
@@ -581,28 +584,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!1 &1416270774 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1015180096201306512, guid: 5de7ee7b6ac642244b339acfc7cf8336, type: 3}
-  m_PrefabInstance: {fileID: 11052755}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1416270775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1416270774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsGlobal: 1
-  priority: 0
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 43437f6ead853eb4c805374664eaafa5, type: 2}
 --- !u!1 &2039326714
 GameObject:
   m_ObjectHideFlags: 0
