@@ -142,7 +142,6 @@ public class FightHUD : MonoBehaviour
     private void NextTurn()
     {
         StartMaskSelection(false);
-        GetPanel<StateTextPanel>().SetupAndShow("Fin du combat");
     }
 
     private void OnWinFight(Fight fight)
