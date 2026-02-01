@@ -549,11 +549,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 459767b5add8b324d98cd6c523bc128d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gridSize: 5
+  _gridSize: 10
   _roomSize: 1
   _linkSize: 0.3
   _roomHeight: 3
   _roomGenerationChance: 1
+  _directionChangeChance: 0.2
   _fightChance: 0.2
   _chestChance: 0.3
   _floorPrefab: {fileID: 5194455458557082338, guid: 95a07807cdfda7142be53c29d4765c90, type: 3}
