@@ -25,12 +25,12 @@ public class Room
         IsEmpty = false;
     }
 
-    public void GenerateWalls(DungeonManager dungeonManager, Dictionary<Directions, Vector2Int> directionToVector, float roomHeight)
+    public void GenerateWalls(DungeonManager dungeonManager, Dictionary<Directions, Vector2Int> directionToVector)
     {
         if (IsEmpty)
             return;
 
-        Vector3 upOffset = new Vector3(0.0f, roomHeight, 0.0f);
+        Vector3 upOffset = new Vector3(0.0f, dungeonManager.RoomHeight, 0.0f);
 
         dungeonManager.InstantiateRoomPart(RoomParts.Floor, _position, Quaternion.identity);
         dungeonManager.InstantiateRoomPart(RoomParts.Ceil, _position + upOffset, Quaternion.identity);
@@ -45,34 +45,51 @@ public class Room
         for (int i = 0; i < 4; i++)
         {
             Directions direction = directions[i];
-            Quaternion rotation = direction == Directions.Right || direction == Directions.Left ? Quaternion.Euler(0.0f, 90.0f, 0.0f) : Quaternion.identity;
+            Quaternion rotation = Quaternion.identity;
+            if (direction == Directions.Left)
+                rotation = Quaternion.Euler(0.0f, -90.0f, 0.0f);
+            else if (direction == Directions.Right)
+                rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+            else if (direction == Directions.Up)
+                rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+
             Vector2Int offset = directionToVector[direction];
-            Vector3 offsetPosition = _position + dungeonManager.GridToWorldDirection(offset, 0.55f); ;
+            Vector3 offsetPosition = _position + dungeonManager.GridToWorldDirection(offset, (dungeonManager.RoomSize + 0.3f) * 0.5f); ;
             if (OpenDirections.Contains(direction))
             {
                 dungeonManager.InstantiateRoomPart(RoomParts.FloorLink, offsetPosition, rotation);
                 dungeonManager.InstantiateRoomPart(RoomParts.CeilLink, offsetPosition + upOffset, rotation);
                 Directions nextDirection = directions[(i + 1) % 4];
-                offsetPosition += dungeonManager.GridToWorldDirection(directionToVector[nextDirection], 0.55f);
+                offsetPosition += dungeonManager.GridToWorldDirection(directionToVector[nextDirection], (dungeonManager.RoomSize + 0.3f) * 0.5f);
                 if (OpenDirections.Contains(nextDirection))
                 {
                     //Corner
-                    dungeonManager.InstantiateRoomPart(RoomParts.Corner, offsetPosition + upOffset * 0.5f, Quaternion.identity);
+                    dungeonManager.InstantiateRoomPart(RoomParts.Corner, offsetPosition, Quaternion.identity);
                 }
                 else
                 {
                     //Flat
-                    dungeonManager.InstantiateRoomPart(RoomParts.StraightCorner, offsetPosition + upOffset * 0.5f, Quaternion.identity);
+                    if (rotation.eulerAngles.y == -180.0f || rotation.eulerAngles.y == 90.0f)
+                        rotation *= Quaternion.Euler(0.0f, -90.0f, 0.0f);
+                    dungeonManager.InstantiateRoomPart(RoomParts.StraightCorner, offsetPosition, rotation);
                 }
             }
             else
             {
-                dungeonManager.InstantiateRoomPart(RoomParts.Wall, offsetPosition + upOffset * 0.5f, rotation);
+                dungeonManager.InstantiateRoomPart(RoomParts.Wall, offsetPosition, rotation);
                 Directions nextDirection = directions[(i + 1) % 4];
+                offsetPosition += dungeonManager.GridToWorldDirection(directionToVector[nextDirection], (dungeonManager.RoomSize + 0.3f) * 0.5f);
                 if (OpenDirections.Contains(nextDirection))
                 {
-                    offsetPosition += dungeonManager.GridToWorldDirection(directionToVector[nextDirection], 0.55f);
-                    dungeonManager.InstantiateRoomPart(RoomParts.StraightCorner, offsetPosition + upOffset * 0.5f, Quaternion.identity);
+                    //Flat
+                    if (rotation.eulerAngles.y == -180.0f || rotation.eulerAngles.y == 90.0f)
+                        rotation *= Quaternion.Euler(0.0f, -90.0f, 0.0f);
+                    dungeonManager.InstantiateRoomPart(RoomParts.StraightCorner, offsetPosition, rotation);
+                }
+                else
+                {
+                    //Corner
+                    dungeonManager.InstantiateRoomPart(RoomParts.Corner, offsetPosition, Quaternion.identity);
                 }
             }
         }

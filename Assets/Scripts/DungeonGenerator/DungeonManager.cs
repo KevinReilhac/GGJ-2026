@@ -17,6 +17,8 @@ public class DungeonManager : MonoBehaviour, IRoomManager
     [SerializeField] private Transform _ceilPrefab = null;
     [SerializeField] private Transform _ceilLinkPrefab = null;
     [SerializeField] private Transform _wallPrefab = null;
+    [SerializeField] private Transform _upWallPrefab = null;
+    [SerializeField] private Transform _downWallPrefab = null;
     [SerializeField] private Transform _cornerPrefab = null;
     [SerializeField] private Transform _straightCornerPrefab = null;
 
@@ -28,7 +30,10 @@ public class DungeonManager : MonoBehaviour, IRoomManager
     private System.Random rng = new System.Random();
 
     private List<(RoomParts, Transform)> _cornerPositions = null;
+    private List<Transform> _linksPositions = null;
 
+    public float RoomSize { get { return _roomSize; } }
+    public float RoomHeight { get { return _roomHeight; } }
 
     private void Awake()
     {
@@ -60,6 +65,7 @@ public class DungeonManager : MonoBehaviour, IRoomManager
         };
 
         _cornerPositions = new List<(RoomParts, Transform)>();
+        _linksPositions = new List<Transform>();
         GenerateDungeon();
     }
 
@@ -185,28 +191,44 @@ public class DungeonManager : MonoBehaviour, IRoomManager
         {
             for (int x = 0; x < _gridSize; x++)
             {
-                _dungeon[y][x].GenerateWalls(this, _directionToVector, _roomHeight);
+                _dungeon[y][x].GenerateWalls(this, _directionToVector);
             }
         }
     }
 
     public void InstantiateRoomPart(RoomParts part, Vector3 position, Quaternion rotation)
     {
-        if (part == RoomParts.StraightCorner && _cornerPositions.Any(p => p.Item2.position == position))
+        if (part == RoomParts.StraightCorner && _cornerPositions.Any(p => Vector3.SqrMagnitude(p.Item2.position - position) < 0.5f))
             return;
 
-        (RoomParts, Transform) otherCorner = _cornerPositions.Find(p => p.Item2.position == position);
-        if (part == RoomParts.Corner && otherCorner.Item2 != null)
+        if ((part == RoomParts.FloorLink || part == RoomParts.CeilLink) && _linksPositions.Any(p => Vector3.SqrMagnitude(p.position - position) < 0.5f))
+            return;
+
+        (RoomParts, Transform) otherCorner = _cornerPositions.Find(p => Vector3.SqrMagnitude(p.Item2.position - position) < 1.0f);
+        if (part == RoomParts.Corner && otherCorner.Item2 != null && otherCorner.Item1 == RoomParts.StraightCorner)
         {
-            if (otherCorner.Item1 == RoomParts.StraightCorner)
-            {
-                _cornerPositions.Remove(otherCorner);
-                Destroy(otherCorner.Item2.gameObject);
-            }    
+            _cornerPositions.Remove(otherCorner);
+            Destroy(otherCorner.Item2.gameObject);
         }
 
-        Transform newCorner = Instantiate(_roomPartPrefabs[part], position, rotation);
-        _cornerPositions.Add((part, newCorner));
+        if (part == RoomParts.Wall)
+        {
+            Instantiate(_downWallPrefab, position, rotation);
+            Instantiate(_wallPrefab, position + new Vector3(0.0f, _roomHeight / 3.0f, 0.0f), rotation);
+            Instantiate(_upWallPrefab, position + new Vector3(0.0f, (_roomHeight / 3.0f) * 2.0f, 0.0f), rotation);
+        }
+        else
+        {
+            Transform newPart = Instantiate(_roomPartPrefabs[part], position, rotation);
+            if (part == RoomParts.Corner || part == RoomParts.StraightCorner)
+                _cornerPositions.Add((part, newPart));
+
+            if (part == RoomParts.StraightCorner)
+                newPart.position -= newPart.forward * 0.05f;
+
+            if (part == RoomParts.FloorLink || part ==  RoomParts.CeilLink)
+                _linksPositions.Add(newPart);
+        }
     }
 
     private bool CreateRoom(Vector2Int position, Directions incomingDirection, bool canChangeGenerationDirection)

@@ -153,16 +153,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gridSize: 5
   _roomSize: 1
-  _linkSize: 0.1
-  _roomHeight: 1
+  _linkSize: 0.3
+  _roomHeight: 3
   _roomGenerationChance: 1
-  _floorPrefab: {fileID: 9190507099384187706, guid: c3e75d00ae5f7694da520d37c1ed0ce0, type: 3}
-  _floorLinkPrefab: {fileID: 1221511267052294537, guid: 1a9fe3e20ff2ac84ea29f18d38d8492c, type: 3}
-  _ceilPrefab: {fileID: 9190507099384187706, guid: c3e75d00ae5f7694da520d37c1ed0ce0, type: 3}
-  _ceilLinkPrefab: {fileID: 1221511267052294537, guid: 1a9fe3e20ff2ac84ea29f18d38d8492c, type: 3}
-  _wallPrefab: {fileID: 3086392417477210324, guid: ad876f059920f844db892b6dd44042b6, type: 3}
+  _floorPrefab: {fileID: 5194455458557082338, guid: 95a07807cdfda7142be53c29d4765c90, type: 3}
+  _floorLinkPrefab: {fileID: 8837591949496270558, guid: 7e877901e76a45c4d8432f63c5f14f09, type: 3}
+  _ceilPrefab: {fileID: 5194455458557082338, guid: 95a07807cdfda7142be53c29d4765c90, type: 3}
+  _ceilLinkPrefab: {fileID: 8837591949496270558, guid: 7e877901e76a45c4d8432f63c5f14f09, type: 3}
+  _wallPrefab: {fileID: 6324380706505407785, guid: 794b19c9ead0a3948aed2473b31ce3a3, type: 3}
+  _upWallPrefab: {fileID: 1965345860713556056, guid: 73a49753325fca14885956fa8b818260, type: 3}
+  _downWallPrefab: {fileID: 7211540088720805553, guid: 998e81e8aab9d174aace3202cf6d5d67, type: 3}
   _cornerPrefab: {fileID: 7943077754896995291, guid: 6cd4c17ccd518834986048a036c5cd91, type: 3}
-  _straightCornerPrefab: {fileID: 7943077754896995291, guid: 4e12cdafa1f908543a6dfa5fba44dbfb, type: 3}
+  _straightCornerPrefab: {fileID: 5566811148848070484, guid: 2f2dc286961164a4da99a3b87fa12ca6, type: 3}
 --- !u!4 &1037113883
 Transform:
   m_ObjectHideFlags: 0
