@@ -338,7 +338,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   moveDuration: 1
-  rotationDuration: 0.5
+  rotationDuration: 0.8
   roomManagerObject: {fileID: 1037113881}
 --- !u!4 &178986565
 Transform:
@@ -497,6 +497,8 @@ MonoBehaviour:
   _linkSize: 0.3
   _roomHeight: 3
   _roomGenerationChance: 1
+  _fightChance: 0.2
+  _chestChance: 0.3
   _floorPrefab: {fileID: 5194455458557082338, guid: 95a07807cdfda7142be53c29d4765c90, type: 3}
   _floorLinkPrefab: {fileID: 8837591949496270558, guid: 7e877901e76a45c4d8432f63c5f14f09, type: 3}
   _ceilPrefab: {fileID: 7708908711873801110, guid: 059d0b007a567414e88d8b49a3f41dfb, type: 3}
@@ -506,6 +508,9 @@ MonoBehaviour:
   _downWallPrefab: {fileID: 7211540088720805553, guid: 998e81e8aab9d174aace3202cf6d5d67, type: 3}
   _cornerPrefab: {fileID: 5760334099817602010, guid: ce71a4494f21dea4392ab6eb241655c0, type: 3}
   _straightCornerPrefab: {fileID: 5566811148848070484, guid: 2f2dc286961164a4da99a3b87fa12ca6, type: 3}
+  _chestPrefab: {fileID: 3564960476299353600, guid: b1aff854205c2d34ba241366d2ff49cd, type: 3}
+  _fightPrefab: {fileID: 7476811533826745749, guid: c5a0d7eed06a45541a76baefad8bb9df, type: 3}
+  _stairsPrefab: {fileID: 1005724864987496974, guid: 304402e6418f7284da92812e3c366f46, type: 3}
 --- !u!4 &1037113883
 Transform:
   m_ObjectHideFlags: 0

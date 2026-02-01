@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class DungeonManager : MonoBehaviour, IRoomManager
 {
@@ -10,6 +12,8 @@ public class DungeonManager : MonoBehaviour, IRoomManager
     [SerializeField] private float _linkSize = 0.1f;
     [SerializeField] private float _roomHeight = 1.0f;
     [SerializeField] private float _roomGenerationChance = 0.5f;
+    [SerializeField] private float _fightChance = 0.5f;
+    [SerializeField] private float _chestChance = 0.5f;
 
     [SerializeField] private Transform _floorPrefab = null;
     [SerializeField] private Transform _floorLinkPrefab = null;
@@ -20,6 +24,9 @@ public class DungeonManager : MonoBehaviour, IRoomManager
     [SerializeField] private Transform _downWallPrefab = null;
     [SerializeField] private Transform _cornerPrefab = null;
     [SerializeField] private Transform _straightCornerPrefab = null;
+    [SerializeField] private Transform _chestPrefab = null;
+    [SerializeField] private Transform _fightPrefab = null;
+    [SerializeField] private Transform _stairsPrefab = null;
 
     private Room[][] _dungeon = null;
     private Dictionary<Directions, Vector2Int> _directionToVector = null;
@@ -32,6 +39,7 @@ public class DungeonManager : MonoBehaviour, IRoomManager
 
     private List<(RoomParts, Transform)> _cornerPositions = null;
     private List<Transform> _linksPositions = null;
+    private List<Transform> _wallPositions = null;
 
     public float RoomSize { get { return _roomSize; } }
     public float RoomHeight { get { return _roomHeight; } }
@@ -67,10 +75,14 @@ public class DungeonManager : MonoBehaviour, IRoomManager
             [RoomParts.Wall] = _wallPrefab,
             [RoomParts.Corner] = _cornerPrefab,
             [RoomParts.StraightCorner] = _straightCornerPrefab,
+            [RoomParts.Chest] = _chestPrefab,
+            [RoomParts.Fight] = _fightPrefab,
+            [RoomParts.Stairs] = _stairsPrefab
         };
 
         _cornerPositions = new List<(RoomParts, Transform)>();
         _linksPositions = new List<Transform>();
+        _wallPositions = new List<Transform>();
         GenerateDungeon();
     }
 
@@ -79,6 +91,101 @@ public class DungeonManager : MonoBehaviour, IRoomManager
         InitializeDungeon();
         FillDungeon();
         //GenerateCorners();
+        AddEvents();
+    }
+
+    private void AddEvents()
+    {
+        float maxDistance = -1.0f;
+        Vector2Int bossPosition = Vector2Int.zero;
+        for (int y = 0; y < _gridSize; y++)
+        {
+            for (int x = 0; x < _gridSize; x++)
+            {
+                Vector2Int position = new Vector2Int(x, y);
+
+                if (!(x == 0 || x == _gridSize - 1 || y == 0 || y == _gridSize - 1))
+                    continue;
+
+                Room room = GetRoom(position);
+                if (room != null && !room.IsEmpty)
+                {
+                    float distance = Vector2Int.Distance(position, _startGridPosition);
+                    if (distance > maxDistance)
+                    {
+                        maxDistance = distance;
+                        bossPosition = position;
+                    }
+                }
+            }
+        }
+
+        Room bossRoom = GetRoom(bossPosition);
+        bossRoom.SetEvent(DungeonEvents.Boss);
+        InstantiateRoomPart(RoomParts.Fight, bossRoom.Position, Quaternion.identity);
+        Directions stairsDirection = _inverseDirection[bossRoom.OpenDirections.First()];
+        Vector2Int stairsGridPosition = bossPosition + _directionToVector[stairsDirection];
+        Vector3 stairsPosition = GridToWorldPosition(stairsGridPosition, _roomSize + _linkSize);
+        Transform wall = _wallPositions.Find(w =>
+        {
+            Vector3 wPos = w.position;
+            wPos.y = 0.0f;
+            return Vector3.SqrMagnitude(wPos - stairsPosition) < 1.0f;
+        });
+
+        Destroy(wall.gameObject);
+        Quaternion stairsRotation = Quaternion.identity;
+        if (stairsDirection == Directions.Up)
+            stairsRotation = Quaternion.Euler(0.0f, -90.0f, 0.0f);
+        else if (stairsDirection == Directions.Down)
+            stairsRotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+        else if (stairsDirection == Directions.Right)
+            stairsRotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+        InstantiateRoomPart(RoomParts.Stairs, stairsPosition, stairsRotation);
+
+        for (int y = 0; y < _gridSize; y++)
+        {
+            for (int x = 0; x < _gridSize; x++)
+            {
+                Vector2Int position = new Vector2Int(x, y);
+                Room room = GetRoom(position);
+                if (room == null || room.IsEmpty || position == _startGridPosition || room.DungeonEvent != DungeonEvents.None)
+                    continue;
+
+                int adjecentRoomCount = GetAdjacentRoomCount(position);
+
+                if (Random.Range(0.0f, 1.0f) < _fightChance)
+                {
+                    room.SetEvent(DungeonEvents.Fight);
+                    InstantiateRoomPart(RoomParts.Fight, room.Position, Quaternion.identity);
+                    continue;
+                }
+
+                if (adjecentRoomCount == 1)
+                {
+                    foreach (Directions direction in _directionToVector.Keys)
+                    {
+                        Vector2Int vectorDirection = _directionToVector[direction];
+                        Room adjacentRoom = GetRoom(position + vectorDirection);
+                        if (adjacentRoom != null && !adjacentRoom.IsEmpty && adjacentRoom.DungeonEvent == DungeonEvents.None
+                            && GetAdjacentRoomCount(position + vectorDirection) == 2 && Random.Range(0.0f, 1.0f) < _chestChance)
+                        {
+                            Quaternion rotation = Quaternion.identity;
+                            if (direction == Directions.Up)
+                                rotation = Quaternion.Euler(0.0f, -90.0f, 0.0f);
+                            else if (direction == Directions.Down)
+                                rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+                            else if (direction == Directions.Left)
+                                rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+                            room.SetEvent(DungeonEvents.Chest);
+                            InstantiateRoomPart(RoomParts.Chest, room.Position, rotation);
+                            adjacentRoom.SetEvent(DungeonEvents.Fight);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private void GenerateCorners()
@@ -221,9 +328,13 @@ public class DungeonManager : MonoBehaviour, IRoomManager
 
         if (part == RoomParts.Wall)
         {
-            Instantiate(_downWallPrefab, position, rotation);
-            Instantiate(_wallPrefab, position + new Vector3(0.0f, _roomHeight / 3.0f, 0.0f), rotation);
-            Instantiate(_upWallPrefab, position + new Vector3(0.0f, (_roomHeight / 3.0f) * 2.0f, 0.0f), rotation);
+            Transform wall = Instantiate(_wallPrefab, position + new Vector3(0.0f, _roomHeight / 3.0f, 0.0f), rotation);
+            Transform downWall = Instantiate(_downWallPrefab, position, rotation);
+            downWall.parent = wall;
+            Transform upWall = Instantiate(_upWallPrefab, position + new Vector3(0.0f, (_roomHeight / 3.0f) * 2.0f, 0.0f), rotation);
+            upWall.parent = wall;
+
+            _wallPositions.Add(wall);
         }
         else
         {

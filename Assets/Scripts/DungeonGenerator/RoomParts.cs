@@ -7,4 +7,7 @@ public enum RoomParts
     Wall,
     Corner,
     StraightCorner,
+    Chest,
+    Fight,
+    Stairs
 }

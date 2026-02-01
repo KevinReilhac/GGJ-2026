@@ -109,19 +109,15 @@ public class MovingManager : MonoBehaviour
                 case DungeonEvents.Boss:
                 case DungeonEvents.Fight:
                     Debug.Log("Unhandled");
+                    isMoving = true;
                     break;
                 case DungeonEvents.Chest:
                     roomManager.GetChestLoot(getGridPosition(futureLocation));
                     isMoving = true;
                     break;
             }
-
-            
-
-
-
         }
-        if (Keyboard.current.sKey.wasPressedThisFrame&& !isRotating)
+        if (Keyboard.current.sKey.wasPressedThisFrame&& !isRotating && !isMoving)
         {
 
             futureRotation = Quaternion.Inverse(Quaternion.Euler(new Vector3(0f, 180f, 0f))) * transform.rotation;
@@ -130,7 +126,7 @@ public class MovingManager : MonoBehaviour
             isRotating = true;
         }
 
-        if (Keyboard.current.aKey.wasPressedThisFrame && !isRotating)
+        if (Keyboard.current.aKey.wasPressedThisFrame && !isRotating && !isMoving)
         {
             futureRotation = Quaternion.Inverse(Quaternion.Euler(new Vector3(0f, 90f, 0f))) * transform.rotation;
 
@@ -139,7 +135,7 @@ public class MovingManager : MonoBehaviour
             isRotating = true;
         };
 
-        if (Keyboard.current.dKey.wasPressedThisFrame && !isRotating)
+        if (Keyboard.current.dKey.wasPressedThisFrame && !isRotating && !isMoving)
         {
             futureRotation = Quaternion.Inverse(Quaternion.Euler(new Vector3(0f, -90f, 0f))) * transform.rotation;
 

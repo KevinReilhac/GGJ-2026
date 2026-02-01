@@ -11,6 +11,8 @@ public class Room
 
     private Vector3 _position = Vector3.zero;
 
+    public Vector3 Position { get { return _position; } }
+
     public Room(Vector3 position)
     {
         _position = position;
@@ -103,7 +105,7 @@ public class Room
 
     public void SetEvent(DungeonEvents dungeonEvent)
     {
-        if (!IsEmpty && dungeonEvent == DungeonEvents.None)
+        if (!IsEmpty && DungeonEvent == DungeonEvents.None)
             DungeonEvent = dungeonEvent;
     }
 
