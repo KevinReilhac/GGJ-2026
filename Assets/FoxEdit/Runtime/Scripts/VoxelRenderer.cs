@@ -14,7 +14,7 @@ namespace FoxEdit
     {
         //User editable
         [SerializeField] private VoxelObject _voxelObject = null;
-        [SerializeField] private int _paletteIndexOverride = 0;
+        [SerializeField] private int _paletteIndexOverride = -1;
         [SerializeField] private bool _staticRender = false;
         [SerializeField] private float _frameDuration = 0.2f;
 
@@ -175,8 +175,10 @@ namespace FoxEdit
 
         internal void RefreshColors()
         {
-            SetPalette(_voxelObject.PaletteIndex);
-            SetRenderParams();
+            if (_paletteIndexOverride != -1)
+                SetPalette(_voxelObject.PaletteIndex);
+            else
+                SetRenderParams();
             //RunComputeShader();
         }
 
@@ -284,8 +286,10 @@ namespace FoxEdit
 
             //_computeShader.SetBuffer(_kernel, "_RotationMatrices", VoxelSharedData.RotationMatricesBuffer);
 
-
-            SetPalette(_voxelObject.PaletteIndex);
+            if (_paletteIndexOverride != -1)
+                SetPalette(_paletteIndexOverride);
+            else
+                SetPalette(_voxelObject.PaletteIndex);
         }
 
         private void DisposeBuffers()

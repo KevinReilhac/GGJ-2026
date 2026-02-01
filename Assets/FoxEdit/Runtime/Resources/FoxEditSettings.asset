@@ -15,6 +15,12 @@ MonoBehaviour:
   _palettes:
   - {fileID: 11400000, guid: 2018349bc5077014daddb8178c4c004f, type: 2}
   - {fileID: 11400000, guid: 413abcab50e67f84e815dd0e271eef34, type: 2}
+  - {fileID: 11400000, guid: 2a21d4921ff53ad4696ac4adf8ae31a0, type: 2}
+  - {fileID: 11400000, guid: be481e6265588504bb263fc410244e61, type: 2}
+  - {fileID: 11400000, guid: 891ea7f943c657840aa0a6adcba1049b, type: 2}
+  - {fileID: 11400000, guid: 2cecc7a4051db7a45a16468e26c97650, type: 2}
+  - {fileID: 11400000, guid: 0a297e3f0057ae7418e0f154f52efd24, type: 2}
+  - {fileID: 11400000, guid: b8b09405a680714469bd6c8091c75bd8, type: 2}
   Materials:
     animatedMaterial: {fileID: 2100000, guid: 3f0281ad1cf83de4795cd67224e84cb6, type: 2}
     staticMaterial: {fileID: 2100000, guid: 90c432c76eaa99648809ebe571f57d1e, type: 2}
