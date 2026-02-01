@@ -5,7 +5,7 @@ using UnityEngine;
 public class Pool : MonoBehaviour
 {
     [SerializeField] int objectCount;
-    [SerializeField] GameObject prefabVFX;
+    [SerializeField] GameObject prefabObject;
     List<GameObject> objList = new List<GameObject>();
     
     // Start is called before the first frame update
@@ -16,7 +16,7 @@ public class Pool : MonoBehaviour
 
     GameObject MakeInstance()
     {
-        GameObject obj = Instantiate(prefabVFX,transform);
+        GameObject obj = Instantiate(prefabObject,transform);
         obj.GetComponent<PoolObject>().SetPool(this);
 
         obj.SetActive(false);
