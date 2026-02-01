@@ -70,9 +70,8 @@ public class FightHUD : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Awake()
     {
         HideAllPanels();
-        ShowPanel<EnemyPanel>();
     }
 }

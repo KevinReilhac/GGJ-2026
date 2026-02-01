@@ -30,6 +30,11 @@ public class Attack
         statsDict = emotionStats.ToDictionary(e => e.emotionType, e => e.stat);
     }
 
+    public Attack()
+    {
+        statsDict = new Dictionary<EEmotion, int>();
+    }
+
     public Attack(Attack attack)
     {
         statsDict = new Dictionary<EEmotion, int>(attack.statsDict);

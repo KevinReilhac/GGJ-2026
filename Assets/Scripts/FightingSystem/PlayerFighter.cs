@@ -16,18 +16,35 @@ public class PlayerFighter : MonoBehaviour
     public List<Mask> Masks = new List<Mask>();
     public List<EmotionStat> BaseStats = new List<EmotionStat>();
 
-    public int EquipedMask = -1;
+    public int EquipedMaskIndex = -1;
     public Dictionary<EEmotion, int> AdditionalStats;
 
-    public Attack GetCurrentPlayerAttack()
+    public Mask EquipedMask
+    {
+        get
+        {
+            if (EquipedMaskIndex < 0 || EquipedMaskIndex >= Masks.Count)
+                return null;
+            return Masks[EquipedMaskIndex];
+        }
+    }
+
+    public void SelectMask(Mask mask)
+    {
+        if (Masks.Contains(mask))
+        {
+            EquipedMaskIndex = Masks.IndexOf(mask);
+        }
+    }
+
+    public Attack GetPlayerAttackFullStats()
     {
         Dictionary<EEmotion, int> statsDict = new Dictionary<EEmotion, int>();
         List<EmotionStat> emotionStats = new List<EmotionStat>();
 
-        if (EquipedMask >= 0 && EquipedMask < Masks.Count)
+        if (EquipedMask != null)
         {
-            Mask mask = Masks[EquipedMask];
-            foreach (EmotionStat maskStat in mask.Stats)
+            foreach (EmotionStat maskStat in EquipedMask.Stats)
             {
                 if (!statsDict.ContainsKey(maskStat.emotionType))
                     statsDict.Add(maskStat.emotionType, 0);
@@ -47,8 +64,8 @@ public class PlayerFighter : MonoBehaviour
             statsDict[additionalStatsItem.Key] += additionalStatsItem.Value;
         }
 
-            foreach (KeyValuePair<EEmotion, int> statItem in statsDict)
-                emotionStats.Add(new EmotionStat(statItem.Key, statItem.Value));
+        foreach (KeyValuePair<EEmotion, int> statItem in statsDict)
+            emotionStats.Add(new EmotionStat(statItem.Key, statItem.Value));
 
         return new Attack(emotionStats);
     }

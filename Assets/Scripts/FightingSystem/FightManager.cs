@@ -25,12 +25,17 @@ public static class FightManager
 
     public static void SelectMask(int maskIndex)
     {
-        PlayerFighter.Instance.EquipedMask = maskIndex;
+        PlayerFighter.Instance.EquipedMaskIndex = maskIndex;
+    }
+
+    public static void SelectMask(Mask mask)
+    {
+        PlayerFighter.Instance.SelectMask(mask);
     }
 
     public static void PlayerAttack()
     {
-        Attack playerAttack = PlayerFighter.Instance.GetCurrentPlayerAttack();
+        Attack playerAttack = PlayerFighter.Instance.GetPlayerAttackFullStats();
 
         if (playerAttack.IsWinOrEqualAgainst(CurrentEnemyAttack))
             currentFight.HitEnemies();
