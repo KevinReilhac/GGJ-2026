@@ -13,7 +13,39 @@ MonoBehaviour:
   m_Name: MaskAngry
   m_EditorClassIdentifier: 
   _colors:
-  - Color: {r: 0.93725497, g: 0.41176474, b: 0.50980395, a: 1}
+  - Color: {r: 0.965, g: 0.38986003, b: 0.49716234, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0.5
+  - Color: {r: 0.624, g: 0.088607974, b: 0.18849462, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0.5
+  - Color: {r: 0.16037738, g: 0.0521983, b: 0.0521983, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0.5
+  - Color: {r: 1, g: 0.496, b: 0.5872414, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0.5
+  - Color: {r: 0.504, g: 0.071489364, b: 0.1537021, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0.5
+  - Color: {r: 0.809, g: 0.15388586, b: 0.27699468, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0.5
+  - Color: {r: 0.823, g: 0.36212, b: 0.44810516, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0.5
+  - Color: {r: 0.71599996, g: 0.3136762, b: 0.3886856, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0.5
+  - Color: {r: 1, g: 0.624, b: 0.6939535, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
     Smoothness: 0.5
