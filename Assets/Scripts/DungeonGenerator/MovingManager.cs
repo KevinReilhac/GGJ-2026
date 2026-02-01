@@ -4,14 +4,13 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Audio;
-using System;
+using UnityEngine.SceneManagement;
 
 public class MovingManager : MonoBehaviour
 {
-
+       
     [SerializeField]
-    private float offsetMovement = 1.0f;
+    private float offsetMovement=1.0f;
 
     [SerializeField]
     private AnimationCurve MoveSpeedCurve;
@@ -46,16 +45,12 @@ public class MovingManager : MonoBehaviour
     bool isRotating = false;
     bool isMoving = false;
 
+    bool canInput = true;
+
     private IRoomManager roomManager;
 
     private float forwardBufferTime = 0.2f;
     private float forwardBufferCounter;
-
-    [Header("Audio")]
-
-    [SerializeField] private AudioClip footstepsSound;
-    [SerializeField] private AudioMixerGroup menuMixerGroup;
-    [SerializeField] private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -64,7 +59,14 @@ public class MovingManager : MonoBehaviour
         {
             _playerCamera.enabled = true;
             _fightCamera.enabled = false;
+            canInput = true;
         };
+
+        FightManager.OnGameOver += () =>
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        };
+
         _directionToVector = new Dictionary<Directions, Vector2Int>
         {
             [Directions.Up] = new Vector2Int(0, -1),
@@ -86,21 +88,28 @@ public class MovingManager : MonoBehaviour
 
     }
 
+    public void Teleport()
+    {
+        transform.position = roomManager.GetStartPosition(out gridPosition);
+    }
+
     //// Update is called once per frame
     void Update()
     {
+        if (!canInput)
+            return;
+
         List<Directions> listDirection = new List<Directions>();
         listDirection = roomManager.GetPossibleDirections(gridPosition);
-
+        
         if (Keyboard.current.wKey.wasPressedThisFrame && !isMoving)
         {
-            if (listDirection.Contains(facingDirection))
+            if(listDirection.Contains(facingDirection))
             {
+
                 forwardBufferCounter = forwardBufferTime;
-                audioSource.PlayOneShot(footstepsSound);
             }
-        }
-        else
+        } else
         {
             forwardBufferCounter -= Time.deltaTime;
         }
@@ -128,12 +137,13 @@ public class MovingManager : MonoBehaviour
                     FightManager.StartFight(_fight);
                     _playerCamera.enabled = false;
                     _fightCamera.enabled = true;
+                    canInput = false;
                     break;
                 case DungeonEvents.Fight:
-                    Debug.Log("Fight");
                     FightManager.StartFight(_fight);
                     _playerCamera.enabled = false;
                     _fightCamera.enabled = true;
+                    canInput = false;
                     break;
                 case DungeonEvents.Chest:
                     roomManager.GetChestLoot(getGridPosition(futureLocation));
@@ -141,7 +151,7 @@ public class MovingManager : MonoBehaviour
                     break;
             }
         }
-        if (Keyboard.current.sKey.wasPressedThisFrame && !isRotating && !isMoving)
+        if (Keyboard.current.sKey.wasPressedThisFrame&& !isRotating && !isMoving)
         {
 
             futureRotation = Quaternion.Inverse(Quaternion.Euler(new Vector3(0f, 180f, 0f))) * transform.rotation;
@@ -157,8 +167,7 @@ public class MovingManager : MonoBehaviour
             facingDirection = turnLeft(facingDirection);
             rotationDistance = 0f;
             isRotating = true;
-        }
-        ;
+        };
 
         if (Keyboard.current.dKey.wasPressedThisFrame && !isRotating && !isMoving)
         {
@@ -173,13 +182,12 @@ public class MovingManager : MonoBehaviour
         {
             traveledDistance += Time.deltaTime / moveDuration;
 
-            float t = Mathf.Clamp01(traveledDistance);
+            float t = Mathf.Clamp01(traveledDistance); 
             float curvedT = MoveSpeedCurve.Evaluate(t);
 
             transform.position = Vector3.Lerp(startPosition, futureLocation, curvedT);
 
-
-            if (t >= 1f)
+            if(t >= 1f)
             {
                 transform.position = futureLocation;
                 isMoving = false;
@@ -195,7 +203,7 @@ public class MovingManager : MonoBehaviour
             //var alphaRotation = RotationSpeedCurve.Evaluate(Time.deltaTime * rotationSpeed);
             transform.rotation = Quaternion.Lerp(transform.rotation, futureRotation, curvedT);
 
-            if (t >= 1f)
+            if(t >= 1f)
             {
                 transform.rotation = futureRotation;
                 isRotating = false;
@@ -210,15 +218,10 @@ public class MovingManager : MonoBehaviour
 
     }
 
-    IEnumerator Delay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-    }
-
 
     private Directions turnRight(Directions direction)
     {
-        switch (direction)
+        switch(direction)
         {
             case Directions.Up:
                 return Directions.Right;
@@ -272,15 +275,15 @@ public class MovingManager : MonoBehaviour
         switch (direction)
         {
             case Directions.Up:
-                return new Vector3(0, 0, offsetMovement);
+                return new Vector3(0, 0, offsetMovement); 
             case Directions.Down:
                 return new Vector3(0, 0, -offsetMovement);
             case Directions.Left:
-                return new Vector3(-offsetMovement, 0, 0);
+                return new Vector3(-offsetMovement,0,0);
             case Directions.Right:
                 return new Vector3(offsetMovement, 0, 0);
             default:
-                return new Vector3(0, 0, 0);
+                return new Vector3(0,0,0);
         }
     }
 
