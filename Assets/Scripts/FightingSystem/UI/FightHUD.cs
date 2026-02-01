@@ -73,12 +73,6 @@ public class FightHUD : MonoBehaviour
     void Start()
     {
         HideAllPanels();
+        ShowPanel<MaskChoicePanel>();
     }
-
-    void Update()
-    {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-            GetPanel<StateTextPanel>().SetupAndShow(Time.time.ToString());
-    }
-
 }

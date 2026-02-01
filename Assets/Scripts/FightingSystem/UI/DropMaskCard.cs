@@ -1,5 +1,5 @@
-
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ChooseMaskCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class DropMaskCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [Header("Animation")]
     [SerializeField] private float scaleUpTime = 0.5f;
@@ -17,7 +17,7 @@ public class ChooseMaskCard : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] private float hoveredScale = 1.2f;
     [Header("References")]
     [SerializeField] private RectTransform statsPanel;
-    [SerializeField] private List<StatsDisplayer> statsDisplayers ;
+    [SerializeField] private List<StatsDisplayer> statsDisplayers;
     [SerializeField] private Image imageToColorize;
     [SerializeField] private RawImage rawImageMask;
 
@@ -39,7 +39,6 @@ public class ChooseMaskCard : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     void Awake()
     {
-        statsPanel.gameObject.SetActive(false);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -51,14 +50,12 @@ public class ChooseMaskCard : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         transform.DOKill();
         transform.DOScale(Vector3.one * hoveredScale, scaleDownTime).SetEase(scaleUpEase);
-        statsPanel.gameObject.SetActive(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         transform.DOKill();
         transform.DOScale(Vector3.one, scaleDownTime).SetEase(scaleDownEase);
-        statsPanel.gameObject.SetActive(false);
     }
 
 
@@ -80,6 +77,4 @@ public class ChooseMaskCard : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         foreach (StatsDisplayer statsDisplayer in statsDisplayers)
             statsDisplayer.SetValue(0);
     }
-
-
 }

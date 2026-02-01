@@ -17,7 +17,7 @@ public class MaskChoicePanel : Panel
         cardTemplate.gameObject.SetActive(false);
         Setup(new List<Mask>()
         {
-            new Mask(joy : 4),
+            new Mask(joy : 4, sad : 4),
             new Mask(sad : 4),
             new Mask(angry : 4),
             new Mask(disgust : 4),
