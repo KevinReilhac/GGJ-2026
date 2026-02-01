@@ -513,8 +513,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offsetMovement: 10
-  moveSpeed: 70
-  rotationSpeed: 70
   MoveSpeedCurve:
     serializedVersion: 2
     m_Curve:
@@ -563,6 +561,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  moveDuration: 0.3
+  rotationDuration: 0.3
 --- !u!4 &577230249
 Transform:
   m_ObjectHideFlags: 0

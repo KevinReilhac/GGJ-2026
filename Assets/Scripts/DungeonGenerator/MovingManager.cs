@@ -7,9 +7,7 @@ using UnityEngine.InputSystem;
 
 public class MovingManager : MonoBehaviour
 {
-
-    InputAction movementAction;
-
+       
     [SerializeField]
     private int offsetMovement=1;
 
@@ -25,6 +23,9 @@ public class MovingManager : MonoBehaviour
     [SerializeField]
     private float rotationDuration = 0.3f;
 
+    [SerializeField]
+    private IRoomManager roomManager;
+
     private Directions facingDirection = Directions.Up;
 
     Vector3 futureLocation;
@@ -38,7 +39,6 @@ public class MovingManager : MonoBehaviour
     bool isRotating = false;
     bool isMoving = false;
 
-    IRoomManager roomManager;
 
 
     private float forwardBufferTime = 0.2f;
@@ -54,17 +54,22 @@ public class MovingManager : MonoBehaviour
         startPosition = transform.position;
         traveledDistance = 0f;
         rotationDistance = 0f;
+
     }
 
     //// Update is called once per frame
     void Update()
     {
         List<Directions> listDirection = new List<Directions>();
-        //listDirection = roomManager.GetPossibleDirections(new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)));
-
-        if(Keyboard.current.wKey.wasPressedThisFrame && !isMoving)
+        listDirection = roomManager.GetPossibleDirections(new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)));
+        
+        if (Keyboard.current.wKey.wasPressedThisFrame && !isMoving)
         {
-            forwardBufferCounter = forwardBufferTime;
+            if(listDirection.Contains(facingDirection))
+            {
+
+                forwardBufferCounter = forwardBufferTime;
+            }
         } else
         {
             forwardBufferCounter -= Time.deltaTime;
@@ -82,7 +87,22 @@ public class MovingManager : MonoBehaviour
 
             futureLocation = transform.position + movementWithFacing;
 
-            isMoving = true;
+            switch (roomManager.GetDungeonEvents(getGridPosition(futureLocation)))
+            {
+                case DungeonEvents.None:
+                    isMoving = true;
+                    break;
+                case DungeonEvents.Boss:
+                case DungeonEvents.Fight:
+                    Debug.Log("Unhandled");
+                    break;
+                case DungeonEvents.Chest:
+                    roomManager.GetChestLoot(getGridPosition(futureLocation));
+                    isMoving = true;
+                    break;
+            }
+
+            
 
 
 
