@@ -19,6 +19,7 @@ public class ChoosenMaskPanel : Panel
     [Header("References")]
     [SerializeField] private List<AttackStatItem> attackStatItems;
     [SerializeField] private RawImage maskImage;
+    [SerializeField] private Image background;
     [SerializeField] private Button attackButton;
     [SerializeField] private Button maskSelectionButton;
 
@@ -33,16 +34,57 @@ public class ChoosenMaskPanel : Panel
         }
     }
 
+
     private void Awake()
     {
         attackButton.onClick.AddListener(OnPressAttackButton);
         maskSelectionButton.onClick.AddListener(OnPressMaskSelection);
+        RegisterPlayerStatsOnValueChanged();
     }
 
     private void OnDestroy()
     {
+        UnRegisterPlayerStatsOnValueChanged();
         attackButton.onClick.AddListener(OnPressAttackButton);
         maskSelectionButton.onClick.AddListener(OnPressMaskSelection);
+    }
+
+    private void RegisterPlayerStatsOnValueChanged()
+    {
+        foreach (AttackStatItem playerAttackStat in attackStatItems)
+        {
+            playerAttackStat.playerAttackStat.OnValueChanged += OnPlayerAttackStatChanged;
+        }
+    }
+
+    private void UnRegisterPlayerStatsOnValueChanged()
+    {
+        foreach (AttackStatItem playerAttackStat in attackStatItems)
+        {
+            playerAttackStat.playerAttackStat.OnValueChanged -= OnPlayerAttackStatChanged;
+        }
+    }
+
+    private void OnPlayerAttackStatChanged(int _)
+    {
+        int totalValues = GetTotalValue();
+
+        if (totalValues >= FightManager.CurrentEnemyAttack.GetTotal())
+            DisableUncheckedToggles();
+        else
+            EnableUncheckedToggles();
+    }
+
+    private void DisableUncheckedToggles()
+    {
+        foreach (var item in attackStatItems)
+            item.playerAttackStat.DisableFalseToggles();
+    }
+
+    private void EnableUncheckedToggles()
+    {
+        foreach (var item in attackStatItems)
+            item.playerAttackStat.EnableAllToggles();
     }
 
     private void OnPressMaskSelection()
@@ -55,19 +97,34 @@ public class ChoosenMaskPanel : Panel
         OnAttack?.Invoke(GetPlayerAttack());
     }
 
+    private int GetTotalValue()
+    {
+        int value = 0;
+        foreach (AttackStatItem playerAttackStat in attackStatItems)
+            value += playerAttackStat.playerAttackStat.Value;
+        return value;
+    }
 
-    public void Setup(PlayerFighter playerFighter, Attack enemyAttack)
+    public void Setup(PlayerFighter playerFighter, Action OnBackToMaskSelectionCallback, Action<Attack> OnPlayerAttackCallback)
     {
         Attack playerAttack = playerFighter.GetPlayerAttackFullStats();
 
         foreach (EmotionStat emotionStat in playerAttack.GetEmotionsStatsList())
             AttackStatsDict[emotionStat.emotionType].SetToggles(emotionStat.stat, true);
         if (playerFighter.EquipedMask == null)
+        {
             maskImage.gameObject.SetActive(false);
+            background.color = Color.white;
+        }
         else
         {
-            maskImage.texture = Mask3DTextures.Instance.GetTexture(playerFighter.EquipedMask.MainEmotion.EmotionType);
+            Emotion emotion = playerFighter.EquipedMask.MainEmotion;
+            maskImage.texture = Mask3DTextures.Instance.GetTexture(emotion.EmotionType);
+            background.color = emotion.Color;
         }
+
+        OnAttack = OnPlayerAttackCallback;
+        OnBackToMaskSelection = OnBackToMaskSelectionCallback;
     }
 
     public Attack GetPlayerAttack()

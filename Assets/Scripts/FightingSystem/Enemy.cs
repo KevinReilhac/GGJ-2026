@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     [Header("References")]
     [SerializeField] private VoxelRenderer maskVoxelRenderer;
     [SerializeField] private Image hpBarFill;
+    [SerializeField] private Gradient gradient;
 
     private int _hp;
     public int HP
@@ -23,11 +24,20 @@ public class Enemy : MonoBehaviour
         set
         {
             _hp = value;
-            hpBarFill.fillAmount = (float)_hp / maxHp;
+            float percents =  (float)_hp / maxHp;
+            hpBarFill.fillAmount =  percents;
+            hpBarFill.color = gradient.Evaluate(percents);
             OnHPChanged?.Invoke(_hp);
+            Debug.Log("HP:" + HP);
             if (_hp == 0)
                 Die();
         }
+    }
+
+    public void Reset()
+    {
+        HP = maxHp;
+        gameObject.SetActive(true);
     }
 
     public void Setup(Mask droppedMask, int difficulty)
@@ -63,8 +73,8 @@ public class Enemy : MonoBehaviour
 
     public void Hit()
     {
-        maxHp--;
-        if (maxHp == 0)
+        HP--;
+        if (HP == 0)
             Die();
     }
 
@@ -73,5 +83,5 @@ public class Enemy : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public bool IsDead => HP > 0;
+    public bool IsDead => HP <= 0;
 }

@@ -15,19 +15,13 @@ public class MaskChoicePanel : Panel
     void Awake()
     {
         cardTemplate.gameObject.SetActive(false);
-        Setup(new List<Mask>()
-        {
-            new Mask(joy : 4, sad : 4),
-            new Mask(sad : 4),
-            new Mask(angry : 4),
-            new Mask(disgust : 4),
-        });
     }
 
-    public void Setup(List<Mask> masks)
+    public void Setup(List<Mask> masks, Action<Mask> onMaskSelectedCallback)
     {
         ClearCards();
         masks.ForEach(CreateCard);
+        OnMaskSelected = onMaskSelectedCallback;
     }
 
     private void CreateCard(Mask mask)
@@ -36,20 +30,22 @@ public class MaskChoicePanel : Panel
         chooseMaskCard.gameObject.SetActive(true);
         chooseMaskCard.transform.SetParent(cardsContainer);
         chooseMaskCard.SetMask(mask);
+        chooseMaskCard.transform.localScale = Vector3.one;
+        chooseMaskCards.Add(chooseMaskCard);
 
         chooseMaskCard.OnSelectCard += OnSelectMask;
     }
 
     private void OnSelectMask(Mask mask)
     {
-        Debug.Log(mask);
+        OnMaskSelected?.Invoke(mask);
     }
 
     private void ClearCards()
     {
         foreach (ChooseMaskCard chooseMaskCard in chooseMaskCards)
         {
-            Destroy(chooseMaskCard);
+            Destroy(chooseMaskCard.gameObject);
         }
         chooseMaskCards.Clear();
     }
