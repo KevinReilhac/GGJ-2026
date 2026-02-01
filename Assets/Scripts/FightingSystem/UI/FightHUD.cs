@@ -77,7 +77,7 @@ public class FightHUD : MonoBehaviour
     {
         HideAllPanels();
 
-        FightManager.OnStartMaskSelection += StartMaskSelection;
+        FightManager.OnStartMaskSelection += OnStartFight;
         FightManager.OnWinFight += OnWinFight;
         FightManager.OnExitFight += HideAllPanels;
         FightManager.OnGameOver += HideAllPanels;
@@ -86,15 +86,22 @@ public class FightHUD : MonoBehaviour
 
     void OnDestroy()
     {
-        FightManager.OnStartMaskSelection -= StartMaskSelection;
+        FightManager.OnStartMaskSelection -= OnStartFight;
         FightManager.OnWinFight -= OnWinFight;
         FightManager.OnExitFight -= HideAllPanels;
         FightManager.OnGameOver -= HideAllPanels;
     }
 
-    private void StartMaskSelection()
+    private void OnStartFight()
+    {
+        StartMaskSelection(true);
+    }
+
+
+    private void StartMaskSelection(bool firstTurn)
     {
         HideAllPanels();
+        GetPanel<StateTextPanel>().SetupAndShow(firstTurn ? "Début du combat" : "Nouveau tour");
         PlayerFighter.Instance.ClearMasks();
         if (PlayerFighter.Instance.Masks == null || PlayerFighter.Instance.Masks.Count == 0)
         {
@@ -128,8 +135,13 @@ public class FightHUD : MonoBehaviour
     private void ShowFightPanels()
     {
         ChoosenMaskPanel choosenMaskPanel = GetPanel<ChoosenMaskPanel>();
-        choosenMaskPanel.Setup(PlayerFighter.Instance, StartMaskSelection, FightManager.PlayerAttack);
+        choosenMaskPanel.Setup(PlayerFighter.Instance, NextTurn, FightManager.PlayerAttack);
         choosenMaskPanel.Show();
+    }
+
+    private void NextTurn()
+    {
+        StartMaskSelection(false);
     }
 
     private void OnWinFight(Fight fight)
