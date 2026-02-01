@@ -68,4 +68,16 @@ public class Attack
         statsDict[emotion] += delta;
     }
 
+    public List<EmotionStat> GetEmotionsStatsList()
+    {
+        List<EmotionStat> emotionStats = new List<EmotionStat>();
+
+        foreach (var item in statsDict)
+        {
+            emotionStats.Add(new EmotionStat(item.Key, item.Value));
+        }
+
+        return emotionStats;
+    }
+
 }

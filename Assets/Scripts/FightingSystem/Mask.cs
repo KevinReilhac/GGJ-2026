@@ -2,10 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Unity.VisualScripting;
+using UnityEngine;
 
-public partial class Mask
+[System.Serializable]
+public class Mask
 {
-    private List<EmotionStat> maskStats;
+    [SerializeField] private List<EmotionStat> maskStats;
     private Dictionary<EEmotion, int> statsDict;
     private Emotion mainEmotion = null;
 

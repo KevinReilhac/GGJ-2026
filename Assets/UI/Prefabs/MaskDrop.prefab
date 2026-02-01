@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8487500303735270281}
   - component: {fileID: 4518345688727208946}
+  - component: {fileID: 8584448651012982492}
   m_Layer: 5
   m_Name: Stats
   m_TagString: Untagged
@@ -67,6 +68,24 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &8584448651012982492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097790690810788327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1174368b6f605d74cb88617c7147138b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statsDisplayers:
+  - {fileID: 8394284002923394864}
+  - {fileID: 4169240283604209700}
+  - {fileID: 2793895632141737120}
+  - {fileID: 6892555474518093325}
+  - {fileID: 4816901089948845439}
 --- !u!1 &3253231589581458642
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,12 +290,7 @@ MonoBehaviour:
   scaleDownEase: 5
   hoveredScale: 1.1
   statsPanel: {fileID: 8487500303735270281}
-  statsDisplayers:
-  - {fileID: 8394284002923394864}
-  - {fileID: 4169240283604209700}
-  - {fileID: 2793895632141737120}
-  - {fileID: 6892555474518093325}
-  - {fileID: 4816901089948845439}
+  statsDisplayers: {fileID: 8584448651012982492}
   imageToColorize: {fileID: 3482053941355651642}
   rawImageMask: {fileID: 1459485297108306003}
 --- !u!1001 &699447080140660840

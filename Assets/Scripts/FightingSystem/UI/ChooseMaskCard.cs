@@ -17,24 +17,11 @@ public class ChooseMaskCard : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] private float hoveredScale = 1.2f;
     [Header("References")]
     [SerializeField] private RectTransform statsPanel;
-    [SerializeField] private List<StatsDisplayer> statsDisplayers ;
+    [SerializeField] private StatsDisplayer statsDisplayers;
     [SerializeField] private Image imageToColorize;
     [SerializeField] private RawImage rawImageMask;
 
     public event Action<Mask> OnSelectCard;
-
-    private Dictionary<EEmotion, StatsDisplayer> statsDiplayerDict = null;
-    private Dictionary<EEmotion, StatsDisplayer> StatsDisplayerDict
-    {
-        get
-        {
-            if (statsDiplayerDict == null)
-                statsDiplayerDict = statsDisplayers.ToDictionary(s => s.Emotion, s => s);
-            return statsDiplayerDict;
-        }
-    }
-
-
     private Mask mask = null;
 
     void Awake()
@@ -65,21 +52,9 @@ public class ChooseMaskCard : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void SetMask(Mask mask)
     {
         this.mask = mask;
-        ResetStats();
-        foreach (EmotionStat stat in mask.Stats)
-        {
-            if (StatsDisplayerDict.TryGetValue(stat.emotionType, out StatsDisplayer statsDisplayer))
-                statsDisplayer.SetValue(stat.stat);
-        }
+        statsDisplayers.SetValue(mask.Stats);
         imageToColorize.color = mask.MainEmotion.Color;
         rawImageMask.texture = Mask3DTextures.Instance.GetTexture(mask.MainEmotion.EmotionType);
     }
-
-    private void ResetStats()
-    {
-        foreach (StatsDisplayer statsDisplayer in statsDisplayers)
-            statsDisplayer.SetValue(0);
-    }
-
 
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using FoxEdit;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class Enemy : MonoBehaviour
     public Mask droppedMask;
     [Header("References")]
     [SerializeField] private VoxelRenderer maskVoxelRenderer;
+    [SerializeField] private Image hpBarFill;
 
     private int _hp;
     public int HP
@@ -21,6 +23,7 @@ public class Enemy : MonoBehaviour
         set
         {
             _hp = value;
+            hpBarFill.fillAmount = (float)_hp / maxHp;
             OnHPChanged?.Invoke(_hp);
             if (_hp == 0)
                 Die();

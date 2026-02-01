@@ -73,6 +73,6 @@ public class FightHUD : MonoBehaviour
     void Start()
     {
         HideAllPanels();
-        ShowPanel<MaskChoicePanel>();
+        ShowPanel<EnemyPanel>();
     }
 }

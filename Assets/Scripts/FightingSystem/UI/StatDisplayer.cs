@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class StatsDisplayer : MonoBehaviour
+public class StatDisplayer : MonoBehaviour
 {
     [SerializeField] private EEmotion emotion;
     [SerializeField] private TextMeshProUGUI valueText;
