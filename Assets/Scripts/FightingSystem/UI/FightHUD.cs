@@ -95,6 +95,7 @@ public class FightHUD : MonoBehaviour
     private void StartMaskSelection()
     {
         HideAllPanels();
+        PlayerFighter.Instance.ClearMasks();
         if (PlayerFighter.Instance.Masks == null || PlayerFighter.Instance.Masks.Count == 0)
         {
             FightManager.SelectMask(null);

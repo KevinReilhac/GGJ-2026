@@ -47,6 +47,14 @@ public class PlayerFighter : MonoBehaviour
         }
     }
 
+    public void ClearMasks()
+    {
+        List<Mask> masksCopy = new List<Mask>(Masks);
+
+        foreach (Mask mask in masksCopy)
+            Masks.Remove(mask);
+    }
+
     public Attack GetPlayerAttackFullStats()
     {
         Dictionary<EEmotion, int> statsDict = new Dictionary<EEmotion, int>();
