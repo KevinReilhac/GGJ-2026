@@ -163,7 +163,7 @@ MonoBehaviour:
   _wallPrefab: {fileID: 6324380706505407785, guid: 794b19c9ead0a3948aed2473b31ce3a3, type: 3}
   _upWallPrefab: {fileID: 1965345860713556056, guid: 73a49753325fca14885956fa8b818260, type: 3}
   _downWallPrefab: {fileID: 7211540088720805553, guid: 998e81e8aab9d174aace3202cf6d5d67, type: 3}
-  _cornerPrefab: {fileID: 7943077754896995291, guid: 6cd4c17ccd518834986048a036c5cd91, type: 3}
+  _cornerPrefab: {fileID: 5760334099817602010, guid: ce71a4494f21dea4392ab6eb241655c0, type: 3}
   _straightCornerPrefab: {fileID: 5566811148848070484, guid: 2f2dc286961164a4da99a3b87fa12ca6, type: 3}
 --- !u!4 &1037113883
 Transform:
