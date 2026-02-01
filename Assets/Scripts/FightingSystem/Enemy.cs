@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int difficulty = 3;
     public Mask droppedMask;
     [Header("References")]
-    [SerializeField] private VoxelRenderer maskVoxelRenderer;
+    //[SerializeField] private VoxelRenderer maskVoxelRenderer;
     [SerializeField] private Image hpBarFill;
     [SerializeField] private Gradient gradient;
 
@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour
         this.droppedMask = droppedMask;
         this.difficulty = difficulty;
 
-        maskVoxelRenderer.SetPalette(droppedMask.MainEmotion.ColorPaletteIndex);
+        //maskVoxelRenderer.SetPalette(droppedMask.MainEmotion.ColorPaletteIndex);
     }
 
     public Attack GetNextAttack()
