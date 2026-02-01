@@ -31,6 +31,8 @@ public class MovingManager : MonoBehaviour
     [SerializeField] private Camera _playerCamera = null;
     [SerializeField] private Camera _fightCamera = null;
 
+    [SerializeField] List<Fight> _fights = null;
+
     private Directions facingDirection = Directions.Down;
     private Vector2Int gridPosition = Vector2Int.zero;
     private Dictionary<Directions, Vector2Int> _directionToVector = null;
@@ -55,17 +57,8 @@ public class MovingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        FightManager.OnWinFight += _ =>
-        {
-            _playerCamera.enabled = true;
-            _fightCamera.enabled = false;
-            canInput = true;
-        };
-
-        FightManager.OnGameOver += () =>
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        };
+        FightManager.OnWinFight += OnWin;
+        FightManager.OnGameOver += OnGameOver;
 
         _directionToVector = new Dictionary<Directions, Vector2Int>
         {
@@ -86,6 +79,24 @@ public class MovingManager : MonoBehaviour
         roomManager = roomManagerObject.GetComponent<IRoomManager>();
         transform.position = roomManager.GetStartPosition(out gridPosition);
 
+    }
+
+    private void OnDestroy()
+    {
+        FightManager.OnWinFight -= OnWin;
+        FightManager.OnGameOver -= OnGameOver;
+    }
+
+    private void OnWin(Fight fight)
+    {
+        _playerCamera.enabled = true;
+        _fightCamera.enabled = false;
+        canInput = true;
+    }
+
+    private void OnGameOver()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void Teleport()
@@ -134,13 +145,13 @@ public class MovingManager : MonoBehaviour
                     isMoving = true;
                     break;
                 case DungeonEvents.Boss:
-                    FightManager.StartFight(_fight);
+                    FightManager.StartFight(_fights[Random.Range(0, _fights.Count)]);
                     _playerCamera.enabled = false;
                     _fightCamera.enabled = true;
                     canInput = false;
                     break;
                 case DungeonEvents.Fight:
-                    FightManager.StartFight(_fight);
+                    FightManager.StartFight(_fights[Random.Range(0, _fights.Count)]);
                     _playerCamera.enabled = false;
                     _fightCamera.enabled = true;
                     canInput = false;

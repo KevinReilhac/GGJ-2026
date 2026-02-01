@@ -6,8 +6,6 @@ public class VFXManager : MonoBehaviour
 {
     Pool vfxPool;
     [SerializeField] List<VisualEffectAsset> vfxList = new List<VisualEffectAsset>();
-    [SerializeField] List<string> baseName = new List<string>();
-    [SerializeField] List<string> replacementName = new List<string>();
     Dictionary<string, VisualEffectAsset> vfxRefDictionnary = new Dictionary<string, VisualEffectAsset>();
     Dictionary<string, string> translator = new Dictionary<string, string>();
     public static VFXManager _instance;
