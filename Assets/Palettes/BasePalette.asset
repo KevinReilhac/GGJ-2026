@@ -41,19 +41,11 @@ MonoBehaviour:
     EmissiveIntensity: 0
     Metallic: 0
     Smoothness: 0
-  - Color: {r: 0.17466182, g: 0.18282014, b: 0.23584908, a: 1}
-    EmissiveIntensity: 0
-    Metallic: 0
-    Smoothness: 1
   - Color: {r: 0.24350303, g: 0.25243807, b: 0.3018868, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
     Smoothness: 1
   - Color: {r: 0.26321647, g: 0.27577376, b: 0.3301887, a: 1}
-    EmissiveIntensity: 0
-    Metallic: 0
-    Smoothness: 1
-  - Color: {r: 0.2677999, g: 0.27441928, b: 0.3207547, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
     Smoothness: 1
@@ -82,6 +74,22 @@ MonoBehaviour:
     Metallic: 0
     Smoothness: 1
   - Color: {r: 0.34091312, g: 0.36764783, b: 0.4433962, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 1
+  - Color: {r: 0.37255248, g: 0.40432537, b: 0.49056602, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 1
+  - Color: {r: 0.17194732, g: 0.17739409, b: 0.2264151, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 1
+  - Color: {r: 0.19824672, g: 0.19824672, b: 0.254717, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 1
+  - Color: {r: 0.39822888, g: 0.4354307, b: 0.5377358, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
     Smoothness: 1
