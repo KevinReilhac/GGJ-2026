@@ -216,6 +216,7 @@ public class DungeonManager : MonoBehaviour, IRoomManager
                             room.SetEvent(DungeonEvents.Chest);
                             InstantiateRoomPart(RoomParts.Chest, room.Position, rotation);
                             adjacentRoom.SetEvent(DungeonEvents.Fight);
+                            InstantiateRoomPart(RoomParts.Fight, adjacentRoom.Position, rotation);
                             break;
                         }
                     }
