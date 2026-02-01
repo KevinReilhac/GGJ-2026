@@ -49,5 +49,6 @@ public class EnemyPanel : Panel
             .SetEase(showEase)
             .OnComplete(() => gameObject.SetActive(false));
     */
+        gameObject.SetActive(false);
     }
 }

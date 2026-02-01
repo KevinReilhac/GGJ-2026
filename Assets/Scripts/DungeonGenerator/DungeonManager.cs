@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DungeonManager : MonoBehaviour, IRoomManager
 {
@@ -95,8 +96,11 @@ public class DungeonManager : MonoBehaviour, IRoomManager
 
     private void Start()
     {
-        FightManager.OnWinFight += _ =>
-        {
+        FightManager.OnWinFight += OnWinFight;
+    }
+
+    private void OnWinFight(Fight fight)
+    {
             if (_currentFightType == DungeonEvents.Fight)
             {
                 Room room = GetRoom(_currentFightPosition);
@@ -119,7 +123,11 @@ public class DungeonManager : MonoBehaviour, IRoomManager
                 GenerateDungeon();
                 FindObjectOfType<MovingManager>().Teleport();
             }
-        };
+    }
+
+    private void OnDestroy()
+    {
+        FightManager.OnWinFight -= OnWinFight;
     }
 
     private void GenerateDungeon()
