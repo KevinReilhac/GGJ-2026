@@ -9,7 +9,7 @@ public class MenuManager : MonoBehaviour
     public void onPlayClicked()
     {
         StartCoroutine(WaitDelay(3f));
-        UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("ProceduralGeneration");
     }
 
     IEnumerator WaitDelay(float delay)
