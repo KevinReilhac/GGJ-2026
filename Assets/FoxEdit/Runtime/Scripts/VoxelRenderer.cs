@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace FoxEdit
 {
-    [ExecuteAlways]
+    //[ExecuteAlways]
     [RequireComponent(typeof(MeshFilter))]
     [RequireComponent(typeof(MeshRenderer))]
     public class VoxelRenderer : MonoBehaviour
@@ -56,7 +56,8 @@ namespace FoxEdit
 
         void OnValidate()
         {
-            Setup();
+            if ((_meshFilter == null || _meshFilter.mesh == null))
+                Setup();
         }
 
         void Start()
@@ -73,7 +74,11 @@ namespace FoxEdit
             if (_material == null)
                 _material = Instantiate(foxEditSettings.Materials.animatedMaterial);
             if (_staticMaterial == null)
+            {
                 _staticMaterial = Instantiate(foxEditSettings.Materials.staticMaterial);
+                if (_meshRenderer != null)
+                    _meshRenderer.material = _staticMaterial;
+            }
 
             if (_meshFilter == null)
                 _meshFilter = GetComponent<MeshFilter>();
