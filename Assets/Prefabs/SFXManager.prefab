@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1900014888028527597
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5190219425676810888}
+  - component: {fileID: 9102408945353086753}
+  - component: {fileID: 9117252010832945444}
+  m_Layer: 0
+  m_Name: SFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5190219425676810888
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900014888028527597}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -17.451548, y: -0.8469475, z: 1.989436}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9102408945353086753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900014888028527597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3fb3f1b0b4127b4ba62feca6591bc3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectCount: 10
+  prefabObject: {fileID: 4596403169626592347, guid: fef34ee5d4ab51544befc17659cd21f7, type: 3}
+--- !u!114 &9117252010832945444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900014888028527597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dfafca706294c24a9acae20ccb2dbd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SFXPairs:
+  - sfxFlare: {fileID: 8300000, guid: f093dcaac74e9ee4282a5546d25119d5, type: 3}
+    sfxExplosion: {fileID: 8300000, guid: 48750eba1446f1747a9bfb7dbe85a6f2, type: 3}
+  - sfxFlare: {fileID: 8300000, guid: 4b32a0dd31eab924fa32a09caaa39bec, type: 3}
+    sfxExplosion: {fileID: 8300000, guid: a4ef64c9c4401b44d88dd8da7186e6c1, type: 3}
+  - sfxFlare: {fileID: 8300000, guid: d2fc082a71afc6c4898f4ddcc56c879d, type: 3}
+    sfxExplosion: {fileID: 8300000, guid: a1e5cd6c4fe25ae46a09b07733c0bfce, type: 3}
+  - sfxFlare: {fileID: 8300000, guid: 29be5a10d5b4f334ba3bc96ff0dba7e6, type: 3}
+    sfxExplosion: {fileID: 8300000, guid: 85778c0efab63204e93425c183d72371, type: 3}
+  - sfxFlare: {fileID: 8300000, guid: a2f0b9f6accb61043bce5d3a826531c8, type: 3}
+    sfxExplosion: {fileID: 8300000, guid: c62aaf2f50cfe1a4e9031aeb36efed67, type: 3}
+  SFXPairsName:
+  - Rage
+  - Fear
+  - Disgust
+  - Sadness
+  - Joy

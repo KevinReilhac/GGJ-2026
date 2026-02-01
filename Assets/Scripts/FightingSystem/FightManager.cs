@@ -45,6 +45,7 @@ public static class FightManager
 
     public static void PlayerAttack(Attack playerAttack)
     {
+        VFXManager._instance.GetVFX(CurrentEnemyAttack.GetEmotionsStatsList());
         if (playerAttack.CompareAttacks(CurrentEnemyAttack, out Attack statsDamages))
         {
             Debug.LogFormat("Player damages \n {0}", statsDamages);

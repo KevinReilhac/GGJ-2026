@@ -6,8 +6,14 @@ public class VFXManager : MonoBehaviour
 {
     Pool vfxPool;
     [SerializeField] List<VisualEffectAsset> vfxList = new List<VisualEffectAsset>();
+    [SerializeField] List<string> baseName = new List<string>();
+    [SerializeField] List<string> replacementName = new List<string>();
     Dictionary<string, VisualEffectAsset> vfxRefDictionnary = new Dictionary<string, VisualEffectAsset>();
+    Dictionary<string, string> translator = new Dictionary<string, string>();
     public static VFXManager _instance;
+    [SerializeField] Transform startPos;
+    [SerializeField] Transform destination;
+    float speed;
 
     void Awake()
     {
@@ -25,12 +31,62 @@ public class VFXManager : MonoBehaviour
             vfxRefDictionnary.Add(vfxList[i].name, vfxList[i]);
         }
         vfxPool = GetComponent<Pool>();
+
+        translator.Add("Sad", "Sadness");
+        translator.Add("Joy", "Joy");
+        translator.Add("Angry", "Rage");
+        translator.Add("Disgust", "Disgust");
+        translator.Add("Scare", "Fear");
     }
 
-    public void GetVFX(string vfxName, Vector3 startPos, Transform destination, float speed)
+    public void GetVFX(List<EmotionStat> emotion)
     {
+        string vfxName = ParseAttack(emotion);
         VFXObject objRef = vfxPool.GetObject().GetComponent<VFXObject>();
-        objRef.SetVFX(vfxRefDictionnary[vfxName], startPos, destination, speed);
+        objRef.SetVFX(vfxRefDictionnary[vfxName], startPos.position, destination, speed);
         objRef.ThrowVFX();
+    }
+
+    string ParseAttack(List<EmotionStat> emotion)
+    {
+        string highestStatName = "";
+        int highestStat = 0;
+        for(int i = 0; i< emotion.Count; i++)
+        {
+            if(emotion[i].stat > highestStat)
+            {
+                highestStat = emotion[i].stat;
+                highestStatName = emotion[i].emotionType.ToString();
+            }
+        }
+        highestStatName = translator[highestStatName];
+        SetSpeed(highestStatName);
+
+        return highestStatName;
+    }
+
+    void SetSpeed(string newName)
+    {
+        switch(newName)
+        {
+            case "Rage" :
+                speed = 2;
+                break;  
+            case "Fear" :
+                speed= 1;
+                break;  
+            case "Disgust" :
+                speed= 1;
+                break;  
+            case "Sadness" :
+                speed= 0.5f;
+                break; 
+            case "Joy" :
+                speed= 0.5f;
+                break; 
+            default :
+                speed = 1;
+                break;
+        }
     }
 }
