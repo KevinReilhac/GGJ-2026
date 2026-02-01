@@ -14,7 +14,7 @@ namespace FoxEdit
     {
         //User editable
         [SerializeField] private VoxelObject _voxelObject = null;
-        [SerializeField] private int _paletteIndexOverride = 0;
+        [SerializeField] private int _paletteIndexOverride = -1;
         [SerializeField] private bool _staticRender = false;
         [SerializeField] private float _frameDuration = 0.2f;
 
@@ -56,7 +56,8 @@ namespace FoxEdit
 
         void OnValidate()
         {
-            Setup();
+            if ((_meshFilter == null || _meshFilter.mesh == null))
+                Setup();
         }
 
         void Start()
@@ -73,7 +74,11 @@ namespace FoxEdit
             if (_material == null)
                 _material = Instantiate(foxEditSettings.Materials.animatedMaterial);
             if (_staticMaterial == null)
+            {
                 _staticMaterial = Instantiate(foxEditSettings.Materials.staticMaterial);
+                if (_meshRenderer != null)
+                    _meshRenderer.material = _staticMaterial;
+            }
 
             if (_meshFilter == null)
                 _meshFilter = GetComponent<MeshFilter>();
@@ -170,8 +175,10 @@ namespace FoxEdit
 
         internal void RefreshColors()
         {
-            SetPalette(_voxelObject.PaletteIndex);
-            SetRenderParams();
+            if (_paletteIndexOverride != -1)
+                SetPalette(_voxelObject.PaletteIndex);
+            else
+                SetRenderParams();
             //RunComputeShader();
         }
 
@@ -279,8 +286,10 @@ namespace FoxEdit
 
             //_computeShader.SetBuffer(_kernel, "_RotationMatrices", VoxelSharedData.RotationMatricesBuffer);
 
-
-            SetPalette(_voxelObject.PaletteIndex);
+            if (_paletteIndexOverride != -1)
+                SetPalette(_paletteIndexOverride);
+            else
+                SetPalette(_voxelObject.PaletteIndex);
         }
 
         private void DisposeBuffers()

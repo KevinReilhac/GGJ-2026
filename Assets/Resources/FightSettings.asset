@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7f1d8eead14a4842a6d478a3382bffb, type: 3}
+  m_Name: FightSettings
+  m_EditorClassIdentifier: 
+  emotions:
+  - emotionType: 0
+    name: Joy
+    colorPaletteIndex: 5
+    color: {r: 0.99607843, g: 0.9647059, b: 0.67058825, a: 1}
+  - emotionType: 1
+    name: Sad
+    colorPaletteIndex: 6
+    color: {r: 0.6862745, g: 0.87058824, b: 0.99607843, a: 1}
+  - emotionType: 2
+    name: Angry
+    colorPaletteIndex: 3
+    color: {r: 0.9372549, g: 0.4117647, b: 0.50980395, a: 1}
+  - emotionType: 3
+    name: Disgust
+    colorPaletteIndex: 4
+    color: {r: 0.79607844, g: 1, b: 0.6117647, a: 1}
+  - emotionType: 4
+    name: Disgust
+    colorPaletteIndex: 7
+    color: {r: 0.9019608, g: 0.69411767, b: 0.99607843, a: 1}
+  - emotionType: 255
+    name: Multi
+    colorPaletteIndex: 8
+    color: {r: 0.90567654, g: 0.88487893, b: 0.9150943, a: 1}

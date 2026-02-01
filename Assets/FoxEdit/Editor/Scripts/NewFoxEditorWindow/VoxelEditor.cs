@@ -7,6 +7,7 @@ using System.Linq;
 using System;
 using System.Threading.Tasks;
 using System.IO;
+using UnityEngine.InputSystem;
 
 namespace FoxEdit
 {
@@ -295,7 +296,7 @@ namespace FoxEdit
             IsDirty = true;
         }
 
-#region Animations
+        #region Animations
         public VoxelEditorAnimation GetVoxelEditorAnimation(int index)
         {
             return _animationList[index];
@@ -310,7 +311,7 @@ namespace FoxEdit
                 SelectedAnimationIndex--;
             else
                 SelectedAnimationIndex = SelectedAnimationIndex;
-            
+
             _animationList.RemoveAt(index);
 
             IsDirty = true;
@@ -319,9 +320,17 @@ namespace FoxEdit
         public void NewAnimation(string animationName)
         {
             _animationList.Add(new VoxelEditorAnimation(animationName));
-            VoxelEditorFrame newFrame = CurrentAnimation[SelectedFrameIndex].GetCopy(_animationList.Count, PaletteIndex);
-            SelectedAnimationIndex = _animationList.Count - 1;
-            CurrentAnimation.AddFrame(newFrame);
+            if (CurrentAnimation != null && CurrentAnimation.FramesCount != 0)
+            {
+                VoxelEditorFrame newFrame = CurrentAnimation[SelectedFrameIndex].GetCopy(_animationList.Count, PaletteIndex);
+                SelectedAnimationIndex = _animationList.Count - 1;
+                CurrentAnimation.AddFrame(newFrame);
+            }
+            else
+            {
+                SelectedAnimationIndex = _animationList.Count - 1;
+                NewFrame();
+            }
 
             ChangeFrame(CurrentAnimation.FramesCount - 1);
 
@@ -332,7 +341,7 @@ namespace FoxEdit
         {
             return _animationList.Select(a => a.Name).ToList();
         }
-#endregion
+        #endregion
         #region Helpers
 
         public bool TryGetCubePosition(out Vector3 cubePosition, out Vector3 worldNormal, Ray ray)
@@ -474,6 +483,7 @@ namespace FoxEdit
         {
             string directory = Path.GetDirectoryName(savePath);
             string meshName = Path.GetFileNameWithoutExtension(savePath);
+            Debug.Log(savePath);
             VoxelSaveSystem.Save(meshName, directory, _voxelRenderer, CurrentPalette, PaletteIndex, _animationList, _computeStaticMesh);
             IsDirty = false;
         }
