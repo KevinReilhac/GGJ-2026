@@ -94,6 +94,7 @@ public class FightHUD : MonoBehaviour
 
     private void OnStartFight()
     {
+        GetPanel<StateTextPanel>().SetupAndShow("Début du combat");
         StartMaskSelection(true);
     }
 
@@ -101,7 +102,6 @@ public class FightHUD : MonoBehaviour
     private void StartMaskSelection(bool firstTurn)
     {
         HideAllPanels();
-        GetPanel<StateTextPanel>().SetupAndShow(firstTurn ? "Début du combat" : "Nouveau tour");
         PlayerFighter.Instance.ClearMasks();
         if (PlayerFighter.Instance.Masks == null || PlayerFighter.Instance.Masks.Count == 0)
         {
@@ -142,6 +142,7 @@ public class FightHUD : MonoBehaviour
     private void NextTurn()
     {
         StartMaskSelection(false);
+        GetPanel<StateTextPanel>().SetupAndShow("Fin du combat");
     }
 
     private void OnWinFight(Fight fight)
