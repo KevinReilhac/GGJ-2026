@@ -3,24 +3,30 @@ using System.Collections.Generic;
 using System.Configuration.Assemblies;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-    public void onPlayClicked()
-    {
-        StartCoroutine(WaitDelay(3f));
-        UnityEngine.SceneManagement.SceneManager.LoadScene("ProceduralGeneration");
-    }
-
-    IEnumerator WaitDelay(float delay)
+    IEnumerator LoadLevelAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene("ProceduralGeneration");
+    }
+
+    public void onPlayClicked()
+    {
+        StartCoroutine(LoadLevelAfterDelay(2f));
+    }
+
+    IEnumerator QuitAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Application.Quit();
     }
 
     public void onQuitClicked()
     {
-        StartCoroutine(WaitDelay(3f));
-        Application.Quit();
+        StartCoroutine(LoadLevelAfterDelay(2f));
     }
 
 }
