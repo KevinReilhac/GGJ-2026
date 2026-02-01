@@ -31,6 +31,8 @@ public class MovingManager : MonoBehaviour
     [SerializeField] private Camera _playerCamera = null;
     [SerializeField] private Camera _fightCamera = null;
 
+    [SerializeField] List<Fight> _fights = null;
+
     private Directions facingDirection = Directions.Down;
     private Vector2Int gridPosition = Vector2Int.zero;
     private Dictionary<Directions, Vector2Int> _directionToVector = null;
@@ -134,13 +136,13 @@ public class MovingManager : MonoBehaviour
                     isMoving = true;
                     break;
                 case DungeonEvents.Boss:
-                    FightManager.StartFight(_fight);
+                    FightManager.StartFight(_fights[Random.Range(0, _fights.Count)]);
                     _playerCamera.enabled = false;
                     _fightCamera.enabled = true;
                     canInput = false;
                     break;
                 case DungeonEvents.Fight:
-                    FightManager.StartFight(_fight);
+                    FightManager.StartFight(_fights[Random.Range(0, _fights.Count)]);
                     _playerCamera.enabled = false;
                     _fightCamera.enabled = true;
                     canInput = false;
