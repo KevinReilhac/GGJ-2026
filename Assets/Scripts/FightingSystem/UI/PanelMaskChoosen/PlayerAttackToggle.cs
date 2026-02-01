@@ -7,12 +7,13 @@ using UnityEngine.UI;
 
 public class PlayerAttackToggle : MonoBehaviour, IPointerClickHandler
 {
-    public event Action<bool> OnValueChanged;
+    public event Action<int> OnClick;
 
     [SerializeField] private Image background;
     [SerializeField] private Image fill;
 
     private bool selectable = false;
+    private int index = 0;
     public bool Value {get; private set;} = false;
 
     public void SetColor(Color color)
@@ -20,12 +21,20 @@ public class PlayerAttackToggle : MonoBehaviour, IPointerClickHandler
         fill.color = color;
     }
 
-    public void SetValue(bool value, bool notify = true)
+    public void Setup(int index, bool value, Action<int> OnClickCallback)
     {
         Value = value;
-        if (notify)
-            OnValueChanged?.Invoke(value);
+        OnClick = OnClickCallback;
+        this.index = index;
+        SetValue(value);
     }
+
+    public void SetValue(bool value)
+    {
+        fill.gameObject.SetActive(value);
+        Value = value;
+    }
+
 
     public void SetSelectable(bool selectable)
     {
@@ -36,6 +45,6 @@ public class PlayerAttackToggle : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         if (selectable)
-            SetValue(Value);
+            OnClick?.Invoke(index);
     }
 }

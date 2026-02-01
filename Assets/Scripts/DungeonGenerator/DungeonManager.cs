@@ -10,6 +10,7 @@ public class DungeonManager : MonoBehaviour, IRoomManager
     [SerializeField] private float _linkSize = 0.1f;
     [SerializeField] private float _roomHeight = 1.0f;
     [SerializeField] private float _roomGenerationChance = 0.5f;
+    [SerializeField] private float _directionChangeChance = 0.5f;
     [SerializeField] private float _fightChance = 0.5f;
     [SerializeField] private float _chestChance = 0.5f;
 
@@ -374,8 +375,10 @@ public class DungeonManager : MonoBehaviour, IRoomManager
 
         foreach (Directions direction in keys)
         {
-            Vector2Int offset = _directionToVector[direction];
+            if (direction == incomingDirection && Random.Range(0.0f, 1.0f) < _directionChangeChance)
+                continue;
 
+            Vector2Int offset = _directionToVector[direction];
             if (!(direction == Directions.None || canChangeGenerationDirection || incomingDirection == direction))
                 continue;
 

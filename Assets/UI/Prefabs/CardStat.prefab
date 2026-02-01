@@ -53,6 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   emotion: 0
   valueText: {fileID: 4734497941871005581}
+  icon: {fileID: 1407149272662878830}
 --- !u!114 &7115220926617284860
 MonoBehaviour:
   m_ObjectHideFlags: 0

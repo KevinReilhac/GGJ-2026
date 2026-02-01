@@ -6,7 +6,7 @@ public class FightTestScene : MonoBehaviour
 {
     [SerializeField] private Fight fight;
 
-    void Awake()
+    private void Start()
     {
         FightManager.StartFight(fight);
     }

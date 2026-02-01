@@ -14,19 +14,13 @@ public class MaskDropPanel : Panel
     void Awake()
     {
         cardTemplate.gameObject.SetActive(false);
-        Setup(new List<Mask>()
-        {
-            new Mask(joy : 4),
-            new Mask(sad : 4),
-            new Mask(angry : 4),
-            new Mask(disgust : 4),
-        });
     }
 
-    public void Setup(List<Mask> masks)
+    public void Setup(List<Mask> masks, Action<Mask> OnMaskSelectedCallback)
     {
         ClearCards();
         masks.ForEach(CreateCard);
+        OnMaskSelected = OnMaskSelectedCallback;
     }
 
     private void CreateCard(Mask mask)
@@ -36,6 +30,7 @@ public class MaskDropPanel : Panel
         dropMaskCard.transform.SetParent(cardsContainer);
         dropMaskCard.SetMask(mask);
         dropMaskCards.Add(dropMaskCard);
+        dropMaskCard.transform.localScale = Vector3.one;
 
         dropMaskCard.OnSelectCard += OnSelectMask;
     }
@@ -49,7 +44,7 @@ public class MaskDropPanel : Panel
     {
         foreach (DropMaskCard dropMaskCard in dropMaskCards)
         {
-            Destroy(dropMaskCard);
+            Destroy(dropMaskCard.gameObject);
         }
         dropMaskCards.Clear();
     }
