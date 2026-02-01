@@ -9,5 +9,6 @@ public enum RoomParts
     StraightCorner,
     Chest,
     Fight,
-    Stairs
+    Stairs,
+    Lantern
 }

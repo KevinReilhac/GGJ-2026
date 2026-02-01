@@ -79,6 +79,9 @@ public class Room
             else
             {
                 dungeonManager.InstantiateRoomPart(RoomParts.Wall, offsetPosition, rotation);
+                if (Random.Range(0.0f, 1.0f) < 0.2f)
+                    dungeonManager.InstantiateRoomPart(RoomParts.Lantern, offsetPosition + Vector3.up, rotation);
+
                 Directions nextDirection = directions[(i + 1) % 4];
                 offsetPosition += dungeonManager.GridToWorldDirection(directionToVector[nextDirection], (dungeonManager.RoomSize + 0.3f) * 0.5f);
                 if (OpenDirections.Contains(nextDirection))

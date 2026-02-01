@@ -509,8 +509,9 @@ MonoBehaviour:
   _cornerPrefab: {fileID: 5760334099817602010, guid: ce71a4494f21dea4392ab6eb241655c0, type: 3}
   _straightCornerPrefab: {fileID: 5566811148848070484, guid: 2f2dc286961164a4da99a3b87fa12ca6, type: 3}
   _chestPrefab: {fileID: 3564960476299353600, guid: b1aff854205c2d34ba241366d2ff49cd, type: 3}
-  _fightPrefab: {fileID: 7476811533826745749, guid: c5a0d7eed06a45541a76baefad8bb9df, type: 3}
+  _fightPrefab: {fileID: 1168945454518458365, guid: f6534fc8cdb44d04c9c7794bb3dbe580, type: 3}
   _stairsPrefab: {fileID: 1005724864987496974, guid: 304402e6418f7284da92812e3c366f46, type: 3}
+  _lanternPrefab: {fileID: 1360662871123681595, guid: 7b0208b6a05ce094bb9a2fad7b424d13, type: 3}
 --- !u!4 &1037113883
 Transform:
   m_ObjectHideFlags: 0

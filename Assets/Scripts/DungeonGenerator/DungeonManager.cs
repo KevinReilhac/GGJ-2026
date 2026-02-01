@@ -27,6 +27,7 @@ public class DungeonManager : MonoBehaviour, IRoomManager
     [SerializeField] private Transform _chestPrefab = null;
     [SerializeField] private Transform _fightPrefab = null;
     [SerializeField] private Transform _stairsPrefab = null;
+    [SerializeField] private Transform _lanternPrefab = null;
 
     private Room[][] _dungeon = null;
     private Dictionary<Directions, Vector2Int> _directionToVector = null;
@@ -77,7 +78,8 @@ public class DungeonManager : MonoBehaviour, IRoomManager
             [RoomParts.StraightCorner] = _straightCornerPrefab,
             [RoomParts.Chest] = _chestPrefab,
             [RoomParts.Fight] = _fightPrefab,
-            [RoomParts.Stairs] = _stairsPrefab
+            [RoomParts.Stairs] = _stairsPrefab,
+            [RoomParts.Lantern] = _lanternPrefab,
         };
 
         _cornerPositions = new List<(RoomParts, Transform)>();
