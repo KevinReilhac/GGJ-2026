@@ -37,6 +37,7 @@ public class VFXObject : MonoBehaviour
     {
         hasHit = false;
         vfx.SendEvent("OnPlay");
+        SFXPlayer._instance.MakeAttackSound(vfx.visualEffectAsset.name, true, startPos);
 
         timer = 0;
     }
@@ -75,6 +76,7 @@ public class VFXObject : MonoBehaviour
     void HitVFX()
     {
         vfx.SendEvent("OnVFXHit");
+        SFXPlayer._instance.MakeAttackSound(vfx.visualEffectAsset.name, false, destination.position);
         hasHit = true;
     }
 
