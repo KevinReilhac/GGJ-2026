@@ -30,6 +30,7 @@ public class VFXObject : MonoBehaviour
         thirdPoint = Vector3.Lerp(startPos, destination.position, 0.5f);
         
         thirdPoint += Random.insideUnitSphere * Vector3.Distance(startPos, destination.position) * 0.5f;
+        thirdPoint += Vector3.up * 0.75f;
     }
 
     public void ThrowVFX()

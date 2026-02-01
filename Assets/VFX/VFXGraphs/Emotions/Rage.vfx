@@ -154,7 +154,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 1.27
+      m_SerializableObject: 0.5
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -168,7 +168,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 2.5
+      m_SerializableObject: 0.37
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -182,7 +182,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 6
+      m_SerializableObject: 0.98
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -224,7 +224,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.25
+      m_SerializableObject: 0.12
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -238,7 +238,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.65
+      m_SerializableObject: 0.2
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -3141,7 +3141,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 2.5
+      m_SerializableObject: 0.37
     m_Space: 2147483647
   m_Property:
     name: o
@@ -3240,7 +3240,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Position, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"position":{"x":-0.10000000149011612,"y":-0.10000000149011612,"z":-0.10000000149011612}}'
+      m_SerializableObject: '{"position":{"x":-0.05000000074505806,"y":-0.05000000074505806,"z":-0.05000000074505806}}'
     m_Space: 0
   m_Property:
     name: A
@@ -3410,7 +3410,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Position, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"position":{"x":0.10000000149011612,"y":0.10000000149011612,"z":0.10000000149011612}}'
+      m_SerializableObject: '{"position":{"x":0.05000000074505806,"y":0.05000000074505806,"z":0.05000000074505806}}'
     m_Space: 0
   m_Property:
     name: B
@@ -4241,7 +4241,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 1.27
+      m_SerializableObject: 0.5
     m_Space: 2147483647
   m_Property:
     name: o
@@ -5490,7 +5490,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Position, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"position":{"x":-0.10000000149011612,"y":-0.10000000149011612,"z":-0.10000000149011612}}'
+      m_SerializableObject: '{"position":{"x":-0.05000000074505806,"y":-0.05000000074505806,"z":-0.05000000074505806}}'
     m_Space: 0
   m_Property:
     name: A
@@ -5660,7 +5660,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Position, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"position":{"x":0.10000000149011612,"y":0.10000000149011612,"z":0.10000000149011612}}'
+      m_SerializableObject: '{"position":{"x":0.05000000074505806,"y":0.05000000074505806,"z":0.05000000074505806}}'
     m_Space: 0
   m_Property:
     name: B
@@ -10823,7 +10823,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.65
+      m_SerializableObject: 0.2
     m_Space: 2147483647
   m_Property:
     name: o
@@ -10938,7 +10938,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.25
+      m_SerializableObject: 0.12
     m_Space: 2147483647
   m_Property:
     name: o
@@ -12793,7 +12793,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 6
+      m_SerializableObject: 0.98
     m_Space: 2147483647
   m_Property:
     name: o
