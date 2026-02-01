@@ -32,17 +32,22 @@ public class EnemyPanel : Panel
     }
     public override void ShowAnimation()
     {
+        /*
         gameObject.SetActive(true);
         rectTransform.DOKill();
         rectTransform.DOSizeDelta(startSize, showTime)
             .SetEase(showEase)
             .ChangeStartValue(new Vector2(startSize.x, 0f));
+        */
+        gameObject.SetActive(true);
     }
 
     public override void HideAnimation()
     {
+    /*
         rectTransform.DOSizeDelta(new Vector2(startSize.x, 0f), showTime)
             .SetEase(showEase)
             .OnComplete(() => gameObject.SetActive(false));
+    */
     }
 }

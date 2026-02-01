@@ -52,7 +52,10 @@ public class PlayerFighter : MonoBehaviour
         List<Mask> masksCopy = new List<Mask>(Masks);
 
         foreach (Mask mask in masksCopy)
-            Masks.Remove(mask);
+        {
+            if (mask.IsMaskEmpty())
+                Masks.Remove(mask);
+        }
     }
 
     public Attack GetPlayerAttackFullStats()
