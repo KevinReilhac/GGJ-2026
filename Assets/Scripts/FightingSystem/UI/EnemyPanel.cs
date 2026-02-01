@@ -18,10 +18,6 @@ public class EnemyPanel : Panel
     void Awake()
     {
         startSize = rectTransform.sizeDelta;
-        SetAttack(new Attack(new List<EmotionStat>() {
-            new EmotionStat(EEmotion.Joy, 3),
-            new EmotionStat(EEmotion.Angry, 5)
-        }));
     }
 
     public void SetAttack(Attack attack)

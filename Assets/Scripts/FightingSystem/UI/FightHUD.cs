@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FoxEdit;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class FightHUD : MonoBehaviour
 {
+    #region Panel
     [SerializeField] private List<Panel> panels;
 
     private Dictionary<Type, Panel> panelsDict;
@@ -69,9 +71,73 @@ public class FightHUD : MonoBehaviour
             panel.Hide();
         }
     }
+    #endregion
 
     private void Awake()
     {
         HideAllPanels();
+
+        FightManager.OnStartMaskSelection += StartMaskSelection;
+        FightManager.OnWinFight += OnWinFight;
+        FightManager.OnExitFight += HideAllPanels;
+        FightManager.OnGameOver += HideAllPanels;
+    }
+
+
+    void OnDestroy()
+    {
+        FightManager.OnStartMaskSelection -= StartMaskSelection;
+        FightManager.OnWinFight -= OnWinFight;
+        FightManager.OnExitFight -= HideAllPanels;
+        FightManager.OnGameOver -= HideAllPanels;
+    }
+
+    private void StartMaskSelection()
+    {
+        HideAllPanels();
+        if (PlayerFighter.Instance.Masks == null || PlayerFighter.Instance.Masks.Count == 0)
+        {
+            FightManager.SelectMask(null);
+            ShowFightPanels();
+        }
+        else
+        {
+            MaskChoicePanel maskChoicePanel = GetPanel<MaskChoicePanel>();
+
+            maskChoicePanel.Setup(PlayerFighter.Instance.Masks, OnMaskSelected);
+            maskChoicePanel.Show();
+        }
+
+        ShowEnemyPanel();
+    }
+
+    private void OnMaskSelected(Mask mask)
+    {
+        FightManager.SelectMask(mask);
+        HidePanel<MaskChoicePanel>();
+        ShowFightPanels();
+    }
+    
+    private void ShowEnemyPanel()
+    {
+        EnemyPanel enemyPanel = GetPanel<EnemyPanel>();
+        enemyPanel.ShowAndSetup(FightManager.CurrentEnemyAttack);
+    }
+
+    private void ShowFightPanels()
+    {
+        ChoosenMaskPanel choosenMaskPanel = GetPanel<ChoosenMaskPanel>();
+        choosenMaskPanel.Setup(PlayerFighter.Instance, StartMaskSelection, FightManager.PlayerAttack);
+        choosenMaskPanel.Show();
+    }
+
+    private void OnWinFight(Fight fight)
+    {
+        HidePanel<ChoosenMaskPanel>();
+        HidePanel<EnemyPanel>();
+
+        MaskDropPanel maskDropPanel = GetPanel<MaskDropPanel>();
+        maskDropPanel.Setup(fight.GetMaskList(), FightManager.SelectDroppedMask);
+        maskDropPanel.Show();
     }
 }

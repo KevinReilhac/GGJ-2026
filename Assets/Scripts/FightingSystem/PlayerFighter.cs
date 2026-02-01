@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerFighter : MonoBehaviour
@@ -15,9 +16,18 @@ public class PlayerFighter : MonoBehaviour
     public event Action<List<EmotionStat>> OnStatsUpdated;
     public List<Mask> Masks = new List<Mask>();
     public List<EmotionStat> BaseStats = new List<EmotionStat>();
+    private Dictionary<EEmotion, int> baseStatsDict;
+    public Dictionary<EEmotion, int> BaseStatsDict
+    {
+        get
+        {
+            if (baseStatsDict == null)
+                baseStatsDict = BaseStats.ToDictionary(i => i.emotionType, i => i.stat);
+            return baseStatsDict;
+        }
+    }
 
     public int EquipedMaskIndex = -1;
-    public Dictionary<EEmotion, int> AdditionalStats;
 
     public Mask EquipedMask
     {
@@ -57,16 +67,24 @@ public class PlayerFighter : MonoBehaviour
                 statsDict.Add(baseStat.emotionType, 0);
             statsDict[baseStat.emotionType] += baseStat.stat;
         }
-        foreach (var additionalStatsItem in AdditionalStats)
-        {
-            if (!statsDict.ContainsKey(additionalStatsItem.Key))
-                statsDict.Add(additionalStatsItem.Key, 0);
-            statsDict[additionalStatsItem.Key] += additionalStatsItem.Value;
-        }
 
         foreach (KeyValuePair<EEmotion, int> statItem in statsDict)
             emotionStats.Add(new EmotionStat(statItem.Key, statItem.Value));
 
         return new Attack(emotionStats);
+    }
+
+    public int GetBaseStat(EEmotion eEmotion)
+    {
+        return BaseStatsDict.GetValueOrDefault(eEmotion, 0);
+    }
+
+    public void AddBaseStat(EEmotion eEmotion, int value)
+    {
+        Debug.LogFormat("Add player {0} stat by {0}", eEmotion, value);
+        if (BaseStatsDict.ContainsKey(eEmotion))
+            BaseStatsDict[eEmotion] -= value;
+        else
+            BaseStatsDict.Add(eEmotion, value);
     }
 }

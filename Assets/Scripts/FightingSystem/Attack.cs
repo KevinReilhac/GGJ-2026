@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Unity.VisualScripting;
 
 public class Attack
 {
@@ -9,6 +11,8 @@ public class Attack
 
     public static Attack Combine(List<Attack> attacks)
     {
+        if (attacks == null || attacks.Count == 0)
+            return new Attack();
         if (attacks.Count == 1)
             return attacks[0];
         Attack combinedAttack = new Attack(attacks[0]);
@@ -40,14 +44,35 @@ public class Attack
         statsDict = new Dictionary<EEmotion, int>(attack.statsDict);
     }
 
-    public bool IsWinOrEqualAgainst(Attack otherAttack)
+    public int GetTotal()
     {
-        foreach (int enumValue in Enum.GetValues(typeof(EEmotion)))
+        int value = 0;
+        foreach (var item in statsDict)
+            value += item.Value;
+
+        return value;
+    }
+
+    public bool CompareAttacks(Attack otherAttack, out Attack statsDamages)
+    {
+        int total = GetTotal();
+        int otherTotal = otherAttack.GetTotal();
+        statsDamages = new Attack();
+
+        if (total < otherTotal)
+            return false;
+
+        if (total >= otherAttack.GetTotal())
         {
-            EEmotion emotionType = (EEmotion)enumValue;
-            if (GetEmotionStat(emotionType) < otherAttack.GetEmotionStat(emotionType))
+            int stat;
+            int otherStat;
+            foreach (EEmotion eEmotion in EEmotionUtility.EmotionsList)
             {
-                return false;
+                stat = GetEmotionStat(eEmotion);
+                otherStat = otherAttack.GetEmotionStat(eEmotion);
+
+                if (stat > otherStat)
+                    statsDamages.AddEmotionStat(eEmotion, stat - otherStat);
             }
         }
 
@@ -83,6 +108,18 @@ public class Attack
         }
 
         return emotionStats;
+    }
+
+    public override string ToString()
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        foreach (EEmotion emotion in EEmotionUtility.EmotionsList)
+        {
+            stringBuilder.AppendLineFormat("{0} : {1}", emotion, GetEmotionStat(emotion));
+        }
+
+        return stringBuilder.ToString();
     }
 
 }
