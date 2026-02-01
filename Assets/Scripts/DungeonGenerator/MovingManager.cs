@@ -9,7 +9,7 @@ public class MovingManager : MonoBehaviour
 {
        
     [SerializeField]
-    private int offsetMovement=1;
+    private float offsetMovement=1.0f;
 
     [SerializeField]
     private AnimationCurve MoveSpeedCurve;
@@ -24,9 +24,11 @@ public class MovingManager : MonoBehaviour
     private float rotationDuration = 0.3f;
 
     [SerializeField]
-    private IRoomManager roomManager;
+    private GameObject roomManagerObject;
 
     private Directions facingDirection = Directions.Up;
+    private Vector2Int gridPosition = Vector2Int.zero;
+    private Dictionary<Directions, Vector2Int> _directionToVector = null;
 
     Vector3 futureLocation;
     Quaternion futureRotation;
@@ -35,11 +37,10 @@ public class MovingManager : MonoBehaviour
     float traveledDistance;
     float rotationDistance;
 
-
     bool isRotating = false;
     bool isMoving = false;
 
-
+    private IRoomManager roomManager;
 
     private float forwardBufferTime = 0.2f;
     private float forwardBufferCounter;
@@ -47,6 +48,14 @@ public class MovingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _directionToVector = new Dictionary<Directions, Vector2Int>
+        {
+            [Directions.Up] = new Vector2Int(0, -1),
+            [Directions.Down] = new Vector2Int(0, 1),
+            [Directions.Right] = new Vector2Int(1, 0),
+            [Directions.Left] = new Vector2Int(-1, 0)
+        };
+
         futureLocation = transform.position;
         futureRotation = transform.rotation;
 
@@ -55,13 +64,16 @@ public class MovingManager : MonoBehaviour
         traveledDistance = 0f;
         rotationDistance = 0f;
 
+        roomManager = roomManagerObject.GetComponent<IRoomManager>();
+        transform.position = roomManager.GetStartPosition(out gridPosition);
+
     }
 
     //// Update is called once per frame
     void Update()
     {
         List<Directions> listDirection = new List<Directions>();
-        listDirection = roomManager.GetPossibleDirections(new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)));
+        listDirection = roomManager.GetPossibleDirections(gridPosition);
         
         if (Keyboard.current.wKey.wasPressedThisFrame && !isMoving)
         {
@@ -77,6 +89,8 @@ public class MovingManager : MonoBehaviour
 
         if (forwardBufferCounter > 0f)
         {
+            if (!isMoving)
+                gridPosition += _directionToVector[facingDirection];
 
             Vector3 movementWithFacing = movementOnFacingDirection(facingDirection);
 
