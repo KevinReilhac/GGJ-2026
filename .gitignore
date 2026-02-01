@@ -69,6 +69,9 @@ Osel_WwiseProject/*_WwiseProject.*.validationcache
 Osel_WwiseProject/*_WwiseProject.*.wsettings
 Osel_WwiseProject/**/*.akd
 
+# History files
+.history
+
 # build stuff (unsure?)
 # Assets/Wwise/Deployment/Plugins/Windows/**/*.meta
 
