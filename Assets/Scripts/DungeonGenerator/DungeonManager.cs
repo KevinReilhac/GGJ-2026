@@ -44,6 +44,11 @@ public class DungeonManager : MonoBehaviour, IRoomManager
     public float RoomSize { get { return _roomSize; } }
     public float RoomHeight { get { return _roomHeight; } }
 
+    private Vector2Int _currentFightPosition = Vector2Int.zero;
+    private DungeonEvents _currentFightType = DungeonEvents.None;
+
+    Dictionary<Vector2Int, Transform> _enemies = null;
+
     private void Awake()
     {
 #if !UNITY_EDITOR
@@ -84,7 +89,37 @@ public class DungeonManager : MonoBehaviour, IRoomManager
         _cornerPositions = new List<(RoomParts, Transform)>();
         _linksPositions = new List<Transform>();
         _wallPositions = new List<Transform>();
+        _enemies = new Dictionary<Vector2Int, Transform>();
         GenerateDungeon();
+    }
+
+    private void Start()
+    {
+        FightManager.OnWinFight += _ =>
+        {
+            if (_currentFightType == DungeonEvents.Fight)
+            {
+                Room room = GetRoom(_currentFightPosition);
+                room?.DefeatEnemy();
+                Destroy(_enemies[_currentFightPosition]?.gameObject);
+                _enemies.Remove(_currentFightPosition);
+            }
+            else if (_currentFightType == DungeonEvents.Boss)
+            {
+                _cornerPositions = new List<(RoomParts, Transform)>();
+                _linksPositions = new List<Transform>();
+                _wallPositions = new List<Transform>();
+                _enemies = new Dictionary<Vector2Int, Transform>();
+                int childCount = transform.childCount;
+                for  (int i = 0; i < childCount; i++)
+                {
+                    Transform child = transform.GetChild(i);
+                    Destroy(child.gameObject);
+                }
+                GenerateDungeon();
+                FindObjectOfType<MovingManager>().Teleport();
+            }
+        };
     }
 
     private void GenerateDungeon()
@@ -158,7 +193,7 @@ public class DungeonManager : MonoBehaviour, IRoomManager
                 if (Random.Range(0.0f, 1.0f) < _fightChance)
                 {
                     room.SetEvent(DungeonEvents.Fight);
-                    InstantiateRoomPart(RoomParts.Fight, room.Position, Quaternion.identity);
+                    InstantiateRoomPart(RoomParts.Fight, room.Position, Quaternion.identity, position);
                     continue;
                 }
 
@@ -181,6 +216,7 @@ public class DungeonManager : MonoBehaviour, IRoomManager
                             room.SetEvent(DungeonEvents.Chest);
                             InstantiateRoomPart(RoomParts.Chest, room.Position, rotation);
                             adjacentRoom.SetEvent(DungeonEvents.Fight);
+                            InstantiateRoomPart(RoomParts.Fight, adjacentRoom.Position, rotation);
                             break;
                         }
                     }
@@ -312,13 +348,20 @@ public class DungeonManager : MonoBehaviour, IRoomManager
         }
     }
 
-    public void InstantiateRoomPart(RoomParts part, Vector3 position, Quaternion rotation)
+    public void InstantiateRoomPart(RoomParts part, Vector3 position, Quaternion rotation, Vector2Int gridPosition = default)
     {
         if (part == RoomParts.StraightCorner && _cornerPositions.Any(p => Vector3.SqrMagnitude(p.Item2.position - position) < 0.5f))
             return;
 
         if ((part == RoomParts.FloorLink || part == RoomParts.CeilLink) && _linksPositions.Any(p => Vector3.SqrMagnitude(p.position - position) < 0.5f))
             return;
+
+        if (part == RoomParts.Fight)
+        {
+            Transform enemy = Instantiate(_roomPartPrefabs[part], position, rotation);
+            _enemies[gridPosition] = enemy;
+            enemy.parent = transform;
+        }
 
         (RoomParts, Transform) otherCorner = _cornerPositions.Find(p => Vector3.SqrMagnitude(p.Item2.position - position) < 1.0f);
         if (part == RoomParts.Corner && otherCorner.Item2 != null && otherCorner.Item1 == RoomParts.StraightCorner)
@@ -336,10 +379,12 @@ public class DungeonManager : MonoBehaviour, IRoomManager
             upWall.parent = wall;
 
             _wallPositions.Add(wall);
+            wall.parent = transform;
         }
         else
         {
             Transform newPart = Instantiate(_roomPartPrefabs[part], position, rotation);
+            newPart.parent = transform;
             if (part == RoomParts.Corner || part == RoomParts.StraightCorner)
                 _cornerPositions.Add((part, newPart));
 

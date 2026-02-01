@@ -10,7 +10,6 @@ public class Room
     public List<Directions> OpenDirections { get; private set; } = null;
 
     private Vector3 _position = Vector3.zero;
-
     public Vector3 Position { get { return _position; } }
 
     public Room(Vector3 position)
@@ -110,6 +109,12 @@ public class Room
     {
         if (!IsEmpty && DungeonEvent == DungeonEvents.None)
             DungeonEvent = dungeonEvent;
+    }
+
+    public void DefeatEnemy()
+    {
+        if (DungeonEvent == DungeonEvents.Fight)
+            DungeonEvent = DungeonEvents.None;
     }
 
     public override string ToString()
