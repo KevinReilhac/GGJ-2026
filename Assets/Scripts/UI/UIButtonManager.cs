@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 using UnityEngine;
+using JetBrains.Annotations;
 
 [RequireComponent(typeof(Button))]
 public class UIButtonManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
@@ -13,6 +14,7 @@ public class UIButtonManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     [SerializeField] private AudioClip clickSound;
     [SerializeField] private AudioMixerGroup menuMixerGroup;
     private AudioSource audioSource;
+    public AudioMixer masterMixer;
 
     void Start()
     {
@@ -55,7 +57,14 @@ public class UIButtonManager : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void OnPointerClick(PointerEventData eventData)
     {
         if (clickSound != null && GetComponent<Button>().interactable)
+        {
+            MuteMusic();
             audioSource.PlayOneShot(clickSound);
+        }
     }
-
+    
+    public void MuteMusic()
+    {
+        masterMixer.SetFloat("BGMVolume", -80f);
+    }
 }
