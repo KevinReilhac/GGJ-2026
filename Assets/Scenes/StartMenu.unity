@@ -1350,10 +1350,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Jeu r\xE9alis\xE9 dans le cadre de la global game jam 2026 par :\n\nlxp,
-    andoxin, bino46, Franck Gallay, MrKebab, Kyppp, Estelle, Patalo\n"
+    andoxin, bino46, MuF, MrKebab, Cynn, Estelle, Patalo\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 08170612cb7b4ae4a8587b705fa93d7a, type: 2}
+  m_sharedMaterial: {fileID: -297685399038163532, guid: 08170612cb7b4ae4a8587b705fa93d7a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

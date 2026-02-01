@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    private bool _hasClicked = false;
+
     IEnumerator LoadLevelAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -15,6 +17,10 @@ public class MenuManager : MonoBehaviour
 
     public void onPlayClicked()
     {
+        if (_hasClicked)
+            return;
+
+        _hasClicked = true;
         StartCoroutine(LoadLevelAfterDelay(2f));
     }
 
@@ -26,7 +32,11 @@ public class MenuManager : MonoBehaviour
 
     public void onQuitClicked()
     {
-        StartCoroutine(LoadLevelAfterDelay(2f));
+        if (_hasClicked)
+            return;
+
+        _hasClicked = true;
+        StartCoroutine(QuitAfterDelay(2f));
     }
 
 }
