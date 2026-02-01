@@ -26,7 +26,7 @@ public class MovingManager : MonoBehaviour
     [SerializeField]
     private GameObject roomManagerObject;
 
-    private Directions facingDirection = Directions.Up;
+    private Directions facingDirection = Directions.Down;
     private Vector2Int gridPosition = Vector2Int.zero;
     private Dictionary<Directions, Vector2Int> _directionToVector = null;
 

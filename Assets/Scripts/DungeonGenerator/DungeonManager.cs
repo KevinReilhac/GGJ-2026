@@ -38,6 +38,10 @@ public class DungeonManager : MonoBehaviour, IRoomManager
 
     private void Awake()
     {
+#if !UNITY_EDITOR
+        FoxEdit.VoxelSharedData.Initialize();
+#endif
+
         _directionToVector = new Dictionary<Directions, Vector2Int>
         {
             [Directions.Up] = new Vector2Int(0, 1),

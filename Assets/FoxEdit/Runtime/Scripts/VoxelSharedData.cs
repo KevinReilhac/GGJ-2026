@@ -7,7 +7,9 @@ using UnityEngine;
 
 namespace FoxEdit
 {
+#if UNITY_EDITOR
     [InitializeOnLoad]
+#endif
     public static class VoxelSharedData
     {
         private static bool _isInitialized = false;
