@@ -13,7 +13,39 @@ MonoBehaviour:
   m_Name: MaskMultiPalette
   m_EditorClassIdentifier: 
   _colors:
-  - Color: {r: 0.91229486, g: 0.8852795, b: 0.9245283, a: 1}
+  - Color: {r: 0.62352943, g: 0.62352943, b: 0.62352943, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0.5
+  - Color: {r: 0.48900002, g: 0.48900002, b: 0.48900002, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0.5
+  - Color: {r: 0.16078432, g: 0.16078432, b: 0.16078432, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0.5
+  - Color: {r: 0.794, g: 0.794, b: 0.794, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0.5
+  - Color: {r: 0.291, g: 0.291, b: 0.291, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0.5
+  - Color: {r: 0.83, g: 0.83, b: 0.83, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0.5
+  - Color: {r: 0.482, g: 0.482, b: 0.482, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0.5
+  - Color: {r: 0.404, g: 0.404, b: 0.404, a: 1}
+    EmissiveIntensity: 0
+    Metallic: 0
+    Smoothness: 0.5
+  - Color: {r: 0.97900003, g: 0.97900003, b: 0.97900003, a: 1}
     EmissiveIntensity: 0
     Metallic: 0
     Smoothness: 0.5
