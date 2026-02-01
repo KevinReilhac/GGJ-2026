@@ -57,17 +57,8 @@ public class MovingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        FightManager.OnWinFight += _ =>
-        {
-            _playerCamera.enabled = true;
-            _fightCamera.enabled = false;
-            canInput = true;
-        };
-
-        FightManager.OnGameOver += () =>
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        };
+        FightManager.OnWinFight += OnWin;
+        FightManager.OnGameOver += OnGameOver;
 
         _directionToVector = new Dictionary<Directions, Vector2Int>
         {
@@ -88,6 +79,24 @@ public class MovingManager : MonoBehaviour
         roomManager = roomManagerObject.GetComponent<IRoomManager>();
         transform.position = roomManager.GetStartPosition(out gridPosition);
 
+    }
+
+    private void OnDestroy()
+    {
+        FightManager.OnWinFight -= OnWin;
+        FightManager.OnGameOver -= OnGameOver;
+    }
+
+    private void OnWin(Fight fight)
+    {
+        _playerCamera.enabled = true;
+        _fightCamera.enabled = false;
+        canInput = true;
+    }
+
+    private void OnGameOver()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void Teleport()
