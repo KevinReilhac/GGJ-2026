@@ -101,28 +101,28 @@ public class DungeonManager : MonoBehaviour, IRoomManager
 
     private void OnWinFight(Fight fight)
     {
-            if (_currentFightType == DungeonEvents.Fight)
+        if (_currentFightType == DungeonEvents.Fight)
+        {
+            Room room = GetRoom(_currentFightPosition);
+            room?.DefeatEnemy();
+            Destroy(_enemies[_currentFightPosition]?.gameObject);
+            _enemies.Remove(_currentFightPosition);
+        }
+        else if (_currentFightType == DungeonEvents.Boss)
+        {
+            _cornerPositions = new List<(RoomParts, Transform)>();
+            _linksPositions = new List<Transform>();
+            _wallPositions = new List<Transform>();
+            _enemies = new Dictionary<Vector2Int, Transform>();
+            int childCount = transform.childCount;
+            for (int i = 0; i < childCount; i++)
             {
-                Room room = GetRoom(_currentFightPosition);
-                room?.DefeatEnemy();
-                Destroy(_enemies[_currentFightPosition]?.gameObject);
-                _enemies.Remove(_currentFightPosition);
+                Transform child = transform.GetChild(i);
+                Destroy(child.gameObject);
             }
-            else if (_currentFightType == DungeonEvents.Boss)
-            {
-                _cornerPositions = new List<(RoomParts, Transform)>();
-                _linksPositions = new List<Transform>();
-                _wallPositions = new List<Transform>();
-                _enemies = new Dictionary<Vector2Int, Transform>();
-                int childCount = transform.childCount;
-                for  (int i = 0; i < childCount; i++)
-                {
-                    Transform child = transform.GetChild(i);
-                    Destroy(child.gameObject);
-                }
-                GenerateDungeon();
-                FindObjectOfType<MovingManager>().Teleport();
-            }
+            GenerateDungeon();
+            FindObjectOfType<MovingManager>().Teleport();
+        }
     }
 
     private void OnDestroy()
@@ -198,7 +198,7 @@ public class DungeonManager : MonoBehaviour, IRoomManager
 
                 int adjecentRoomCount = GetAdjacentRoomCount(position);
 
-                if (Random.Range(0.0f, 1.0f) < _fightChance)
+                if (Random.Range(0.0f, 1.0f) < _fightChance && position != _startGridPosition)
                 {
                     room.SetEvent(DungeonEvents.Fight);
                     InstantiateRoomPart(RoomParts.Fight, room.Position, Quaternion.identity, position);
@@ -369,6 +369,7 @@ public class DungeonManager : MonoBehaviour, IRoomManager
             Transform enemy = Instantiate(_roomPartPrefabs[part], position, rotation);
             _enemies[gridPosition] = enemy;
             enemy.parent = transform;
+            return;
         }
 
         (RoomParts, Transform) otherCorner = _cornerPositions.Find(p => Vector3.SqrMagnitude(p.Item2.position - position) < 1.0f);
@@ -493,7 +494,18 @@ public class DungeonManager : MonoBehaviour, IRoomManager
     {
         Room room = GetRoom(gridPosition);
         if (room != null)
+        {
+            if (room.DungeonEvent == DungeonEvents.Fight)
+            {
+                _currentFightType = DungeonEvents.Fight;
+                _currentFightPosition = gridPosition;
+            }
+            else if (room.DungeonEvent == DungeonEvents.Boss)
+            {
+                _currentFightType = DungeonEvents.Boss;
+            }
             return room.DungeonEvent;
+        }
         return DungeonEvents.None;
     }
 

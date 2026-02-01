@@ -89,6 +89,7 @@ public class MovingManager : MonoBehaviour
 
     private void OnWin(Fight fight)
     {
+        gridPosition -= _directionToVector[facingDirection];
         _playerCamera.enabled = true;
         _fightCamera.enabled = false;
         canInput = true;
