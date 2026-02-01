@@ -730,7 +730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a45d2f66233d8c4438d701282ad36201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vfxName: Joy
+  vfxName: Disgust
   dest: {fileID: 153240647}
   speed: 0.5
 --- !u!4 &1875368339

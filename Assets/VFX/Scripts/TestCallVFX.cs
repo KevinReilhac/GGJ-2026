@@ -15,7 +15,6 @@ public class TestCallVFX : MonoBehaviour
     [Button]
     void SummonRandom()
     {
-        Random.InitState(Random.Range(0,150));
         int hehe = Random.Range(0,5);
         Debug.Log(hehe);
 
