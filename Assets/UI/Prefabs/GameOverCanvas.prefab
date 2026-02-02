@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animEase: 11
-  animTime: 1
+  animTime: 2
   mainCanvas: {fileID: 7486453870305938446}
   gameoverCanvas: {fileID: 1961736158657753138}
   textCanvas: {fileID: 7543195222082871728}

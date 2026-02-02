@@ -13,11 +13,25 @@ public class FightRoom : MonoBehaviour
 
     void Awake()
     {
+        gameObject.SetActive(false);
+        FightManager.OnStartFight += OnStartFight;
         FightManager.OnExitFight += OnExitFight;
+    }
+
+    void OnDestroy()
+    {
+        FightManager.OnStartFight += OnStartFight;
+        FightManager.OnExitFight += OnExitFight;
+    }
+
+    private void OnStartFight(Fight fight)
+    {
+        gameObject.SetActive(true);
     }
 
     private void OnExitFight()
     {
+        gameObject.SetActive(false);
         if (currentFightInstance != null)
             GameObject.Destroy(currentFightInstance);
     }
