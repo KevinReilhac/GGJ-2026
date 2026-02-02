@@ -38,13 +38,28 @@ public class Mask
 
     }
 
-    public void DamageMask(EEmotion eEmotion, int value)
+    private List<EEmotion> damagedEmotion = new List<EEmotion>();
+
+    public void DamageMask(EEmotion emotionType, int value)
     {
-        if (StatsDict.ContainsKey(eEmotion))
+        if (damagedEmotion == null)
+            damagedEmotion = new List<EEmotion>();
+        if (value == 0)
+            return;
+        if (StatsDict.ContainsKey(emotionType))
         {
-            Debug.LogFormat("Damage {0} by {1} on mask", eEmotion, value);
-            StatsDict[eEmotion] -= value;
+
+            if (!IsEmotionDamaged(emotionType))
+                damagedEmotion.Add(emotionType);
+            StatsDict[emotionType] -= value;
         }
+    }
+
+    public bool IsEmotionDamaged(EEmotion emotionType)
+    {
+        if (damagedEmotion == null)
+            return false;
+        return damagedEmotion.Contains(emotionType);
     }
 
     public override string ToString()

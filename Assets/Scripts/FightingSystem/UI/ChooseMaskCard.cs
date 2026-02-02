@@ -17,7 +17,7 @@ public class ChooseMaskCard : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] private float hoveredScale = 1.2f;
     [Header("References")]
     [SerializeField] private RectTransform statsPanel;
-    [SerializeField] private StatsDisplayer statsDisplayers;
+    [SerializeField] private MaskChoiceStatsDisplayer statsDisplayers;
     [SerializeField] private Image imageToColorize;
     [SerializeField] private RawImage rawImageMask;
 
@@ -52,7 +52,7 @@ public class ChooseMaskCard : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void SetMask(Mask mask)
     {
         this.mask = mask;
-        statsDisplayers.SetValue(mask.Stats);
+        statsDisplayers.SetValue(mask);
         imageToColorize.color = mask.MainEmotion.Color;
         rawImageMask.texture = Mask3DTextures.Instance.GetTexture(mask.MainEmotion.EmotionType);
     }
