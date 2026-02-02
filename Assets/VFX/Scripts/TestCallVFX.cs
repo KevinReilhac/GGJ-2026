@@ -1,12 +1,19 @@
 using UnityEngine;
 using NaughtyAttributes;
+using UnityEngine.Rendering;
 
 public class TestCallVFX : MonoBehaviour
 {
     public Transform dest;
     public float speed;
     public enum vfxType {Rage, Fear, Disgust, Sadness, Joy};
+    public vfxType chooseType;
     
+    [Button]
+    void PlaySpecificFX()
+    {
+        VFXManager._instance.UseVFX(chooseType.ToString());
+    }
 
     [Button]
     void SummonRandom()
