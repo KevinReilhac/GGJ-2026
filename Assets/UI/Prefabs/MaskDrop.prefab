@@ -166,8 +166,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1323084668, guid: 2a2f6b79404bc9748ab1fbc5a727f311, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: ff3e4374f5187824ba231e2ade2e613e, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -258,6 +258,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1383453382844189807}
   - component: {fileID: 813043898018844263}
+  - component: {fileID: 2744408936709037101}
   m_Layer: 5
   m_Name: MaskDrop
   m_TagString: Untagged
@@ -308,6 +309,21 @@ MonoBehaviour:
   statsDisplayers: {fileID: 8584448651012982492}
   imageToColorize: {fileID: 3482053941355651642}
   rawImageMask: {fileID: 1459485297108306003}
+--- !u!114 &2744408936709037101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7652872246388800664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8743de46f6cae045b3f110b8d568d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverClip: {fileID: 0}
+  unhoverClip: {fileID: 0}
+  clickClip: {fileID: 8300000, guid: bd0d25553474a054986fa095b644a1c4, type: 3}
 --- !u!1001 &98709898065376583
 PrefabInstance:
   m_ObjectHideFlags: 0

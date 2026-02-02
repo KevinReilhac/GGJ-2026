@@ -199,8 +199,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000011444, y: -0.0000076293945}
-  m_SizeDelta: {x: 77.4375, y: 77.4375}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 126, y: 126}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &284346454922701744
 CanvasRenderer:
@@ -322,6 +322,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3808153159662666652}
   - component: {fileID: 3271970623269847950}
+  - component: {fileID: 401807785931771465}
   m_Layer: 5
   m_Name: ChooseMaskCard
   m_TagString: Untagged
@@ -365,13 +366,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scaleUpTime: 0.2
   scaleUpEase: 9
-  scaleDownTime: 0.5
+  scaleDownTime: 0.2
   scaleDownEase: 8
   hoveredScale: 1.2
   statsPanel: {fileID: 8604229087478167748}
   statsDisplayers: {fileID: 7884373022442754158}
   imageToColorize: {fileID: 5421273826166964205}
   rawImageMask: {fileID: 7105566041999496962}
+--- !u!114 &401807785931771465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9152101173553157255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8743de46f6cae045b3f110b8d568d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverClip: {fileID: 0}
+  unhoverClip: {fileID: 0}
+  clickClip: {fileID: 8300000, guid: bd0d25553474a054986fa095b644a1c4, type: 3}
 --- !u!1001 &336550810096141830
 PrefabInstance:
   m_ObjectHideFlags: 0

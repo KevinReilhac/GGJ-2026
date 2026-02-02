@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
 
 [CreateAssetMenu(fileName = "FightSettings", menuName = "ScriptableObjects/FightSettings")]
 public class FightSettings : ScriptableObject
@@ -33,6 +34,7 @@ public class FightSettings : ScriptableObject
     public List<Emotion> GetEmotionsList() => new List<Emotion>();
     [SerializeField] private Color badColor = Color.red;
     [SerializeField] private Color goodColor = Color.green;
+    public AudioMixerGroup UIMixerGroup;
 
     public Color GoodColor => goodColor;
     public Color BadColor => badColor;
