@@ -262,7 +262,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2976717747752773395, guid: 30be5cf0f1f318e468c7c9630a2b0751, type: 3}
       propertyPath: droppedMask.maskStats.Array.size
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2976717747752773395, guid: 30be5cf0f1f318e468c7c9630a2b0751, type: 3}
       propertyPath: droppedMask.maskStats.Array.data[0].stat
@@ -286,7 +286,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2976717747752773395, guid: 30be5cf0f1f318e468c7c9630a2b0751, type: 3}
       propertyPath: droppedMask.maskStats.Array.data[3].emotionType
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2976717747752773395, guid: 30be5cf0f1f318e468c7c9630a2b0751, type: 3}
       propertyPath: droppedMask.maskStats.Array.data[4].emotionType

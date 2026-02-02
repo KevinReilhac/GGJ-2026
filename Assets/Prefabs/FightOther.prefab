@@ -161,7 +161,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2976717747752773395, guid: 30be5cf0f1f318e468c7c9630a2b0751, type: 3}
       propertyPath: droppedMask.maskStats.Array.size
-      value: 1
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976717747752773395, guid: 30be5cf0f1f318e468c7c9630a2b0751, type: 3}
+      propertyPath: droppedMask.maskStats.Array.data[0].stat
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976717747752773395, guid: 30be5cf0f1f318e468c7c9630a2b0751, type: 3}
+      propertyPath: droppedMask.maskStats.Array.data[1].stat
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976717747752773395, guid: 30be5cf0f1f318e468c7c9630a2b0751, type: 3}
+      propertyPath: droppedMask.maskStats.Array.data[2].stat
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976717747752773395, guid: 30be5cf0f1f318e468c7c9630a2b0751, type: 3}
+      propertyPath: droppedMask.maskStats.Array.data[1].emotionType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976717747752773395, guid: 30be5cf0f1f318e468c7c9630a2b0751, type: 3}
+      propertyPath: droppedMask.maskStats.Array.data[2].emotionType
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2981207712773615919, guid: 30be5cf0f1f318e468c7c9630a2b0751, type: 3}
       propertyPath: m_Name
@@ -246,7 +266,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2976717747752773395, guid: 30be5cf0f1f318e468c7c9630a2b0751, type: 3}
       propertyPath: droppedMask.maskStats.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976717747752773395, guid: 30be5cf0f1f318e468c7c9630a2b0751, type: 3}
+      propertyPath: droppedMask.maskStats.Array.data[0].stat
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976717747752773395, guid: 30be5cf0f1f318e468c7c9630a2b0751, type: 3}
+      propertyPath: droppedMask.maskStats.Array.data[1].stat
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976717747752773395, guid: 30be5cf0f1f318e468c7c9630a2b0751, type: 3}
+      propertyPath: droppedMask.maskStats.Array.data[2].stat
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976717747752773395, guid: 30be5cf0f1f318e468c7c9630a2b0751, type: 3}
+      propertyPath: droppedMask.maskStats.Array.data[0].emotionType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976717747752773395, guid: 30be5cf0f1f318e468c7c9630a2b0751, type: 3}
+      propertyPath: droppedMask.maskStats.Array.data[1].emotionType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976717747752773395, guid: 30be5cf0f1f318e468c7c9630a2b0751, type: 3}
+      propertyPath: droppedMask.maskStats.Array.data[2].emotionType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2981207712773615919, guid: 30be5cf0f1f318e468c7c9630a2b0751, type: 3}
       propertyPath: m_Name

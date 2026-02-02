@@ -15,32 +15,33 @@ MonoBehaviour:
   emotions:
   - emotionType: 0
     name: Joy
-    colorPaletteIndex: 5
+    colorPaletteIndex: 4
     color: {r: 0.99607843, g: 0.9647059, b: 0.67058825, a: 1}
   - emotionType: 1
     name: Sad
-    colorPaletteIndex: 6
+    colorPaletteIndex: 5
     color: {r: 0.6862745, g: 0.87058824, b: 0.99607843, a: 1}
   - emotionType: 2
     name: Angry
-    colorPaletteIndex: 3
+    colorPaletteIndex: 2
     color: {r: 0.9372549, g: 0.4117647, b: 0.50980395, a: 1}
   - emotionType: 3
     name: Disgust
-    colorPaletteIndex: 4
+    colorPaletteIndex: 3
     color: {r: 0.79607844, g: 1, b: 0.6117647, a: 1}
   - emotionType: 4
     name: Disgust
-    colorPaletteIndex: 7
+    colorPaletteIndex: 6
     color: {r: 0.9019608, g: 0.69411767, b: 0.99607843, a: 1}
   - emotionType: 255
     name: Multi
-    colorPaletteIndex: 8
+    colorPaletteIndex: 7
     color: {r: 0.90567654, g: 0.88487893, b: 0.9150943, a: 1}
   - emotionType: 256
     name: Rainbow
-    colorPaletteIndex: 9
+    colorPaletteIndex: 8
     color: {r: 0.90588236, g: 0.8862745, b: 0.9137255, a: 1}
   badColor: {r: 0.9372549, g: 0.4117647, b: 0.50980395, a: 1}
   goodColor: {r: 0.79607844, g: 1, b: 0.6117647, a: 1}
   UIMixerGroup: {fileID: -7308011337689307401, guid: be22f5536f691dc4d809bdfa9bade837, type: 2}
+  mask: {fileID: 11400000, guid: 336f71b53b19bbf4b9d4afd898f5a3ba, type: 2}

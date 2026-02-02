@@ -13,9 +13,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int difficulty = 3;
     public Mask droppedMask;
     [Header("References")]
-    //[SerializeField] private VoxelRenderer maskVoxelRenderer;
     [SerializeField] private Image hpBarFill;
     [SerializeField] private Gradient gradient;
+    [SerializeField] private SimpleVoxelRenderer simpleVoxelRenderer;
 
     private int _hp;
     public int HP
@@ -24,8 +24,8 @@ public class Enemy : MonoBehaviour
         set
         {
             _hp = value;
-            float percents =  (float)_hp / (float)maxHp;
-            hpBarFill.fillAmount =  percents;
+            float percents = (float)_hp / (float)maxHp;
+            hpBarFill.fillAmount = percents;
             hpBarFill.color = gradient.Evaluate(percents);
             OnHPChanged?.Invoke(_hp);
             if (_hp == 0)
@@ -39,12 +39,9 @@ public class Enemy : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public void Setup(Mask droppedMask, int difficulty)
+    private void Awake()
     {
-        this.droppedMask = droppedMask;
-        this.difficulty = difficulty;
-
-        //maskVoxelRenderer.SetPalette(droppedMask.MainEmotion.ColorPaletteIndex);
+        simpleVoxelRenderer.SetPaletteIndex(droppedMask.MainEmotion.ColorPaletteIndex);
     }
 
     public Attack GetNextAttack()
@@ -53,20 +50,20 @@ public class Enemy : MonoBehaviour
         int pointsToGive = difficulty;
         EEmotion tmpEmotion;
 
-        while(pointsToGive > 0)
+        while (pointsToGive > 0)
         {
             tmpEmotion = (EEmotion)UnityEngine.Random.Range(0, 5);
             if (!statsDict.ContainsKey(tmpEmotion))
                 statsDict.Add(tmpEmotion, 0);
             statsDict[tmpEmotion]++;
-            
+
             pointsToGive--;
         }
 
         List<EmotionStat> emotionStats = new List<EmotionStat>();
         foreach (KeyValuePair<EEmotion, int> item in statsDict)
             emotionStats.Add(new EmotionStat(item.Key, item.Value));
-        
+
         return new Attack(emotionStats);
     }
 

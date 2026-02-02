@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using FoxEdit;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -35,6 +36,7 @@ public class FightSettings : ScriptableObject
     [SerializeField] private Color badColor = Color.red;
     [SerializeField] private Color goodColor = Color.green;
     public AudioMixerGroup UIMixerGroup;
+    public VoxelObject mask;
 
     public Color GoodColor => goodColor;
     public Color BadColor => badColor;

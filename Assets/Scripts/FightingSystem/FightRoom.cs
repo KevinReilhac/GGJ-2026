@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using EasyTextEffects.Editor.MyBoxCopy.Extensions;
 using UnityEngine;
 
 public class FightRoom : MonoBehaviour
@@ -13,6 +10,7 @@ public class FightRoom : MonoBehaviour
 
     void Awake()
     {
+        UnityEngine.Random.InitState((int)System.DateTime.Now.Ticks);
         gameObject.SetActive(false);
         FightManager.OnStartFight += OnStartFight;
         FightManager.OnExitFight += OnExitFight;
@@ -20,8 +18,8 @@ public class FightRoom : MonoBehaviour
 
     void OnDestroy()
     {
-        FightManager.OnStartFight += OnStartFight;
-        FightManager.OnExitFight += OnExitFight;
+        FightManager.OnStartFight -= OnStartFight;
+        FightManager.OnExitFight -= OnExitFight;
     }
 
     private void OnStartFight(Fight fight)
@@ -38,7 +36,8 @@ public class FightRoom : MonoBehaviour
 
     public void StartRandomFight()
     {
-        Fight fightPrefab = fights.GetRandom();
+        int index = UnityEngine.Random.Range(0, fights.Count);
+        Fight fightPrefab = fights[index];
 
         currentFightInstance = Instantiate(fightPrefab);
         currentFightInstance.transform.SetParent(fightContainer);

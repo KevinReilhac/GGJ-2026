@@ -17,8 +17,8 @@ public class EmotionStat
         EEmotion highestEmotion = EEmotion.Angry;
         int highestStat = -1;
 
-        if (includeRainbow && emotionStats.Count == EEmotionUtility.EmotionsList.Count)
-            return FightSettings.Instance.GetEmotionFromEmotionType(EEmotion.Rainbow);
+        // if (includeRainbow && emotionStats.Count == EEmotionUtility.EmotionsList.Count)
+            // return FightSettings.Instance.GetEmotionFromEmotionType(EEmotion.Rainbow);
 
         foreach (EmotionStat maskStat in emotionStats)
         {
