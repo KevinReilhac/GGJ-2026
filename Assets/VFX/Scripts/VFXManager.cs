@@ -11,6 +11,7 @@ public class VFXManager : MonoBehaviour
     public static VFXManager _instance;
     [SerializeField] Transform startPos;
     [SerializeField] Transform destination;
+    [SerializeField] Transform shieldPosition;
     float speed;
 
     void Awake()
@@ -37,19 +38,27 @@ public class VFXManager : MonoBehaviour
         translator.Add("Scare", "Fear");
     }
 
-    public void GetVFX(List<EmotionStat> emotion)
+    public void GetVFX(List<EmotionStat> emotion, bool bounce)
     {
-        UseVFX(ParseAttack(emotion));
+        UseVFX(ParseAttack(emotion), bounce);
     }
 
-    public void UseVFX(string vfxName)
+    public void UseVFX(string vfxName, bool bounce = false)
     {
         SetSpeed(vfxName);
 
         VFXObject objRef = vfxPool.GetObject().GetComponent<VFXObject>();
         objRef.SetVFX(vfxRefDictionnary[vfxName], startPos.position, destination, speed);
         
-        objRef.ThrowVFX();
+        objRef.ThrowVFX(bounce);
+    }
+
+    public void UseShield()
+    {
+        VFXObject objRef = vfxPool.GetObject().GetComponent<VFXObject>();
+        objRef.SetVFX(vfxRefDictionnary["Bounce"], shieldPosition.position, shieldPosition, speed, false);
+        
+        objRef.ThrowVFX(false);
     }
 
     string ParseAttack(List<EmotionStat> emotion)

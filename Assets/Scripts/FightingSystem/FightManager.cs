@@ -45,10 +45,11 @@ public static class FightManager
 
     public static async void PlayerAttack(Attack playerAttack)
     {
-        VFXManager._instance.GetVFX(CurrentEnemyAttack.GetEmotionsStatsList());
-        await Task.Delay(3000);
         if (playerAttack.CompareAttacks(CurrentEnemyAttack, out Attack statsDamages))
         {
+            VFXManager._instance.GetVFX(CurrentEnemyAttack.GetEmotionsStatsList(), true);
+            await Task.Delay(3500);
+
             Debug.LogFormat("Player damages \n {0}", statsDamages);
             ApplyPlayerStatsDamages(statsDamages);
             currentFight.HitEnemies();
@@ -62,6 +63,8 @@ public static class FightManager
         }
         else
         {
+            VFXManager._instance.GetVFX(CurrentEnemyAttack.GetEmotionsStatsList(), false);
+            await Task.Delay(3000);
             OnGameOver?.Invoke();
             Debug.Log("GameOver");
         }

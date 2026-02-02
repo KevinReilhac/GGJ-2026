@@ -6,20 +6,31 @@ public class VFXObject : MonoBehaviour
     VisualEffect vfx;
     Transform destination;
     Vector3 startPos;
+    Vector3 goPos;
+    Vector3 toPos;
     float projSpeed;
     float timer;
     bool hasHit;
     Vector3 thirdPoint;
+    bool needBounce;
+    bool needMove;
 
-    public void SetVFX(VisualEffectAsset vfxGraph, Vector3 newStartPos, Transform newDestination, float newSpeed)
+    public void SetVFX(VisualEffectAsset vfxGraph, Vector3 newStartPos, Transform newDestination, float newSpeed, bool moving = true)
     {
         if(vfx == null)
             vfx = GetComponent<VisualEffect>();
 
         vfx.visualEffectAsset = vfxGraph;
+
         startPos = newStartPos;
         destination = newDestination;
+
+        goPos = startPos;
+        toPos = destination.position;
+
         projSpeed = newSpeed;
+        needMove = moving;
+        
         FindThirdPoint();
 
         vfx.gameObject.SetActive(true);
@@ -27,17 +38,19 @@ public class VFXObject : MonoBehaviour
 
     void FindThirdPoint()
     {
-        thirdPoint = Vector3.Lerp(startPos, destination.position, 0.5f);
+        thirdPoint = Vector3.Lerp(goPos, toPos, 0.5f);
         
-        thirdPoint += Random.insideUnitSphere * Vector3.Distance(startPos, destination.position) * 0.5f;
+        thirdPoint += Random.insideUnitSphere * Vector3.Distance(goPos,toPos) * 0.5f;
         thirdPoint += Vector3.up * 0.5f;
     }
 
-    public void ThrowVFX()
+    public void ThrowVFX(bool bounce)
     {
+        needBounce = bounce;
+
         hasHit = false;
         vfx.SendEvent("OnPlay");
-        SFXPlayer._instance.MakeAttackSound(vfx.visualEffectAsset.name, true, startPos);
+        SFXPlayer._instance.MakeAttackSound(vfx.visualEffectAsset.name, true, goPos);
 
         timer = 0;
     }
@@ -54,7 +67,11 @@ public class VFXObject : MonoBehaviour
     {
         timer += Time.deltaTime * projSpeed;
         transform.position = BezierCurve(timer);
-        transform.LookAt(destination);
+
+        if(needMove)
+        {
+            transform.LookAt(destination);
+        }
 
         if(timer >= 1 && !hasHit)
             HitVFX();
@@ -66,23 +83,50 @@ public class VFXObject : MonoBehaviour
         float tt = currentTime * currentTime;
         float uu = u * u;
 
-        Vector3 newPos = uu * startPos;
+        Vector3 newPos = uu * goPos;
         newPos +=  2 * u * currentTime * thirdPoint;
-        newPos += tt * destination.position;
+        newPos += tt * toPos;
 
         return newPos;
     }
 
     void HitVFX()
     {
-        vfx.SendEvent("OnVFXHit");
-        SFXPlayer._instance.MakeAttackSound(vfx.visualEffectAsset.name, false, destination.position);
-        hasHit = true;
+        if(needBounce)
+        {
+            Bounce();
+        }
+        else
+        {
+            vfx.SendEvent("OnVFXHit");
+            SFXPlayer._instance.MakeAttackSound(vfx.visualEffectAsset.name, false, destination.position);
+            hasHit = true;       
+        }
     }
 
     void EndVFX()
     {
+        ResetVFX();
         if(vfx.aliveParticleCount == 0)
             GetComponent<PoolObject>().ReturnToPool();
+    }
+
+    void ResetVFX()
+    {
+        timer = 0;
+        needMove = true;
+
+        toPos = destination.position;
+        goPos = startPos;
+    }
+
+    void Bounce()
+    {
+        toPos = startPos;
+        goPos = destination.position;
+
+        VFXManager._instance.UseShield();
+        needBounce = false;
+        ThrowVFX(false);
     }
 }

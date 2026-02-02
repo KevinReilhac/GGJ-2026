@@ -47,13 +47,18 @@ public class SFXPlayer : MonoBehaviour
     {
         AudioSource source = sourcePool.GetObject().GetComponent<AudioSource>();
 
-        if(isFlare)
-            source.clip = sfxBank[attackName].sfxFlare;
-        else
-            source.clip = sfxBank[attackName].sfxExplosion;
+        if(sfxBank.ContainsKey(attackName))
+        {
+            if(isFlare)
+                source.clip = sfxBank[attackName].sfxFlare;
+            else
+                source.clip = sfxBank[attackName].sfxExplosion;
 
-        source.transform.position = position;
-        source.gameObject.SetActive(true);
-        source.Play();
+            source.transform.position = position;
+            source.gameObject.SetActive(true);
+            source.Play(); 
+        }
+        else
+            Debug.Log($"There's no sound for {attackName} !");
     }
 }

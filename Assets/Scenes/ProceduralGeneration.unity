@@ -1895,6 +1895,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffac99a661842c048aec6fd90b8a9b27, type: 3}
+--- !u!1 &866598228
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 866598231}
+  m_Layer: 0
+  m_Name: ShieldPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &866598231
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866598228}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.535, y: 0.82, z: 55.953}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1005539991
 GameObject:
   m_ObjectHideFlags: 0
@@ -2345,8 +2376,10 @@ MonoBehaviour:
   - {fileID: 8926484042661614526, guid: 46a2518dcdd9f104cb03805e31192e27, type: 3}
   - {fileID: 8926484042661614526, guid: 2952615a99ef0d643a486f3d34aa9604, type: 3}
   - {fileID: 8926484042661614526, guid: bb5be726965716a4d85c2f3bd70a7922, type: 3}
+  - {fileID: 8926484042661614526, guid: f910b979cd415884989687749a58385e, type: 3}
   startPos: {fileID: 1792152506}
   destination: {fileID: 1683973811}
+  shieldPosition: {fileID: 866598231}
 --- !u!4 &1070881239
 Transform:
   m_ObjectHideFlags: 0
@@ -2582,7 +2615,7 @@ Transform:
   m_GameObject: {fileID: 1683973810}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.51, y: 1.035, z: 56.024}
+  m_LocalPosition: {x: 10.51, y: 0.655, z: 56.024}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2869,6 +2902,42 @@ PrefabInstance:
     - target: {fileID: 7186168885140779119, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.537
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424226010179184606, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.1279995
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424226010179184606, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.801
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424226010179184606, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424226010179184606, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.70174295
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424226010179184606, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.05365154
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424226010179184606, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.70830804
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424226010179184606, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.054572478
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424226010179184606, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -8.778
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424226010179184606, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90.531
       objectReference: {fileID: 0}
     - target: {fileID: 8744882786126727253, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
       propertyPath: droppedMask.maskStats.Array.size
@@ -3339,5 +3408,6 @@ SceneRoots:
   - {fileID: 1368402872}
   - {fileID: 1792152506}
   - {fileID: 1683973811}
+  - {fileID: 866598231}
   - {fileID: 9131503083852855134}
   - {fileID: 1005539995}
