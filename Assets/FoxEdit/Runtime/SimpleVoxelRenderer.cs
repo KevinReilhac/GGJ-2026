@@ -36,5 +36,10 @@ namespace FoxEdit
         {
             _paletteIndexOverride = index;
         }
+
+        public int GetPaletteIndex()
+        {
+            return _paletteIndexOverride != -1 ? _paletteIndexOverride : _voxelObject.PaletteIndex;
+        }
     }
 }

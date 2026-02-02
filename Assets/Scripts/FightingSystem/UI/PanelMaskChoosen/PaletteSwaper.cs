@@ -12,7 +12,7 @@ public class PaletteSwaper : MonoBehaviour
     {
         if (Keyboard.current.pKey.wasPressedThisFrame)
         {
-            foreach (VoxelRenderer voxelRenderer in GameObject.FindObjectsOfType<VoxelRenderer>())
+            foreach (SimpleVoxelRenderer voxelRenderer in GameObject.FindObjectsOfType<SimpleVoxelRenderer>())
             {
                 int palette = voxelRenderer.GetPaletteIndex();
 
@@ -21,7 +21,7 @@ public class PaletteSwaper : MonoBehaviour
                 palette++;
                 if (palette >= FoxEditSettings.GetSettings().Palettes.Count())
                     palette = 0;
-                voxelRenderer.SetPalette(palette);
+                voxelRenderer.SetPaletteIndex(palette);
             }
         }
     }
