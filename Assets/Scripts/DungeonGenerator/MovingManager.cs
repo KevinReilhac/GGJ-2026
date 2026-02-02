@@ -57,7 +57,6 @@ public class MovingManager : MonoBehaviour
     void Start()
     {
         FightManager.OnExitFight += OnExitFight;
-        FightManager.OnGameOver += OnGameOver;
 
         _directionToVector = new Dictionary<Directions, Vector2Int>
         {
@@ -83,7 +82,6 @@ public class MovingManager : MonoBehaviour
     private void OnDestroy()
     {
         FightManager.OnExitFight -= OnExitFight;
-        FightManager.OnGameOver -= OnGameOver;
     }
 
     private void OnExitFight()
