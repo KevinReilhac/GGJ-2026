@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public static class FightManager
@@ -38,9 +39,14 @@ public static class FightManager
         OnSelectMask.Invoke(mask);
     }
 
-    public static void PlayerAttack(Attack playerAttack)
+    public static void PlayVFXAttack()
+    {
+    }
+
+    public static async void PlayerAttack(Attack playerAttack)
     {
         VFXManager._instance.GetVFX(CurrentEnemyAttack.GetEmotionsStatsList());
+        await Task.Delay(3000);
         if (playerAttack.CompareAttacks(CurrentEnemyAttack, out Attack statsDamages))
         {
             Debug.LogFormat("Player damages \n {0}", statsDamages);

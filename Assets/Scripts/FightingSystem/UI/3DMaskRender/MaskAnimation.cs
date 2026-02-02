@@ -10,7 +10,10 @@ public class MaskAnimation : MonoBehaviour
 
     private void Awake()
     {
-        transform.rotation = Quaternion.Euler(0, 0, 0);
-        transform.DORotate(new Vector3(0, deltaY, 0), animDuration).SetEase(Ease.InOutCubic).SetLoops(-1, LoopType.Yoyo).SetDelay(Random.Range(0, 5));
+        transform.rotation = Quaternion.Euler(0, Random.Range(-deltaY, deltaY), 0);
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(transform.DORotate(new Vector3(0, deltaY, 0), animDuration).SetEase(Ease.InOutCubic));
+        sequence.Append(transform.DORotate(new Vector3(0, -deltaY, 0), animDuration).SetEase(Ease.InOutCubic));
+        sequence.SetLoops(-1, LoopType.Yoyo);
     }
 }

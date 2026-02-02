@@ -90,7 +90,6 @@ public class FightHUD : MonoBehaviour
         FightManager.OnWinFight += OnWinFight;
         FightManager.OnExitFight += OnExitOrGameOver;
         FightManager.OnGameOver += OnExitOrGameOver;
-        FightManager.OnNextEnemyAttack += OnNextEnemyAttack;
         FightManager.OnSelectMask += OnMaskSelected;
     }
 
@@ -101,9 +100,23 @@ public class FightHUD : MonoBehaviour
         FightManager.OnWinFight -= OnWinFight;
         FightManager.OnExitFight -= OnExitOrGameOver;
         FightManager.OnGameOver -= OnExitOrGameOver;
-        FightManager.OnNextEnemyAttack -= OnNextEnemyAttack;
         FightManager.OnSelectMask -= OnMaskSelected;
     }
+
+    private async void OnStartFight(Fight fight)
+    {
+        GetPanel<StateTextPanel>().SetupAndShow("Début du combat");
+        await Task.Delay(2000);
+        OnNextEnemyAttack(FightManager.CurrentEnemyAttack);
+        FightManager.OnNextEnemyAttack += OnNextEnemyAttack;
+    }
+
+    private void OnExitOrGameOver()
+    {
+        FightManager.OnNextEnemyAttack -= OnNextEnemyAttack;
+        HideAllPanels();
+    }
+
     private void OnNextEnemyAttack(Attack attack)
     {
         ShowSelectMaskTip();
@@ -129,15 +142,7 @@ public class FightHUD : MonoBehaviour
         selectMaskTip.DOFade(0f, 0.5f).SetEase(Ease.InQuint);
     }
 
-    private void OnExitOrGameOver()
-    {
-        HideAllPanels();
-    }
 
-    private void OnStartFight(Fight fight)
-    {
-        GetPanel<StateTextPanel>().SetupAndShow("Début du combat");
-    }
 
     private void OnMaskSelected(Mask mask)
     {
@@ -150,9 +155,15 @@ public class FightHUD : MonoBehaviour
     {
         ChoosenMaskPanel choosenMaskPanel = GetPanel<ChoosenMaskPanel>();
 
-        choosenMaskPanel.SetupAndShow(PlayerFighter.Instance, FightManager.PlayerAttack);
+        choosenMaskPanel.SetupAndShow(PlayerFighter.Instance, PlayerAttack);
         choosenMaskPanel.OnHoverCardsEvent += ShowMaskChoicePanel;
         choosenMaskPanel.OnUnhoverCardsEvent += HideMaskChoicePanel;
+    }
+
+    private void PlayerAttack(Attack attack)
+    {
+        HideAllPanels(animate: false);
+        FightManager.PlayerAttack(attack);
     }
 
 
