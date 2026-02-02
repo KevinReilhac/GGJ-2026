@@ -30,7 +30,7 @@ MonoBehaviour:
     colorPaletteIndex: 3
     color: {r: 0.79607844, g: 1, b: 0.6117647, a: 1}
   - emotionType: 4
-    name: Disgust
+    name: Scare
     colorPaletteIndex: 6
     color: {r: 0.9019608, g: 0.69411767, b: 0.99607843, a: 1}
   - emotionType: 255

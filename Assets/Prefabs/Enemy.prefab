@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3657535863279821754}
   - component: {fileID: 2000325948713905741}
   m_Layer: 0
-  m_Name: VoxelPosition
+  m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
