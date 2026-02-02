@@ -478,6 +478,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 319359396376823361, guid: b3445ba4d5dea2e47a9f87cc0c8df4fc, type: 3}
+      propertyPath: clickClip
+      value: 
+      objectReference: {fileID: 8300000, guid: eaa537bfc847c4a4aa47348f02c6fac9, type: 3}
+    - target: {fileID: 319359396376823361, guid: b3445ba4d5dea2e47a9f87cc0c8df4fc, type: 3}
+      propertyPath: hoverClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 60dbd43e135d62c4792e94a70061f128, type: 3}
     - target: {fileID: 570330638593989990, guid: b3445ba4d5dea2e47a9f87cc0c8df4fc, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2039,7 +2047,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -394349623793488701, guid: be22f5536f691dc4d809bdfa9bade837, type: 2}
   m_audioClip: {fileID: 8300000, guid: 191f744611ec5e94f8c97867272af853, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.702
   m_Pitch: 1
   Loop: 1
   Mute: 0
