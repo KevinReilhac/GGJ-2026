@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,6 +33,7 @@ public class ChoosenMaskPanel : Panel
     [SerializeField] private Button attackButton;
     [SerializeField] private CanvasGroup buttonsCanvasGroup;
     [SerializeField] private RectTransform choosenMask;
+    [SerializeField] private TextMeshProUGUI textValue;
 
     private Dictionary<EEmotion, PlayerAttackStat> attackStatsDict = null;
     private Dictionary<EEmotion, PlayerAttackStat> AttackStatsDict
@@ -78,14 +80,12 @@ public class ChoosenMaskPanel : Panel
     private void Awake()
     {
         attackButton.onClick.AddListener(OnPressAttackButton);
-        RegisterPlayerStatsOnValueChanged();
 
         hoverCardsEvent.OnPointerEnter += OnHoverCard;
         hoverCardsEvent.OnPointerExit += OnUnhoverCard;
     }
     private void OnDestroy()
     {
-        UnRegisterPlayerStatsOnValueChanged();
         attackButton.onClick.AddListener(OnPressAttackButton);
 
         hoverCardsEvent.OnPointerEnter -= OnHoverCard;
@@ -100,6 +100,17 @@ public class ChoosenMaskPanel : Panel
     private void OnUnhoverCard()
     {
         OnUnhoverCardsEvent?.Invoke();
+    }
+
+    public override void OnShowPanel()
+    {
+        RegisterPlayerStatsOnValueChanged();
+        UpdateTextValue();
+    }
+
+    public override void OnHidePanel()
+    {
+        UnRegisterPlayerStatsOnValueChanged();
     }
 
 
@@ -127,6 +138,16 @@ public class ChoosenMaskPanel : Panel
             DisableUncheckedToggles();
         else
             EnableUncheckedToggles();
+        UpdateTextValue();
+    }
+
+    private void UpdateTextValue()
+    {
+        int playerValue = GetTotalValue();
+        int enemiesValue = FightManager.CurrentEnemyAttack.GetTotal();
+
+        textValue.text = string.Format("{0}/{1}", playerValue, enemiesValue);
+        textValue.color = playerValue >= enemiesValue ? FightSettings.Instance.GoodColor : FightSettings.Instance.BadColor;
     }
 
     private void DisableUncheckedToggles()
@@ -170,6 +191,11 @@ public class ChoosenMaskPanel : Panel
             Emotion emotion = playerFighter.EquipedMask.MainEmotion;
             maskImage.texture = Mask3DTextures.Instance.GetTexture(emotion.EmotionType);
             background.color = emotion.Color;
+        }
+
+        foreach (var item in AttackStatsDict)
+        {
+            item.Value.Value = 0;
         }
 
         Show();

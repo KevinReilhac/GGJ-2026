@@ -55,10 +55,7 @@ public class MaskChoicePanel : Panel
         ClearCards();
         foreach (Mask mask in masks)
         {
-            if (mask != PlayerFighter.Instance.EquipedMask)
-            {
-                CreateCard(mask);
-            }
+            CreateCard(mask);
         }
         OnMaskSelected = onMaskSelectedCallback;
         Show();

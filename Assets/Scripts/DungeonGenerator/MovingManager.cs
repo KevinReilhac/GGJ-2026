@@ -56,7 +56,7 @@ public class MovingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        FightManager.OnWinFight += OnWin;
+        FightManager.OnExitFight += OnExitFight;
         FightManager.OnGameOver += OnGameOver;
 
         _directionToVector = new Dictionary<Directions, Vector2Int>
@@ -82,11 +82,11 @@ public class MovingManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        FightManager.OnWinFight -= OnWin;
+        FightManager.OnExitFight -= OnExitFight;
         FightManager.OnGameOver -= OnGameOver;
     }
 
-    private void OnWin(Fight fight)
+    private void OnExitFight()
     {
         gridPosition -= _directionToVector[facingDirection];
         _playerCamera.enabled = true;

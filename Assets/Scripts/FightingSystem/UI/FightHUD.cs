@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DG.Tweening;
 using FoxEdit;
 using UnityEngine;
@@ -50,7 +51,7 @@ public class FightHUD : MonoBehaviour
         Panel panel = GetPanel<T>();
 
         if (panel != null)
-            panel.Hide();
+            panel.Hide(animate);
 
         return (T)panel;
     }
@@ -178,10 +179,14 @@ public class FightHUD : MonoBehaviour
         HidePanel<MaskChoicePanel>();
     }
 
-    private void OnWinFight(Fight fight)
+    private async void OnWinFight(Fight fight)
     {
         HidePanel<ChoosenMaskPanel>();
+        HidePanel<MaskChoicePanel>(false);
         HidePanel<EnemyPanel>();
+
+        GetPanel<StateTextPanel>().SetupAndShow("Victoire");
+        await Task.Delay(2000);
 
         MaskDropPanel maskDropPanel = GetPanel<MaskDropPanel>();
         maskDropPanel.Setup(fight.GetMaskList(), FightManager.SelectDroppedMask);

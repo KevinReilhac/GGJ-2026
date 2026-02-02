@@ -31,9 +31,15 @@ public class FightSettings : ScriptableObject
     }
 
     public List<Emotion> GetEmotionsList() => new List<Emotion>();
+    [SerializeField] private Color badColor = Color.red;
+    [SerializeField] private Color goodColor = Color.green;
 
+    public Color GoodColor => goodColor;
+    public Color BadColor => badColor;
     public Emotion GetEmotionFromEmotionType(EEmotion emotionType)
     {
         return EmotionFromEmotionType.GetValueOrDefault(emotionType, null);
     }
+
+
 }

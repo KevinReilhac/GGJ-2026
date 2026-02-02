@@ -119,7 +119,7 @@ public static class FightManager
         EndFight();
     }
 
-    private static void EndFight()
+    public static void EndFight()
     {
         OnExitFight?.Invoke();
     }
