@@ -1,12 +1,13 @@
-using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyPanel : Panel
 {
     [Header("References")]
     [SerializeField] private RectTransform rectTransform;
     [SerializeField] private StatsDisplayer statsDisplayer;
+    [SerializeField] private Image imageToColorize;
     [Header("Animation")]
     [SerializeField] private float showTime = 0.5f;
     [SerializeField] private Ease showEase = Ease.OutBack;
@@ -14,7 +15,17 @@ public class EnemyPanel : Panel
     [SerializeField] private Ease hideEase = Ease.InBack;
 
 
-    private Vector2 startSize;
+    private Vector2 startSize = Vector2.one * -1;
+    public Vector2 StartSize
+    {
+        get
+        {
+            if (startSize == Vector2.one * -1)
+                startSize = rectTransform.sizeDelta;
+            return startSize;
+        }
+    }
+
     void Awake()
     {
         startSize = rectTransform.sizeDelta;
@@ -29,26 +40,21 @@ public class EnemyPanel : Panel
     {
         SetAttack(attack);
         ShowAnimation();
+        imageToColorize.color = EmotionStat.GetMainEmotion(attack.GetEmotionsStatsList(), false).Color;
     }
     public override void ShowAnimation()
     {
-        /*
         gameObject.SetActive(true);
         rectTransform.DOKill();
-        rectTransform.DOSizeDelta(startSize, showTime)
+        rectTransform.DOSizeDelta(StartSize, showTime)
             .SetEase(showEase)
-            .ChangeStartValue(new Vector2(startSize.x, 0f));
-        */
-        gameObject.SetActive(true);
+            .ChangeStartValue(new Vector2(StartSize.x, 0f));
     }
 
     public override void HideAnimation()
     {
-    /*
-        rectTransform.DOSizeDelta(new Vector2(startSize.x, 0f), showTime)
+        rectTransform.DOSizeDelta(new Vector2(StartSize.x, 0f), showTime)
             .SetEase(showEase)
             .OnComplete(() => gameObject.SetActive(false));
-    */
-        gameObject.SetActive(false);
     }
 }

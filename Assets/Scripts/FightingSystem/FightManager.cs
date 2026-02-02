@@ -8,9 +8,9 @@ public static class FightManager
     public static event Action<Fight> OnWinFight;
     public static event Action<Fight> OnStartFight;
     public static event Action<Attack> OnNextEnemyAttack;
-    public static event Action OnStartMaskSelection;
     public static event Action<List<Mask>> OnStartMaskLootSelection;
     public static event Action<List<Mask>> OnStartDropMaskSelection;
+    public static event Action<Mask> OnSelectMask;
     public static event Action OnExitFight;
     public static event Action OnGameOver;
     private static Fight currentFight = null;
@@ -19,18 +19,12 @@ public static class FightManager
 
     public static void StartFight(Fight fight)
     {
-        foreach (Enemy enemy in fight.enemies)
+        foreach (Enemy enemy in fight.Enemies)
             enemy.Reset();
         currentFight = fight;
         OnStartFight?.Invoke(fight);
         NextAttack();
-        StartMaskSelection();
         IsInFight = true;
-    }
-
-    public static void StartMaskSelection()
-    {
-        OnStartMaskSelection?.Invoke();
     }
 
     public static void SelectMask(int maskIndex)
@@ -41,6 +35,7 @@ public static class FightManager
     public static void SelectMask(Mask mask)
     {
         PlayerFighter.Instance.SelectMask(mask);
+        OnSelectMask.Invoke(mask);
     }
 
     public static void PlayerAttack(Attack playerAttack)
@@ -55,8 +50,8 @@ public static class FightManager
                 WinFight();
             else
             {
+                PlayerFighter.Instance.EquipedMaskIndex = -1;
                 NextAttack();
-                StartMaskSelection();
             }
         }
         else

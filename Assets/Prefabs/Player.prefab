@@ -44,17 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7a46da7b2f8ab34fa3c2bc0dc3a54bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Masks:
-  - maskStats:
-    - emotionType: 0
-      stat: 2
-    - emotionType: 3
-      stat: 3
-  - maskStats:
-    - emotionType: 1
-      stat: 1
-    - emotionType: 4
-      stat: 4
   BaseStats:
   - emotionType: 0
     stat: 1
@@ -66,4 +55,12 @@ MonoBehaviour:
     stat: 1
   - emotionType: 4
     stat: 1
+  _masks:
+  - maskStats:
+    - emotionType: 0
+      stat: 3
+    - emotionType: 3
+      stat: 2
+    - emotionType: 4
+      stat: 1
   EquipedMaskIndex: -1

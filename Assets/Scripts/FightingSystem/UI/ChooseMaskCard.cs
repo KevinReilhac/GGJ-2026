@@ -21,7 +21,7 @@ public class ChooseMaskCard : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] private Image imageToColorize;
     [SerializeField] private RawImage rawImageMask;
 
-    public event Action<Mask> OnSelectCard;
+    public event Action<ChooseMaskCard, Mask> OnSelectCard;
     private Mask mask = null;
 
     void Awake()
@@ -31,7 +31,7 @@ public class ChooseMaskCard : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        OnSelectCard?.Invoke(mask);
+        OnSelectCard?.Invoke(this, mask);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

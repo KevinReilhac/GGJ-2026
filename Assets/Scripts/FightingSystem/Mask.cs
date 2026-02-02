@@ -23,7 +23,6 @@ public class Mask
     public Mask(List<EmotionStat> maskStats)
     {
         this.maskStats = maskStats;
-        mainEmotion = FindMainEmotion();
     }
 
     public Mask(int joy = 0, int sad = 0, int angry = 0, int disgust = 0, int scare = 0)
@@ -37,28 +36,6 @@ public class Mask
             new EmotionStat(EEmotion.Scare, scare)
         };
 
-        mainEmotion = FindMainEmotion();
-    }
-
-    private Emotion FindMainEmotion()
-    {
-        EEmotion highestEmotion = EEmotion.Angry;
-        int highestStat = -1;
-
-        foreach (EmotionStat maskStat in maskStats)
-        {
-            if (maskStat.stat > highestStat)
-            {
-                highestStat = maskStat.stat;
-                highestEmotion = maskStat.emotionType;
-            }
-            else if (maskStat.stat == highestStat)
-            {
-                highestEmotion = EEmotion.Multiple;
-            }
-        }
-
-        return FightSettings.Instance.GetEmotionFromEmotionType(highestEmotion);
     }
 
     public void DamageMask(EEmotion eEmotion, int value)
@@ -111,7 +88,7 @@ public class Mask
         get
         {
             if (mainEmotion == null)
-                mainEmotion = FindMainEmotion();
+                mainEmotion = EmotionStat.GetMainEmotion(maskStats);
             return mainEmotion;
         }
     }

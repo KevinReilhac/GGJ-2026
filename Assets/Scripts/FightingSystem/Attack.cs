@@ -110,6 +110,7 @@ public class Attack
         return emotionStats;
     }
 
+
     public override string ToString()
     {
         StringBuilder stringBuilder = new StringBuilder();

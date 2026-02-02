@@ -37,3 +37,7 @@ MonoBehaviour:
     name: Multi
     colorPaletteIndex: 8
     color: {r: 0.90567654, g: 0.88487893, b: 0.9150943, a: 1}
+  - emotionType: 256
+    name: Rainbow
+    colorPaletteIndex: 9
+    color: {r: 0.90588236, g: 0.8862745, b: 0.9137255, a: 1}

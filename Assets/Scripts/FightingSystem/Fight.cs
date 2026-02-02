@@ -4,7 +4,16 @@ using UnityEngine;
 
 public class Fight : MonoBehaviour
 {
-    public List<Enemy> enemies = new List<Enemy>();
+    private List<Enemy> enemies;
+    public List<Enemy> Enemies
+    {
+        get
+        {
+            if (enemies == null)
+                enemies = gameObject.GetComponentsInChildren<Enemy>(true).ToList();
+            return enemies;
+        }
+    }
 
     public List<Enemy> GetAliveEnemies() => enemies.Where(e => !e.IsDead).ToList();
     public bool IsAllDead()

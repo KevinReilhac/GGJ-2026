@@ -25,3 +25,5 @@ MonoBehaviour:
     Texture: {fileID: 8400000, guid: dc0abd8c053b4cf4cbf1e604ee7141c4, type: 2}
   - EmotionType: 255
     Texture: {fileID: 8400000, guid: fa7009d9123e71141a79170fa287f301, type: 2}
+  - EmotionType: 256
+    Texture: {fileID: 8400000, guid: 57a8e6d6ce3556045a0f334728503d49, type: 2}

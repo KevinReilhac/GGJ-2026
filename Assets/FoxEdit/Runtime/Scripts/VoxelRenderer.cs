@@ -143,6 +143,8 @@ namespace FoxEdit
         public void SetPalette(int index)
         {
             GraphicsBuffer colorsBuffer = VoxelSharedData.GetColorBuffer(index);
+            if (_renderParams.matProps == null)
+                SetRenderParams();
             if (colorsBuffer != null)
             {
                 _renderParams.matProps.SetBuffer("_Colors", colorsBuffer);
@@ -156,6 +158,18 @@ namespace FoxEdit
                 AssetDatabase.SaveAssets();
             }
 #endif
+
+        }
+        
+        public int GetPaletteIndex()
+        {
+            if (_paletteIndexOverride == -1)
+            {
+                if (_voxelObject == null)
+                    return -1;
+                return _voxelObject.PaletteIndex;
+            }
+            return _paletteIndexOverride;
         }
 
         #endregion UserEditable
@@ -173,7 +187,7 @@ namespace FoxEdit
             _meshFilter.mesh = _voxelObject?.StaticMesh;
         }
 
-        internal void RefreshColors()
+        public void RefreshColors()
         {
             if (_paletteIndexOverride != -1)
                 SetPalette(_voxelObject.PaletteIndex);

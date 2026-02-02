@@ -11,21 +11,36 @@ public class StateTextPanel : Panel
     [SerializeField] private Ease showEase = Ease.OutBack;
     [SerializeField] private float hideTime = 0.5f;
     [SerializeField] private Ease hideEase = Ease.InBack;
+    [SerializeField] private float onScreenTime = 2;
     [Header("References")]
     [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private RectTransform rectTransform;
+
+    private Vector2 startSize = Vector2.one * -1;
+    public Vector2 StartSize
+    {
+        get
+        {
+            if (startSize == Vector2.one * -1)
+                startSize = rectTransform.sizeDelta;
+            return startSize;
+        }
+    }
 
     public override void ShowAnimation()
     {
         gameObject.SetActive(true);
-        transform.DOScaleY(1f, showTime)
-            .ChangeStartValue(new Vector3(1f, 0f, 1f))
-            .SetEase(showEase);
+        rectTransform.DOKill();
+        rectTransform.DOSizeDelta(StartSize, showTime)
+            .SetEase(showEase)
+            .ChangeStartValue(new Vector2(StartSize.x, 0f))
+            .OnComplete(() => Invoke(nameof(HideAnimation), onScreenTime));
     }
 
     public override void HideAnimation()
     {
-        transform.DOScaleY(0f, hideTime)
-            .SetEase(hideEase)
+        rectTransform.DOSizeDelta(new Vector2(StartSize.x, 0f), showTime)
+            .SetEase(showEase)
             .OnComplete(() => gameObject.SetActive(false));
     }
 

@@ -24,11 +24,10 @@ public class Enemy : MonoBehaviour
         set
         {
             _hp = value;
-            float percents =  (float)_hp / maxHp;
+            float percents =  (float)_hp / (float)maxHp;
             hpBarFill.fillAmount =  percents;
             hpBarFill.color = gradient.Evaluate(percents);
             OnHPChanged?.Invoke(_hp);
-            Debug.Log("HP:" + HP);
             if (_hp == 0)
                 Die();
         }

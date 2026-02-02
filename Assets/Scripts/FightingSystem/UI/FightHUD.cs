@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using FoxEdit;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -64,84 +65,117 @@ public class FightHUD : MonoBehaviour
         return null;
     }
 
-    public void HideAllPanels()
+    public void HideAllPanels(bool hideTextPanel = false, bool animate = true)
     {
         foreach (Panel panel in panels)
         {
-            panel.Hide();
+            if (hideTextPanel)
+                panel.Hide(animate);
+            else if (!panel.GetType().IsAssignableFrom(typeof(StateTextPanel)))
+                panel.Hide(animate);
         }
     }
     #endregion
 
+    [SerializeField] private CanvasGroup selectMaskTip;
+
     private void Awake()
     {
-        HideAllPanels();
+        HideAllPanels(true, false);
+        selectMaskTip.gameObject.SetActive(true);
+        selectMaskTip.alpha = 0f;
 
-        FightManager.OnStartMaskSelection += OnStartFight;
+        FightManager.OnStartFight += OnStartFight;
         FightManager.OnWinFight += OnWinFight;
-        FightManager.OnExitFight += HideAllPanels;
-        FightManager.OnGameOver += HideAllPanels;
+        FightManager.OnExitFight += OnExitOrGameOver;
+        FightManager.OnGameOver += OnExitOrGameOver;
+        FightManager.OnNextEnemyAttack += OnNextEnemyAttack;
+        FightManager.OnSelectMask += OnMaskSelected;
     }
 
 
     void OnDestroy()
     {
-        FightManager.OnStartMaskSelection -= OnStartFight;
+        FightManager.OnStartFight -= OnStartFight;
         FightManager.OnWinFight -= OnWinFight;
-        FightManager.OnExitFight -= HideAllPanels;
-        FightManager.OnGameOver -= HideAllPanels;
+        FightManager.OnExitFight -= OnExitOrGameOver;
+        FightManager.OnGameOver -= OnExitOrGameOver;
+        FightManager.OnNextEnemyAttack -= OnNextEnemyAttack;
+        FightManager.OnSelectMask -= OnMaskSelected;
     }
-
-    private void OnStartFight()
+    private void OnNextEnemyAttack(Attack attack)
     {
-        GetPanel<StateTextPanel>().SetupAndShow("Début du combat");
-        StartMaskSelection(true);
-    }
-
-
-    private void StartMaskSelection(bool firstTurn)
-    {
-        HideAllPanels();
-        PlayerFighter.Instance.ClearMasks();
-        if (PlayerFighter.Instance.Masks == null || PlayerFighter.Instance.Masks.Count == 0)
+        ShowSelectMaskTip();
+        GetPanel<EnemyPanel>().ShowAndSetup(attack);
+        if (PlayerFighter.Instance.Masks.Count == 0)
         {
             FightManager.SelectMask(null);
-            ShowFightPanels();
         }
         else
         {
-            MaskChoicePanel maskChoicePanel = GetPanel<MaskChoicePanel>();
-
-            maskChoicePanel.Setup(PlayerFighter.Instance.Masks, OnMaskSelected);
-            maskChoicePanel.Show();
+            HideChoosenMaskPanel();
+            SetupAndShowMaskChoicePanel();
         }
+    }
 
-        ShowEnemyPanel();
+    private void ShowSelectMaskTip()
+    {
+        selectMaskTip.DOFade(1f, 0.5f).SetEase(Ease.OutQuint);
+    }
+
+    private void HideSelectMaskTip()
+    {
+        selectMaskTip.DOFade(0f, 0.5f).SetEase(Ease.InQuint);
+    }
+
+    private void OnExitOrGameOver()
+    {
+        HideAllPanels();
+    }
+
+    private void OnStartFight(Fight fight)
+    {
+        GetPanel<StateTextPanel>().SetupAndShow("Début du combat");
     }
 
     private void OnMaskSelected(Mask mask)
     {
-        FightManager.SelectMask(mask);
-        HidePanel<MaskChoicePanel>();
-        ShowFightPanels();
-    }
-    
-    private void ShowEnemyPanel()
-    {
-        EnemyPanel enemyPanel = GetPanel<EnemyPanel>();
-        enemyPanel.ShowAndSetup(FightManager.CurrentEnemyAttack);
+        HideSelectMaskTip();
+        ShowChoosenMaskPanel();
+        HideMaskChoicePanel();
     }
 
-    private void ShowFightPanels()
+    private void ShowChoosenMaskPanel()
     {
         ChoosenMaskPanel choosenMaskPanel = GetPanel<ChoosenMaskPanel>();
-        choosenMaskPanel.Setup(PlayerFighter.Instance, NextTurn, FightManager.PlayerAttack);
-        choosenMaskPanel.Show();
+
+        choosenMaskPanel.SetupAndShow(PlayerFighter.Instance, FightManager.PlayerAttack);
+        choosenMaskPanel.OnHoverCardsEvent += ShowMaskChoicePanel;
+        choosenMaskPanel.OnUnhoverCardsEvent += HideMaskChoicePanel;
     }
 
-    private void NextTurn()
+
+    private void HideChoosenMaskPanel()
     {
-        StartMaskSelection(false);
+        ChoosenMaskPanel choosenMaskPanel = GetPanel<ChoosenMaskPanel>();
+
+        choosenMaskPanel.Hide();
+        choosenMaskPanel.OnHoverCardsEvent -= ShowMaskChoicePanel;
+        choosenMaskPanel.OnUnhoverCardsEvent -= HideMaskChoicePanel;
+    }
+
+    private void ShowMaskChoicePanel()
+    {
+        ShowPanel<MaskChoicePanel>();
+    }
+    private void SetupAndShowMaskChoicePanel()
+    {
+        GetPanel<MaskChoicePanel>().SetupAndShow(PlayerFighter.Instance.Masks, FightManager.SelectMask);
+    }
+
+    private void HideMaskChoicePanel()
+    {
+        HidePanel<MaskChoicePanel>();
     }
 
     private void OnWinFight(Fight fight)

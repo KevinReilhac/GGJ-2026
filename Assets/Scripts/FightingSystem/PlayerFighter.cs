@@ -14,9 +14,18 @@ public class PlayerFighter : MonoBehaviour
 
     public event Action<Mask> OnChangeEquipedMask;
     public event Action<List<EmotionStat>> OnStatsUpdated;
-    public List<Mask> Masks = new List<Mask>();
     public List<EmotionStat> BaseStats = new List<EmotionStat>();
     private Dictionary<EEmotion, int> baseStatsDict;
+    [SerializeField] private List<Mask> _masks = new List<Mask>();
+
+    public List<Mask> Masks
+    {
+        get
+        {
+            ClearMasks();
+            return _masks;
+        }
+    }
     public Dictionary<EEmotion, int> BaseStatsDict
     {
         get
@@ -33,28 +42,28 @@ public class PlayerFighter : MonoBehaviour
     {
         get
         {
-            if (EquipedMaskIndex < 0 || EquipedMaskIndex >= Masks.Count)
+            if (EquipedMaskIndex < 0 || EquipedMaskIndex >= _masks.Count)
                 return null;
-            return Masks[EquipedMaskIndex];
+            return _masks[EquipedMaskIndex];
         }
     }
 
     public void SelectMask(Mask mask)
     {
-        if (Masks.Contains(mask))
+        if (_masks.Contains(mask))
         {
-            EquipedMaskIndex = Masks.IndexOf(mask);
+            EquipedMaskIndex = _masks.IndexOf(mask);
         }
     }
 
     public void ClearMasks()
     {
-        List<Mask> masksCopy = new List<Mask>(Masks);
+        List<Mask> masksCopy = new List<Mask>(_masks);
 
         foreach (Mask mask in masksCopy)
         {
             if (mask.IsMaskEmpty())
-                Masks.Remove(mask);
+                _masks.Remove(mask);
         }
     }
 

@@ -8,7 +8,8 @@ public enum EEmotion
     Angry,
     Disgust,
     Scare,
-    Multiple = 255
+    Multiple = 255,
+    Rainbow = 256,
 }
 
 public static class EEmotionUtility

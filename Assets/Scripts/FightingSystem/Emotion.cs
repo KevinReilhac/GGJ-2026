@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -14,4 +15,5 @@ public class Emotion
     public string Name => name;
     public int ColorPaletteIndex => colorPaletteIndex;
     public Color Color => color;
+
 }

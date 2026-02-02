@@ -2,13 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ChoosenMaskPanel : Panel
 {
     public event Action<Attack> OnAttack;
-    public event Action OnBackToMaskSelection;
+    public event Action OnHoverCardsEvent;
+    public event Action OnUnhoverCardsEvent;
 
     [System.Serializable]
     public class AttackStatItem
@@ -16,12 +18,20 @@ public class ChoosenMaskPanel : Panel
         public EEmotion emotionType;
         public PlayerAttackStat playerAttackStat;
     }
+    [Header("Animation")]
+    [SerializeField] private float showTime = 0.5f;
+    [SerializeField] private Ease showEase = Ease.OutBack;
+    [SerializeField] private float hideTime = 0.5f;
+    [SerializeField] private Ease hideEase = Ease.InBack;
+    [SerializeField] private float onScreenTime = 2;
+    [SerializeField] private HoverEvents hoverCardsEvent;
     [Header("References")]
     [SerializeField] private List<AttackStatItem> attackStatItems;
     [SerializeField] private RawImage maskImage;
     [SerializeField] private Image background;
     [SerializeField] private Button attackButton;
-    [SerializeField] private Button maskSelectionButton;
+    [SerializeField] private CanvasGroup buttonsCanvasGroup;
+    [SerializeField] private RectTransform choosenMask;
 
     private Dictionary<EEmotion, PlayerAttackStat> attackStatsDict = null;
     private Dictionary<EEmotion, PlayerAttackStat> AttackStatsDict
@@ -34,20 +44,64 @@ public class ChoosenMaskPanel : Panel
         }
     }
 
+    private Vector3 startChoosenPos = Vector3.one * -1;
+    public Vector3 StartChoosenPos
+    {
+        get
+        {
+            if (startChoosenPos == Vector3.one * -1)
+                startChoosenPos = choosenMask.anchoredPosition;
+            return startChoosenPos;
+        }
+    }
+
+    public override void ShowAnimation()
+    {
+        gameObject.SetActive(true);
+        buttonsCanvasGroup.DOFade(1f, showTime)
+            .SetEase(showEase);
+        choosenMask.DOAnchorPosX(0f, showTime)
+            .SetEase(showEase)
+            .ChangeStartValue(StartChoosenPos);
+        hoverCardsEvent.gameObject.SetActive(true);
+    }
+
+    public override void HideAnimation()
+    {
+        buttonsCanvasGroup.alpha = 0f;
+        choosenMask.DOAnchorPosX(StartChoosenPos.x, showTime)
+            .SetEase(showEase)
+            .OnComplete(() => gameObject.SetActive(false));
+        hoverCardsEvent.gameObject.SetActive(false);
+    }
 
     private void Awake()
     {
         attackButton.onClick.AddListener(OnPressAttackButton);
-        maskSelectionButton.onClick.AddListener(OnPressMaskSelection);
         RegisterPlayerStatsOnValueChanged();
-    }
 
+        hoverCardsEvent.OnPointerEnter += OnHoverCard;
+        hoverCardsEvent.OnPointerExit += OnUnhoverCard;
+    }
     private void OnDestroy()
     {
         UnRegisterPlayerStatsOnValueChanged();
         attackButton.onClick.AddListener(OnPressAttackButton);
-        maskSelectionButton.onClick.AddListener(OnPressMaskSelection);
+
+        hoverCardsEvent.OnPointerEnter -= OnHoverCard;
+        hoverCardsEvent.OnPointerExit -= OnUnhoverCard;
     }
+
+    private void OnHoverCard()
+    {
+        OnHoverCardsEvent?.Invoke();
+    }
+
+    private void OnUnhoverCard()
+    {
+        OnUnhoverCardsEvent?.Invoke();
+    }
+
 
     private void RegisterPlayerStatsOnValueChanged()
     {
@@ -87,11 +141,6 @@ public class ChoosenMaskPanel : Panel
             item.playerAttackStat.EnableAllToggles();
     }
 
-    private void OnPressMaskSelection()
-    {
-        OnBackToMaskSelection?.Invoke();
-    }
-
     private void OnPressAttackButton()
     {
         OnAttack?.Invoke(GetPlayerAttack());
@@ -105,7 +154,7 @@ public class ChoosenMaskPanel : Panel
         return value;
     }
 
-    public void Setup(PlayerFighter playerFighter, Action OnBackToMaskSelectionCallback, Action<Attack> OnPlayerAttackCallback)
+    public void SetupAndShow(PlayerFighter playerFighter, Action<Attack> OnPlayerAttackCallback)
     {
         Attack playerAttack = playerFighter.GetPlayerAttackFullStats();
 
@@ -123,8 +172,8 @@ public class ChoosenMaskPanel : Panel
             background.color = emotion.Color;
         }
 
+        Show();
         OnAttack = OnPlayerAttackCallback;
-        OnBackToMaskSelection = OnBackToMaskSelectionCallback;
     }
 
     public Attack GetPlayerAttack()
