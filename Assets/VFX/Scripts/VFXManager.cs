@@ -39,9 +39,16 @@ public class VFXManager : MonoBehaviour
 
     public void GetVFX(List<EmotionStat> emotion)
     {
-        string vfxName = ParseAttack(emotion);
+        UseVFX(ParseAttack(emotion));
+    }
+
+    public void UseVFX(string vfxName)
+    {
+        SetSpeed(vfxName);
+
         VFXObject objRef = vfxPool.GetObject().GetComponent<VFXObject>();
         objRef.SetVFX(vfxRefDictionnary[vfxName], startPos.position, destination, speed);
+        
         objRef.ThrowVFX();
     }
 
@@ -58,7 +65,6 @@ public class VFXManager : MonoBehaviour
             }
         }
         highestStatName = translator[highestStatName];
-        SetSpeed(highestStatName);
 
         return highestStatName;
     }
