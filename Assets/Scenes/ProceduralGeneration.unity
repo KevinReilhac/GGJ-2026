@@ -338,7 +338,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   moveDuration: 1
-  rotationDuration: 0.8
+  rotationDuration: 0.6
   roomManagerObject: {fileID: 1037113881}
   _playerCamera: {fileID: 103153366}
   _fightCamera: {fileID: 1451540503}
@@ -2646,7 +2646,7 @@ Transform:
   m_GameObject: {fileID: 1792152505}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.902, y: 1.836, z: 55.849}
+  m_LocalPosition: {x: 8.414, y: 1.323, z: 55.849}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2905,11 +2905,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8424226010179184606, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.1279995
+      value: 2.1279993
       objectReference: {fileID: 0}
     - target: {fileID: 8424226010179184606, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.801
+      value: 0.967
       objectReference: {fileID: 0}
     - target: {fileID: 8424226010179184606, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2917,27 +2917,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8424226010179184606, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.70174295
+      value: 0.703835
       objectReference: {fileID: 0}
     - target: {fileID: 8424226010179184606, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.05365154
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8424226010179184606, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.70830804
+      value: -0.7103635
       objectReference: {fileID: 0}
     - target: {fileID: 8424226010179184606, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.054572478
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8424226010179184606, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -8.778
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8424226010179184606, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -90.531
+      value: -90.529
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424226010179184606, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8744882786126727253, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
       propertyPath: droppedMask.maskStats.Array.size
@@ -2951,7 +2955,8 @@ PrefabInstance:
       propertyPath: droppedMask.maskStats.Array.data[1].emotionType
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1612461417087443160, guid: db98aa22da183c847881b6a868b2fc65, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

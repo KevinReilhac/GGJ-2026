@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Unity.VisualScripting;
+using UnityEngine;
 
 public class Attack
 {
@@ -62,18 +63,15 @@ public class Attack
         if (total < otherTotal)
             return false;
 
-        if (total >= otherAttack.GetTotal())
+        int stat;
+        int otherStat;
+        foreach (EEmotion eEmotion in EEmotionUtility.EmotionsList)
         {
-            int stat;
-            int otherStat;
-            foreach (EEmotion eEmotion in EEmotionUtility.EmotionsList)
-            {
-                stat = GetEmotionStat(eEmotion);
-                otherStat = otherAttack.GetEmotionStat(eEmotion);
+            stat = GetEmotionStat(eEmotion);
+            otherStat = otherAttack.GetEmotionStat(eEmotion);
 
-                if (stat > otherStat)
-                    statsDamages.AddEmotionStat(eEmotion, stat - otherStat);
-            }
+            if (stat > otherStat)
+                statsDamages.AddEmotionStat(eEmotion, Mathf.Max(stat - otherStat, 0));
         }
 
         return true;

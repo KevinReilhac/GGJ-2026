@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2105557717309542499}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.70710576, z: -0, w: 0.7071079}
-  m_LocalPosition: {x: 0.258, y: 1.015, z: 0.321}
-  m_LocalScale: {x: 0.36343744, y: 0.36343744, z: 0.36343744}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: 0.0000020191073, y: -0.7071068, z: 0.0000020191073, w: 0.7071068}
+  m_LocalPosition: {x: 0.115, y: 1.709, z: 1.004}
+  m_LocalScale: {x: 0.6869706, y: 0.6869706, z: 0.6869706}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1476987352666955253}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!33 &3162322945700153293
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -124,7 +124,7 @@ Transform:
   m_GameObject: {fileID: 2981207712773615919}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.374, y: -0.148, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.64645, y: 0.64645, z: 0.64645}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -213,9 +213,9 @@ Transform:
   m_GameObject: {fileID: 3777562595012276934}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.293, y: -0.37, z: -0.503}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0.293, y: -0.51, z: -0.248}
+  m_LocalScale: {x: 0.6419871, y: 0.6419871, z: 0.6419871}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1172908574897947246}
   m_Father: {fileID: 4822510167838370857}
@@ -254,7 +254,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -384,7 +384,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 62218547000763374, guid: 7a3f0c83cab2cb1429c28a4e7e88b564, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.457
+      value: 1.719
       objectReference: {fileID: 0}
     - target: {fileID: 62218547000763374, guid: 7a3f0c83cab2cb1429c28a4e7e88b564, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

@@ -8,9 +8,9 @@ using UnityEngine.SceneManagement;
 
 public class MovingManager : MonoBehaviour
 {
-       
+
     [SerializeField]
-    private float offsetMovement=1.0f;
+    private float offsetMovement = 1.0f;
 
     [SerializeField]
     private AnimationCurve MoveSpeedCurve;
@@ -53,6 +53,8 @@ public class MovingManager : MonoBehaviour
     private float forwardBufferTime = 0.2f;
     private float forwardBufferCounter;
 
+    private bool exitBoss = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -86,7 +88,8 @@ public class MovingManager : MonoBehaviour
 
     private void OnExitFight()
     {
-        gridPosition -= _directionToVector[facingDirection];
+        if (!exitBoss)
+            gridPosition -= _directionToVector[facingDirection];
         _playerCamera.enabled = true;
         _fightCamera.enabled = false;
         canInput = true;
@@ -99,7 +102,14 @@ public class MovingManager : MonoBehaviour
 
     public void Teleport()
     {
+        Debug.Log("Tp");
         transform.position = roomManager.GetStartPosition(out gridPosition);
+        futureLocation = transform.position;
+        exitBoss = true;
+        transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+        facingDirection = Directions.Down;
+        forwardBufferCounter = 0.0f;
+        isMoving = false;
     }
 
     //// Update is called once per frame
@@ -110,15 +120,16 @@ public class MovingManager : MonoBehaviour
 
         List<Directions> listDirection = new List<Directions>();
         listDirection = roomManager.GetPossibleDirections(gridPosition);
-        
-        if (Keyboard.current.wKey.wasPressedThisFrame && !isMoving)
-        {
-            if(listDirection.Contains(facingDirection))
-            {
 
+        if (Keyboard.current.wKey.isPressed && !isMoving)
+        {
+            if (listDirection.Contains(facingDirection))
+            {
+                exitBoss = false;
                 forwardBufferCounter = forwardBufferTime;
             }
-        } else
+        }
+        else
         {
             forwardBufferCounter -= Time.deltaTime;
         }
@@ -143,10 +154,11 @@ public class MovingManager : MonoBehaviour
                     isMoving = true;
                     break;
                 case DungeonEvents.Boss:
+                    canInput = false;
                     _fightRoom.StartRandomFight();
                     _playerCamera.enabled = false;
                     _fightCamera.enabled = true;
-                    canInput = false;
+                    forwardBufferCounter = 0.0f;
                     break;
                 case DungeonEvents.Fight:
                     _fightRoom.StartRandomFight();
@@ -160,7 +172,7 @@ public class MovingManager : MonoBehaviour
                     break;
             }
         }
-        if (Keyboard.current.sKey.wasPressedThisFrame&& !isRotating && !isMoving)
+        if (Keyboard.current.sKey.isPressed && !isRotating && !isMoving)
         {
 
             futureRotation = Quaternion.Inverse(Quaternion.Euler(new Vector3(0f, 180f, 0f))) * transform.rotation;
@@ -169,7 +181,7 @@ public class MovingManager : MonoBehaviour
             isRotating = true;
         }
 
-        if (Keyboard.current.aKey.wasPressedThisFrame && !isRotating && !isMoving)
+        if (Keyboard.current.aKey.isPressed && !isRotating && !isMoving)
         {
             futureRotation = Quaternion.Inverse(Quaternion.Euler(new Vector3(0f, 90f, 0f))) * transform.rotation;
 
@@ -178,7 +190,7 @@ public class MovingManager : MonoBehaviour
             isRotating = true;
         };
 
-        if (Keyboard.current.dKey.wasPressedThisFrame && !isRotating && !isMoving)
+        if (Keyboard.current.dKey.isPressed && !isRotating && !isMoving)
         {
             futureRotation = Quaternion.Inverse(Quaternion.Euler(new Vector3(0f, -90f, 0f))) * transform.rotation;
 
@@ -191,12 +203,12 @@ public class MovingManager : MonoBehaviour
         {
             traveledDistance += Time.deltaTime / moveDuration;
 
-            float t = Mathf.Clamp01(traveledDistance); 
+            float t = Mathf.Clamp01(traveledDistance);
             float curvedT = MoveSpeedCurve.Evaluate(t);
 
             transform.position = Vector3.Lerp(startPosition, futureLocation, curvedT);
 
-            if(t >= 1f)
+            if (t >= 1f)
             {
                 transform.position = futureLocation;
                 isMoving = false;
@@ -212,7 +224,7 @@ public class MovingManager : MonoBehaviour
             //var alphaRotation = RotationSpeedCurve.Evaluate(Time.deltaTime * rotationSpeed);
             transform.rotation = Quaternion.Lerp(transform.rotation, futureRotation, curvedT);
 
-            if(t >= 1f)
+            if (t >= 1f)
             {
                 transform.rotation = futureRotation;
                 isRotating = false;
@@ -230,7 +242,7 @@ public class MovingManager : MonoBehaviour
 
     private Directions turnRight(Directions direction)
     {
-        switch(direction)
+        switch (direction)
         {
             case Directions.Up:
                 return Directions.Right;
@@ -284,15 +296,15 @@ public class MovingManager : MonoBehaviour
         switch (direction)
         {
             case Directions.Up:
-                return new Vector3(0, 0, offsetMovement); 
+                return new Vector3(0, 0, offsetMovement);
             case Directions.Down:
                 return new Vector3(0, 0, -offsetMovement);
             case Directions.Left:
-                return new Vector3(-offsetMovement,0,0);
+                return new Vector3(-offsetMovement, 0, 0);
             case Directions.Right:
                 return new Vector3(offsetMovement, 0, 0);
             default:
-                return new Vector3(0,0,0);
+                return new Vector3(0, 0, 0);
         }
     }
 

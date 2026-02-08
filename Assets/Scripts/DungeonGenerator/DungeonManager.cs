@@ -205,30 +205,30 @@ public class DungeonManager : MonoBehaviour, IRoomManager
                     continue;
                 }
 
-                if (adjecentRoomCount == 1)
-                {
-                    foreach (Directions direction in _directionToVector.Keys)
-                    {
-                        Vector2Int vectorDirection = _directionToVector[direction];
-                        Room adjacentRoom = GetRoom(position + vectorDirection);
-                        if (adjacentRoom != null && !adjacentRoom.IsEmpty && adjacentRoom.DungeonEvent == DungeonEvents.None
-                            && GetAdjacentRoomCount(position + vectorDirection) == 2 && Random.Range(0.0f, 1.0f) < _chestChance)
-                        {
-                            Quaternion rotation = Quaternion.identity;
-                            if (direction == Directions.Up)
-                                rotation = Quaternion.Euler(0.0f, -90.0f, 0.0f);
-                            else if (direction == Directions.Down)
-                                rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
-                            else if (direction == Directions.Left)
-                                rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
-                            room.SetEvent(DungeonEvents.Chest);
-                            InstantiateRoomPart(RoomParts.Chest, room.Position, rotation);
-                            adjacentRoom.SetEvent(DungeonEvents.Fight);
-                            InstantiateRoomPart(RoomParts.Fight, adjacentRoom.Position, rotation);
-                            break;
-                        }
-                    }
-                }
+                //if (adjecentRoomCount == 1)
+                //{
+                //    foreach (Directions direction in _directionToVector.Keys)
+                //    {
+                //        Vector2Int vectorDirection = _directionToVector[direction];
+                //        Room adjacentRoom = GetRoom(position + vectorDirection);
+                //        if (adjacentRoom != null && !adjacentRoom.IsEmpty && adjacentRoom.DungeonEvent == DungeonEvents.None && position + vectorDirection != _startGridPosition
+                //            && GetAdjacentRoomCount(position + vectorDirection) == 2 && Random.Range(0.0f, 1.0f) < _chestChance)
+                //        {
+                //            Quaternion rotation = Quaternion.identity;
+                //            if (direction == Directions.Up)
+                //                rotation = Quaternion.Euler(0.0f, -90.0f, 0.0f);
+                //            else if (direction == Directions.Down)
+                //                rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+                //            else if (direction == Directions.Left)
+                //                rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+                //            room.SetEvent(DungeonEvents.Chest);
+                //            InstantiateRoomPart(RoomParts.Chest, room.Position, rotation);
+                //            adjacentRoom.SetEvent(DungeonEvents.Fight);
+                //            InstantiateRoomPart(RoomParts.Fight, adjacentRoom.Position, rotation);
+                //            break;
+                //        }
+                //    }
+                //}
             }
         }
     }

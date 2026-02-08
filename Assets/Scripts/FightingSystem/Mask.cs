@@ -51,7 +51,7 @@ public class Mask
 
             if (!IsEmotionDamaged(emotionType))
                 damagedEmotion.Add(emotionType);
-            StatsDict[emotionType] -= value;
+            StatsDict[emotionType] = Mathf.Max(0, StatsDict[emotionType] - value);
         }
     }
 
@@ -91,7 +91,7 @@ public class Mask
     {
         foreach (var item in StatsDict)
         {
-            if (item.Value > 0)
+            if (item.Value > 1)
                 return false;
         }
 
