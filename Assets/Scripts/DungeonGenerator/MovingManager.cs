@@ -102,7 +102,6 @@ public class MovingManager : MonoBehaviour
 
     public void Teleport()
     {
-        Debug.Log("Tp");
         transform.position = roomManager.GetStartPosition(out gridPosition);
         futureLocation = transform.position;
         exitBoss = true;

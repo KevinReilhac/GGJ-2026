@@ -63,15 +63,18 @@ public class Attack
         if (total < otherTotal)
             return false;
 
-        int stat;
-        int otherStat;
-        foreach (EEmotion eEmotion in EEmotionUtility.EmotionsList)
+        if (total >= otherAttack.GetTotal())
         {
-            stat = GetEmotionStat(eEmotion);
-            otherStat = otherAttack.GetEmotionStat(eEmotion);
+            int stat;
+            int otherStat;
+            foreach (EEmotion eEmotion in EEmotionUtility.EmotionsList)
+            {
+                stat = GetEmotionStat(eEmotion);
+                otherStat = otherAttack.GetEmotionStat(eEmotion);
 
-            if (stat > otherStat)
-                statsDamages.AddEmotionStat(eEmotion, Mathf.Max(stat - otherStat, 0));
+                if (stat > otherStat)
+                    statsDamages.AddEmotionStat(eEmotion, Mathf.Max(stat - otherStat, 0));
+            }
         }
 
         return true;

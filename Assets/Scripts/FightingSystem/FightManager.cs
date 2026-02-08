@@ -74,40 +74,35 @@ public static class FightManager
     private static void ApplyPlayerStatsDamages(Attack statsDamages)
     {
         int maskStat;
-        //int playerStat;
+        int playerStat;
         int attackStat;
-        //int diff;
+        int diff;
 
         foreach (EEmotion eEmotion in EEmotionUtility.EmotionsList)
         {
             maskStat = 0;
-            //playerStat = PlayerFighter.Instance.GetBaseStat(eEmotion);
+            playerStat = PlayerFighter.Instance.GetBaseStat(eEmotion);
             attackStat = statsDamages.GetEmotionStat(eEmotion);
 
-            if (attackStat <= 0)
-                continue;
+            //if (attackStat <= 0)
+            //    continue;
 
             if (PlayerFighter.Instance.EquipedMask != null)
                 maskStat = PlayerFighter.Instance.EquipedMask.GetStat(eEmotion);
 
-            PlayerFighter.Instance.EquipedMask.DamageMask(eEmotion, attackStat);
-
-            //????
-            //if (maskStat > 0)
-            //{
-            //    diff = attackStat - maskStat;
-            //    if (diff < 0)
-            //        PlayerFighter.Instance.EquipedMask.DamageMask(eEmotion, -diff);
-            //    attackStat -= diff;
-            //}
-            //if (attackStat > 0)
-            //{
-            //    diff = attackStat - playerStat;
-            //    if (diff > 0)
-            //        PlayerFighter.Instance.AddBaseStat(eEmotion, -diff);
-            //}
-
-
+            if (maskStat > 0)
+            {
+                diff = attackStat - maskStat;
+                if (diff < 0)
+                    PlayerFighter.Instance.EquipedMask.DamageMask(eEmotion, -diff);
+                attackStat -= diff;
+            }
+            if (attackStat > 0)
+            {
+                diff = attackStat - playerStat;
+                if (diff > 0)
+                    PlayerFighter.Instance.AddBaseStat(eEmotion, -diff);
+            }
         }
     }
 
