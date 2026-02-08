@@ -62,8 +62,7 @@ public class Attack
 
         if (total < otherTotal)
             return false;
-
-        if (total >= otherAttack.GetTotal())
+        else
         {
             int stat;
             int otherStat;
