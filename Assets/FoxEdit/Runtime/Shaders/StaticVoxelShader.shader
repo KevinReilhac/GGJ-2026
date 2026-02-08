@@ -68,6 +68,7 @@ Shader "Voxel/StaticVoxelShader"
                 float4 shadowCoord : TEXCOORD5;
                 DECLARE_LIGHTMAP_OR_SH(staticLightmapUV, vertexSH, 6);
                 float2 dynamicLightmapUV : TEXCOORD7;
+                float2 uvs : TEXCOORD8;
             };
 
             struct ColorData
@@ -78,7 +79,13 @@ Shader "Voxel/StaticVoxelShader"
                 float smoothness;
             };
 
-            StructuredBuffer<ColorData> _Colors;
+            //StructuredBuffer<ColorData> _Colors;
+            sampler2D _PaletteColorTexture;
+            sampler2D _PaletteEMSTexture;
+
+            CBUFFER_START(UnityPerMaterial)
+                int _PaletteSize;
+            CBUFFER_END
 
             v2f vert(appdata v)
             {
@@ -106,6 +113,8 @@ Shader "Voxel/StaticVoxelShader"
                 o.dynamicLightmapUV = v.dynamicLightmapUV.xy * unityDynamicLightmapST.xy + unityDynamicLightmapST.zw;
 #endif
                 OUTPUT_SH(o.normalWS.xyz, o.vertexSH);
+
+                o.uvs = float2(v.uv.x / (float)_PaletteSize, 0.5f);
 
                 return o;
             }
@@ -164,7 +173,14 @@ Shader "Voxel/StaticVoxelShader"
 
             float4 frag(v2f i) : SV_TARGET
             {
-                ColorData color = _Colors[i.colorIndex];
+                //ColorData color = _Colors[i.colorIndex];
+                float4 paletteColor = tex2D(_PaletteColorTexture, i.uvs);
+                float4 paletteEMS = tex2D(_PaletteEMSTexture, i.uvs);
+                ColorData color = (ColorData)0;
+                color.color = paletteColor;
+                color.emissive = paletteEMS.x;
+                color.metallic = paletteEMS.y;
+                color.smoothness = paletteEMS.z;
 
                 SurfaceData surfaceData = createSurfaceData(i, color);
                 InputData inputData = createInputData(i, surfaceData.normalTS);
