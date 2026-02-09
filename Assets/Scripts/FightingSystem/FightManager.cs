@@ -17,13 +17,22 @@ public static class FightManager
     private static Fight currentFight = null;
     public static Attack CurrentEnemyAttack;
     public static bool IsInFight = false;
+    
+    public static int Difficulty {get; private set;} = 0;
 
-    public static void StartFight(Fight fight)
+    public static void Reset()
     {
-        foreach (Enemy enemy in fight.Enemies)
-            enemy.Reset();
-        currentFight = fight;
-        OnStartFight?.Invoke(fight);
+        UnityEngine.Random.InitState((int)System.DateTime.Now.Ticks);
+        Difficulty = 0;
+        IsInFight = false;
+        currentFight = null;
+        CurrentEnemyAttack = null;
+    }
+
+    public static void StartFight()
+    {
+        currentFight = new Fight(Difficulty);
+        OnStartFight?.Invoke(currentFight);
         NextAttack();
         IsInFight = true;
     }
@@ -54,7 +63,10 @@ public static class FightManager
             ApplyPlayerStatsDamages(statsDamages);
             currentFight.HitEnemies();
             if (currentFight.IsAllDead())
+            {
                 WinFight();
+                Difficulty++;
+            }
             else
             {
                 PlayerFighter.Instance.EquipedMaskIndex = -1;
@@ -104,15 +116,10 @@ public static class FightManager
 
     public static void NextAttack()
     {
-        List<Attack> attacks = new List<Attack>();
+        Attack attack = currentFight.GetNextAttack();
 
-        foreach (Enemy enemy in currentFight.GetAliveEnemies())
-            attacks.Add(enemy.GetNextAttack());
-        Attack combinedAttacks = Attack.Combine(attacks);
-
-        CurrentEnemyAttack = combinedAttacks;
-        Debug.LogFormat("New Enemy attack \n{0}", combinedAttacks);
-        OnNextEnemyAttack?.Invoke(combinedAttacks);
+        CurrentEnemyAttack = attack;
+        OnNextEnemyAttack?.Invoke(attack);
     }
 
     public static void WinFight()

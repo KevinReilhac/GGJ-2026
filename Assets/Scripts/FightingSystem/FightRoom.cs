@@ -3,14 +3,16 @@ using UnityEngine;
 
 public class FightRoom : MonoBehaviour
 {
-    [SerializeField] private List<Fight> fights;
+    public static FightRoom Instance {get; private set;} = null;
+
+    public List<Enemy> enemies;
     [SerializeField] private Transform fightContainer;
 
     private Fight currentFightInstance;
 
     void Awake()
     {
-        UnityEngine.Random.InitState((int)System.DateTime.Now.Ticks);
+        Instance = this;
         gameObject.SetActive(false);
         FightManager.OnStartFight += OnStartFight;
         FightManager.OnExitFight += OnExitFight;
@@ -30,19 +32,11 @@ public class FightRoom : MonoBehaviour
     private void OnExitFight()
     {
         gameObject.SetActive(false);
-        if (currentFightInstance != null)
-            GameObject.Destroy(currentFightInstance);
     }
 
-    public void StartRandomFight()
+    public void DisableEnemies()
     {
-        int index = UnityEngine.Random.Range(0, fights.Count);
-        Fight fightPrefab = fights[index];
-
-        currentFightInstance = Instantiate(fightPrefab);
-        currentFightInstance.transform.SetParent(fightContainer);
-        currentFightInstance.transform.localPosition = Vector3.zero;
-
-        FightManager.StartFight(currentFightInstance);
+        foreach (Enemy enemy in enemies)
+            enemy.gameObject.SetActive(false);
     }
 }

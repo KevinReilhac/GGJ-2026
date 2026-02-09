@@ -10,6 +10,7 @@ public class PlayerFighter : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        FightManager.Reset();
     }
 
     public event Action<Mask> OnChangeEquipedMask;

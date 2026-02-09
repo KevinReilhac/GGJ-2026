@@ -793,7 +793,7 @@ MonoBehaviour:
   hideTime: 0.5
   hideEase: 26
   onScreenTime: 2
-  maximazedLayoutGroupSpace: 90
+  maximazedLayoutGroupSpace: 30
   minimizedLayoutGroupSpace: -1
 --- !u!1 &2942598583295177554
 GameObject:
@@ -2010,7 +2010,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 30
   m_ChildAlignment: 7
-  m_Spacing: 90
+  m_Spacing: 30.66
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0

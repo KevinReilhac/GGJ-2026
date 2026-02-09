@@ -1860,11 +1860,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8982031364382068648, guid: ffac99a661842c048aec6fd90b8a9b27, type: 3}
       propertyPath: _masks.Array.size
-      value: 2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982031364382068648, guid: ffac99a661842c048aec6fd90b8a9b27, type: 3}
+      propertyPath: _masks.Array.data[0].maskStats.Array.size
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8982031364382068648, guid: ffac99a661842c048aec6fd90b8a9b27, type: 3}
       propertyPath: _masks.Array.data[1].maskStats.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982031364382068648, guid: ffac99a661842c048aec6fd90b8a9b27, type: 3}
+      propertyPath: _masks.Array.data[0].maskStats.Array.data[0].stat
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982031364382068648, guid: ffac99a661842c048aec6fd90b8a9b27, type: 3}
+      propertyPath: _masks.Array.data[0].maskStats.Array.data[1].stat
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982031364382068648, guid: ffac99a661842c048aec6fd90b8a9b27, type: 3}
+      propertyPath: _masks.Array.data[0].maskStats.Array.data[2].stat
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982031364382068648, guid: ffac99a661842c048aec6fd90b8a9b27, type: 3}
+      propertyPath: _masks.Array.data[0].maskStats.Array.data[3].stat
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982031364382068648, guid: ffac99a661842c048aec6fd90b8a9b27, type: 3}
+      propertyPath: _masks.Array.data[0].maskStats.Array.data[4].stat
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8982031364382068648, guid: ffac99a661842c048aec6fd90b8a9b27, type: 3}
       propertyPath: _masks.Array.data[1].maskStats.Array.data[0].stat
@@ -1877,6 +1901,14 @@ PrefabInstance:
     - target: {fileID: 8982031364382068648, guid: ffac99a661842c048aec6fd90b8a9b27, type: 3}
       propertyPath: _masks.Array.data[1].maskStats.Array.data[2].stat
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982031364382068648, guid: ffac99a661842c048aec6fd90b8a9b27, type: 3}
+      propertyPath: _masks.Array.data[0].maskStats.Array.data[3].emotionType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982031364382068648, guid: ffac99a661842c048aec6fd90b8a9b27, type: 3}
+      propertyPath: _masks.Array.data[0].maskStats.Array.data[4].emotionType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8982031364382068648, guid: ffac99a661842c048aec6fd90b8a9b27, type: 3}
       propertyPath: _masks.Array.data[1].maskStats.Array.data[0].emotionType

@@ -33,38 +33,20 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Reset()
+    public void SetMaxHP(int maxHp)
     {
-        HP = maxHp;
-        gameObject.SetActive(true);
+        this.maxHp = maxHp;
+        HP = this.maxHp;
     }
 
     private void Awake()
     {
-        simpleVoxelRenderer.SetPaletteIndex(droppedMask.MainEmotion.ColorPaletteIndex);
     }
 
-    public Attack GetNextAttack()
+    public void SetupMask(Mask mask)
     {
-        Dictionary<EEmotion, int> statsDict = new Dictionary<EEmotion, int>();
-        int pointsToGive = difficulty;
-        EEmotion tmpEmotion;
-
-        while (pointsToGive > 0)
-        {
-            tmpEmotion = (EEmotion)UnityEngine.Random.Range(0, 5);
-            if (!statsDict.ContainsKey(tmpEmotion))
-                statsDict.Add(tmpEmotion, 0);
-            statsDict[tmpEmotion]++;
-
-            pointsToGive--;
-        }
-
-        List<EmotionStat> emotionStats = new List<EmotionStat>();
-        foreach (KeyValuePair<EEmotion, int> item in statsDict)
-            emotionStats.Add(new EmotionStat(item.Key, item.Value));
-
-        return new Attack(emotionStats);
+        droppedMask = mask;
+        simpleVoxelRenderer.SetPaletteIndex(droppedMask.MainEmotion.ColorPaletteIndex);
     }
 
     public void Hit()

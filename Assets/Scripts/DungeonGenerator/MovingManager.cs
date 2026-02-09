@@ -154,13 +154,13 @@ public class MovingManager : MonoBehaviour
                     break;
                 case DungeonEvents.Boss:
                     canInput = false;
-                    _fightRoom.StartRandomFight();
+                    FightManager.StartFight();
                     _playerCamera.enabled = false;
                     _fightCamera.enabled = true;
                     forwardBufferCounter = 0.0f;
                     break;
                 case DungeonEvents.Fight:
-                    _fightRoom.StartRandomFight();
+                    FightManager.StartFight();
                     _playerCamera.enabled = false;
                     _fightCamera.enabled = true;
                     canInput = false;

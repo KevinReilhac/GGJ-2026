@@ -7,36 +7,8 @@ using UnityEngine;
 [System.Serializable]
 public class Mask
 {
-    [SerializeField] private List<EmotionStat> maskStats;
-    private Dictionary<EEmotion, int> _statsDict;
-    private Dictionary<EEmotion, int> StatsDict
-    {
-        get
-        {
-            if (_statsDict == null)
-                _statsDict = maskStats.ToDictionary(ms => ms.emotionType, ms => ms.stat);
-            return _statsDict;
-        }
-    }
+    private Dictionary<EEmotion, int> StatsDict = new Dictionary<EEmotion, int>();
     private Emotion mainEmotion = null;
-
-    public Mask(List<EmotionStat> maskStats)
-    {
-        this.maskStats = maskStats;
-    }
-
-    public Mask(int joy = 0, int sad = 0, int angry = 0, int disgust = 0, int scare = 0)
-    {
-        maskStats = new List<EmotionStat>
-        {
-            new EmotionStat(EEmotion.Joy, joy),
-            new EmotionStat(EEmotion.Sad, sad),
-            new EmotionStat(EEmotion.Angry, angry),
-            new EmotionStat(EEmotion.Disgust, disgust),
-            new EmotionStat(EEmotion.Scare, scare)
-        };
-
-    }
 
     private List<EEmotion> damagedEmotion = new List<EEmotion>();
 
@@ -83,7 +55,7 @@ public class Mask
     public void AddStat(EEmotion eEmotion, int value)
     {
         if (StatsDict.ContainsKey(eEmotion))
-            StatsDict[eEmotion] -= value;
+            StatsDict[eEmotion] += value;
         else
             StatsDict.Add(eEmotion, value);
     }
@@ -99,15 +71,31 @@ public class Mask
         return true;
     }
 
+    public List<EmotionStat> GetEmotionStatsList()
+    {
+        List<EmotionStat> emotionStats = new List<EmotionStat>();
+
+        foreach (var item in StatsDict)
+            emotionStats.Add(new EmotionStat(item.Key, item.Value));
+
+        return emotionStats;
+    }
+
     public Emotion MainEmotion
     {
         get
         {
             if (mainEmotion == null)
-                mainEmotion = EmotionStat.GetMainEmotion(maskStats);
+                mainEmotion = EmotionStat.GetMainEmotion(GetEmotionStatsList());
             return mainEmotion;
         }
     }
+
+    public void SetMainEmotion()
+    {
+        mainEmotion = EmotionStat.GetMainEmotion(GetEmotionStatsList());
+    }
+
     public List<EmotionStat> Stats
     {
         get
